@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AirSplit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Drop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,9 +104,15 @@
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem systemItem="favorites" id="bcf-xe-Bt6"/>
-                                    <tabBarItem title="Item" id="fUT-hW-X7W"/>
-                                    <tabBarItem systemItem="more" id="kpb-No-opu"/>
+                                    <tabBarItem title="Personal Info" image="icons8-User Filled-50" selectedImage="icons8-User Filled-50" id="bcf-xe-Bt6">
+                                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Create Event" image="icons8-Add Filled-50" id="fUT-hW-X7W">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Payment Center" image="icons8-Money Bag Filled-50" id="kpb-No-opu">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -134,5 +140,168 @@
             </objects>
             <point key="canvasLocation" x="937" y="134"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="cr0-75-PRH">
+            <objects>
+                <viewController id="52r-9s-vQC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nXI-SQ-TOm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="udI-Y3-dSS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wxt-g2-I6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="937" y="887"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Jzu-b4-2gl">
+            <objects>
+                <viewController id="0ha-wj-wxd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ksE-qr-OGg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="zn4-bE-7hp">
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="BOc-dn-em9"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peX-ww-23i">
+                                <rect key="frame" x="0.0" y="80" width="375" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BcV-z1-VSy">
+                                <rect key="frame" x="0.0" y="160" width="375" height="458"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="458" id="b0B-7N-qdt"/>
+                                </constraints>
+                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFC-D0-925">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="458"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                            </tableView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pqw-EX-T8V">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Personal Info" image="icons8-User Filled-50" selectedImage="icons8-User Filled-50" id="iSo-6m-iSb">
+                                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Modify" image="icons8-Undo Filled-50" id="fQb-gS-Vbe">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Payment Center" image="icons8-Money Bag Filled-50" id="DOc-31-EZg">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
+                                </items>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7qh-vs-92T" firstAttribute="trailing" secondItem="zn4-bE-7hp" secondAttribute="trailing" id="0GS-eK-UhN"/>
+                            <constraint firstItem="pqw-EX-T8V" firstAttribute="leading" secondItem="BcV-z1-VSy" secondAttribute="leading" id="4nu-Hd-dcL"/>
+                            <constraint firstItem="BcV-z1-VSy" firstAttribute="top" secondItem="peX-ww-23i" secondAttribute="bottom" id="8LA-QH-S8D"/>
+                            <constraint firstItem="pqw-EX-T8V" firstAttribute="top" secondItem="BcV-z1-VSy" secondAttribute="bottom" id="BdB-iZ-4YN"/>
+                            <constraint firstItem="7qh-vs-92T" firstAttribute="trailing" secondItem="peX-ww-23i" secondAttribute="trailing" id="HQx-Aq-903"/>
+                            <constraint firstItem="zn4-bE-7hp" firstAttribute="top" secondItem="7qh-vs-92T" secondAttribute="top" id="Jz8-wU-RS2"/>
+                            <constraint firstItem="zn4-bE-7hp" firstAttribute="leading" secondItem="7qh-vs-92T" secondAttribute="leading" id="KfQ-yC-2tE"/>
+                            <constraint firstItem="7qh-vs-92T" firstAttribute="trailing" secondItem="BcV-z1-VSy" secondAttribute="trailing" id="RQu-3w-jWg"/>
+                            <constraint firstItem="BcV-z1-VSy" firstAttribute="leading" secondItem="7qh-vs-92T" secondAttribute="leading" id="cpd-jn-Fi5"/>
+                            <constraint firstItem="pqw-EX-T8V" firstAttribute="bottom" secondItem="7qh-vs-92T" secondAttribute="bottom" id="eMO-u3-NO4"/>
+                            <constraint firstItem="peX-ww-23i" firstAttribute="top" secondItem="zn4-bE-7hp" secondAttribute="bottom" id="kh3-bq-Ncf"/>
+                            <constraint firstItem="pqw-EX-T8V" firstAttribute="trailing" secondItem="BcV-z1-VSy" secondAttribute="trailing" id="moL-kh-naH"/>
+                            <constraint firstItem="peX-ww-23i" firstAttribute="leading" secondItem="7qh-vs-92T" secondAttribute="leading" id="qsT-ck-qYs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7qh-vs-92T"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y9S-a3-sdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="887"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2dh-9I-7AC">
+            <objects>
+                <viewController id="xNt-lu-RNT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="usM-6e-2Fm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="X7A-MA-tg8">
+                                <rect key="frame" x="0.0" y="-40" width="375" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="hzI-81-OsX"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T55-NP-sHl">
+                                <rect key="frame" x="0.0" y="130" width="375" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nwh-bW-Mcz"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ywf-BK-aCd">
+                                <rect key="frame" x="0.0" y="160" width="375" height="458"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="458" id="UNs-ld-tha"/>
+                                </constraints>
+                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WYd-Ok-hd9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="458"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                            </tableView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhm-5h-pQB">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Personal Info" image="icons8-User Filled-50" selectedImage="icons8-User Filled-50" id="LqY-7k-FXS">
+                                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Modify" image="icons8-Undo Filled-50" id="wNi-m9-cw9">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Payment Center" image="icons8-Money Bag Filled-50" id="EWC-fn-SVH">
+                                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                                    </tabBarItem>
+                                </items>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ywf-BK-aCd" firstAttribute="leading" secondItem="UGN-Vk-XXG" secondAttribute="leading" id="29x-iA-3xb"/>
+                            <constraint firstItem="dhm-5h-pQB" firstAttribute="top" secondItem="ywf-BK-aCd" secondAttribute="bottom" id="ATE-Sg-1Cy"/>
+                            <constraint firstItem="dhm-5h-pQB" firstAttribute="leading" secondItem="ywf-BK-aCd" secondAttribute="leading" id="AX6-Sd-Bkl"/>
+                            <constraint firstItem="UGN-Vk-XXG" firstAttribute="trailing" secondItem="X7A-MA-tg8" secondAttribute="trailing" id="C3B-Ye-B0a"/>
+                            <constraint firstItem="T55-NP-sHl" firstAttribute="leading" secondItem="UGN-Vk-XXG" secondAttribute="leading" id="DSa-zz-YuA"/>
+                            <constraint firstItem="dhm-5h-pQB" firstAttribute="trailing" secondItem="ywf-BK-aCd" secondAttribute="trailing" id="M2I-5J-EO6"/>
+                            <constraint firstItem="UGN-Vk-XXG" firstAttribute="trailing" secondItem="T55-NP-sHl" secondAttribute="trailing" id="Mae-LG-cZQ"/>
+                            <constraint firstItem="T55-NP-sHl" firstAttribute="top" secondItem="X7A-MA-tg8" secondAttribute="bottom" constant="110" id="Pc1-Mb-luT"/>
+                            <constraint firstItem="UGN-Vk-XXG" firstAttribute="trailing" secondItem="ywf-BK-aCd" secondAttribute="trailing" id="Q4v-zg-x5b"/>
+                            <constraint firstItem="dhm-5h-pQB" firstAttribute="bottom" secondItem="UGN-Vk-XXG" secondAttribute="bottom" id="T7B-YS-MIi"/>
+                            <constraint firstItem="ywf-BK-aCd" firstAttribute="top" secondItem="T55-NP-sHl" secondAttribute="bottom" id="VbN-kQ-xYZ"/>
+                            <constraint firstItem="X7A-MA-tg8" firstAttribute="leading" secondItem="UGN-Vk-XXG" secondAttribute="leading" id="q9d-iW-Old"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UGN-Vk-XXG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eeg-fY-HI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2626" y="887"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="icons8-Add Filled-50" width="50" height="50"/>
+        <image name="icons8-Money Bag Filled-50" width="50" height="50"/>
+        <image name="icons8-Undo Filled-50" width="50" height="50"/>
+        <image name="icons8-User Filled-50" width="50" height="50"/>
+    </resources>
 </document>

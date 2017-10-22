@@ -8,8 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
+    @IBOutlet var username_input: UITextField!
+    @IBOutlet var passowrd_input: UITextField!
+    @IBOutlet var login_button: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

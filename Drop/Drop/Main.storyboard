@@ -96,7 +96,10 @@
                                                 <action selector="cancelButtonTapped:" destination="Epx-l8-6Wq" id="Fwg-SR-8px"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="F2u-pV-xQc"/>
+                                        <barButtonItem key="rightBarButtonItem" image="icons8-Camera Filled-50" id="F2u-pV-xQc">
+                                            <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="5"/>
+                                            <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -443,6 +446,7 @@
     </scenes>
     <resources>
         <image name="icons8-Add Filled-50" width="50" height="50"/>
+        <image name="icons8-Camera Filled-50" width="50" height="50"/>
         <image name="icons8-Home Filled-50" width="50" height="50"/>
         <image name="icons8-Money Bag Filled-50" width="50" height="50"/>
         <image name="icons8-User Male-48" width="48" height="48"/>

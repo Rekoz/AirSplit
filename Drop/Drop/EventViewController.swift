@@ -15,7 +15,7 @@ class EventViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true
+      //  self.tabBarController?.tabBar.isHidden = true
 
         // Do any additional setup after loading the view.
     }
@@ -25,7 +25,10 @@ class EventViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.performSegue(withIdentifier: "unwindToHome", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 

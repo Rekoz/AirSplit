@@ -96,9 +96,9 @@
                                                 <action selector="cancelButtonTapped:" destination="Epx-l8-6Wq" id="Fwg-SR-8px"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="icons8-Camera Filled-50" id="F2u-pV-xQc">
+                                        <barButtonItem key="rightBarButtonItem" title="Camera" id="F2u-pV-xQc">
                                             <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="5"/>
-                                            <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -245,8 +245,19 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHO-og-5Xu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-average-3" translatesAutoresizingMaskIntoConstraints="NO" id="fpd-BI-NbO" userLabel="logo">
+                                        <rect key="frame" x="137" y="10" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Hh7-Qh-Ot0"/>
+                                            <constraint firstAttribute="height" constant="100" id="a4X-qL-KVE"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="fpd-BI-NbO" firstAttribute="centerY" secondItem="IHO-og-5Xu" secondAttribute="centerY" id="ZRo-xa-vRa"/>
+                                    <constraint firstItem="fpd-BI-NbO" firstAttribute="centerX" secondItem="IHO-og-5Xu" secondAttribute="centerX" id="hF6-q3-vCE"/>
                                     <constraint firstAttribute="height" constant="120" id="p72-gE-xes"/>
                                 </constraints>
                             </view>
@@ -323,11 +334,8 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BcV-z1-VSy">
-                                <rect key="frame" x="0.0" y="139" width="375" height="430"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="430" id="b0B-7N-qdt"/>
-                                </constraints>
                                 <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFC-D0-925">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="458"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -340,7 +348,8 @@
                             <constraint firstItem="7qh-vs-92T" firstAttribute="trailing" secondItem="oAl-76-oII" secondAttribute="trailing" id="5hU-Ho-ZT3"/>
                             <constraint firstItem="rUP-yw-F4P" firstAttribute="top" secondItem="7qh-vs-92T" secondAttribute="top" id="8H6-BB-kyj"/>
                             <constraint firstItem="7qh-vs-92T" firstAttribute="leading" secondItem="rUP-yw-F4P" secondAttribute="leading" id="G63-uq-qmq"/>
-                            <constraint firstItem="BcV-z1-VSy" firstAttribute="top" secondItem="oAl-76-oII" secondAttribute="bottom" constant="23" id="JEW-on-WuI"/>
+                            <constraint firstItem="BcV-z1-VSy" firstAttribute="top" secondItem="oAl-76-oII" secondAttribute="bottom" id="JEW-on-WuI"/>
+                            <constraint firstItem="7qh-vs-92T" firstAttribute="bottom" secondItem="BcV-z1-VSy" secondAttribute="bottom" id="PzN-El-6xW"/>
                             <constraint firstItem="7qh-vs-92T" firstAttribute="trailing" secondItem="BcV-z1-VSy" secondAttribute="trailing" id="RQu-3w-jWg"/>
                             <constraint firstItem="oAl-76-oII" firstAttribute="leading" secondItem="7qh-vs-92T" secondAttribute="leading" id="bUv-3c-p7Z"/>
                             <constraint firstItem="BcV-z1-VSy" firstAttribute="leading" secondItem="7qh-vs-92T" secondAttribute="leading" id="cpd-jn-Fi5"/>
@@ -446,9 +455,9 @@
     </scenes>
     <resources>
         <image name="icons8-Add Filled-50" width="50" height="50"/>
-        <image name="icons8-Camera Filled-50" width="50" height="50"/>
         <image name="icons8-Home Filled-50" width="50" height="50"/>
         <image name="icons8-Money Bag Filled-50" width="50" height="50"/>
         <image name="icons8-User Male-48" width="48" height="48"/>
+        <image name="icons8-average-3" width="100" height="100"/>
     </resources>
 </document>

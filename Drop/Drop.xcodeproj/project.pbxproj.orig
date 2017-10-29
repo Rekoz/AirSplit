@@ -7,41 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28DD129D35A7F0D896D9BD22 /* Pods_Drop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62681D5F08534DE306B53D50 /* Pods_Drop.framework */; };
 		697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
+		697E9AC91F9827D4004F9235 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC81F9827D4004F9235 /* ViewController.swift */; };
 		697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697E9ACD1F9827D4004F9235 /* Assets.xcassets */; };
+		697E9AD11F9827D4004F9235 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697E9ACF1F9827D4004F9235 /* LaunchScreen.storyboard */; };
 		697E9AD91F982808004F9235 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AD81F982807004F9235 /* Main.storyboard */; };
 		697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9ADA1F9D6148004F9235 /* EventViewController.swift */; };
-		697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
-		697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
-		697E9AE51FA41BB7004F9235 /* AWSCognito in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE41FA41BB6004F9235 /* AWSCognito */; };
-		697E9AE71FA41BC6004F9235 /* AWSCognitoIdentityProvider in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */; };
-		697E9AEA1FA41BD5004F9235 /* AWSDynamoDB in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE81FA41BD5004F9235 /* AWSDynamoDB */; };
-		697E9AEB1FA41BD5004F9235 /* AWSCore in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE91FA41BD5004F9235 /* AWSCore */; };
-		D8B8D92F1F9D7B1400E70A87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */; };
-		D8B8D9321F9D7BEF00E70A87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B8D9301F9D7BEE00E70A87 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07EC867D566060CD4FD36771 /* Pods-Drop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drop/Pods-Drop.debug.xcconfig"; sourceTree = "<group>"; };
-		2C0FBBE9D113D657D809C899 /* Pods-Drop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drop/Pods-Drop.release.xcconfig"; sourceTree = "<group>"; };
-		62681D5F08534DE306B53D50 /* Pods_Drop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		697E9AC31F9827D4004F9235 /* Drop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		697E9AC61F9827D4004F9235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		697E9AC81F9827D4004F9235 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		697E9ACD1F9827D4004F9235 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		697E9AD01F9827D4004F9235 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		697E9AD21F9827D4004F9235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		697E9AD81F982807004F9235 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		697E9ADA1F9D6148004F9235 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
-		697E9AE01F9DB554004F9235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		697E9AE21FA416DC004F9235 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
-		697E9AE41FA41BB6004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito; sourceTree = SOURCE_ROOT; };
-		697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognitoIdentityProvider; path = Pods/AWSCognitoIdentityProvider; sourceTree = SOURCE_ROOT; };
-		697E9AE81FA41BD5004F9235 /* AWSDynamoDB */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSDynamoDB; path = Pods/AWSDynamoDB; sourceTree = SOURCE_ROOT; };
-		697E9AE91FA41BD5004F9235 /* AWSCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCore; path = Pods/AWSCore; sourceTree = SOURCE_ROOT; };
-		697E9AF01FA593C9004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito; sourceTree = SOURCE_ROOT; };
-		697E9AF21FA594F7004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito/AWSCognito; sourceTree = SOURCE_ROOT; };
-		D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Controllers/LoginViewController.swift; sourceTree = "<group>"; };
-		D8B8D9311F9D7BEE00E70A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Layouts/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,28 +31,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28DD129D35A7F0D896D9BD22 /* Pods_Drop.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		481792729B3A58A86AEA5959 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				62681D5F08534DE306B53D50 /* Pods_Drop.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		697E9ABA1F9827D4004F9235 = {
 			isa = PBXGroup;
 			children = (
 				697E9AC51F9827D4004F9235 /* Drop */,
 				697E9AC41F9827D4004F9235 /* Products */,
-				E87F75360291AA7B7008E04A /* Pods */,
-				481792729B3A58A86AEA5959 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,32 +56,15 @@
 		697E9AC51F9827D4004F9235 /* Drop */ = {
 			isa = PBXGroup;
 			children = (
-				697E9AF01FA593C9004F9235 /* AWSCognito */,
-				697E9AF21FA594F7004F9235 /* AWSCognito */,
-				697E9AE91FA41BD5004F9235 /* AWSCore */,
-				697E9AE81FA41BD5004F9235 /* AWSDynamoDB */,
-				697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */,
-				697E9AE41FA41BB6004F9235 /* AWSCognito */,
-				D8B8D9301F9D7BEE00E70A87 /* LaunchScreen.storyboard */,
-				D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */,
-				697E9AE01F9DB554004F9235 /* HomeViewController.swift */,
-				697E9ADA1F9D6148004F9235 /* EventViewController.swift */,
-				697E9AE21FA416DC004F9235 /* PaymentViewController.swift */,
 				697E9AC61F9827D4004F9235 /* AppDelegate.swift */,
+				697E9AC81F9827D4004F9235 /* ViewController.swift */,
 				697E9AD81F982807004F9235 /* Main.storyboard */,
+				697E9ADA1F9D6148004F9235 /* EventViewController.swift */,
 				697E9ACD1F9827D4004F9235 /* Assets.xcassets */,
+				697E9ACF1F9827D4004F9235 /* LaunchScreen.storyboard */,
 				697E9AD21F9827D4004F9235 /* Info.plist */,
 			);
 			path = Drop;
-			sourceTree = "<group>";
-		};
-		E87F75360291AA7B7008E04A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				07EC867D566060CD4FD36771 /* Pods-Drop.debug.xcconfig */,
-				2C0FBBE9D113D657D809C899 /* Pods-Drop.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,12 +74,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 697E9AD51F9827D4004F9235 /* Build configuration list for PBXNativeTarget "Drop" */;
 			buildPhases = (
-				AF6AE7EC9A9A538765B6CDBC /* [CP] Check Pods Manifest.lock */,
 				697E9ABF1F9827D4004F9235 /* Sources */,
 				697E9AC01F9827D4004F9235 /* Frameworks */,
 				697E9AC11F9827D4004F9235 /* Resources */,
-				CE9DE706EB3C1DB5F0CA2C2D /* [CP] Embed Pods Frameworks */,
-				AA1C3DACD519DC25CE1687CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,98 +126,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				697E9AEB1FA41BD5004F9235 /* AWSCore in Resources */,
-				697E9AE51FA41BB7004F9235 /* AWSCognito in Resources */,
-				D8B8D9321F9D7BEF00E70A87 /* LaunchScreen.storyboard in Resources */,
+				697E9AD11F9827D4004F9235 /* LaunchScreen.storyboard in Resources */,
 				697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */,
-				697E9AE71FA41BC6004F9235 /* AWSCognitoIdentityProvider in Resources */,
-				697E9AEA1FA41BD5004F9235 /* AWSDynamoDB in Resources */,
 				697E9AD91F982808004F9235 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		AA1C3DACD519DC25CE1687CA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drop/Pods-Drop-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF6AE7EC9A9A538765B6CDBC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Drop-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CE9DE706EB3C1DB5F0CA2C2D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Drop/Pods-Drop-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSDynamoDB.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drop/Pods-Drop-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		697E9ABF1F9827D4004F9235 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8B8D92F1F9D7B1400E70A87 /* LoginViewController.swift in Sources */,
+				697E9AC91F9827D4004F9235 /* ViewController.swift in Sources */,
 				697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */,
-				697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */,
 				697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */,
-				697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D8B8D9301F9D7BEE00E70A87 /* LaunchScreen.storyboard */ = {
+		697E9ACF1F9827D4004F9235 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D8B8D9311F9D7BEE00E70A87 /* Base */,
+				697E9AD01F9827D4004F9235 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -383,7 +268,6 @@
 		};
 		697E9AD61F9827D4004F9235 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07EC867D566060CD4FD36771 /* Pods-Drop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -399,7 +283,6 @@
 		};
 		697E9AD71F9827D4004F9235 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C0FBBE9D113D657D809C899 /* Pods-Drop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

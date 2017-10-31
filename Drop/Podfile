@@ -6,4 +6,5 @@ use_frameworks!
 
 target :'Drop' do
     pod 'AWSAuthCore', '~> 2.6.1'
+    pod 'AWSDynamoDB', '~> 2.6.1'
 end

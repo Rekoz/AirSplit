@@ -14,9 +14,6 @@
 		697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9ADA1F9D6148004F9235 /* EventViewController.swift */; };
 		697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
 		697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
-		697E9AE51FA41BB7004F9235 /* AWSCognito in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE41FA41BB6004F9235 /* AWSCognito */; };
-		697E9AE71FA41BC6004F9235 /* AWSCognitoIdentityProvider in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */; };
-		697E9AEA1FA41BD5004F9235 /* AWSDynamoDB in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE81FA41BD5004F9235 /* AWSDynamoDB */; };
 		697E9AEB1FA41BD5004F9235 /* AWSCore in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AE91FA41BD5004F9235 /* AWSCore */; };
 		D8B8D92F1F9D7B1400E70A87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */; };
 		D8B8D9321F9D7BEF00E70A87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B8D9301F9D7BEE00E70A87 /* LaunchScreen.storyboard */; };
@@ -34,12 +31,7 @@
 		697E9ADA1F9D6148004F9235 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		697E9AE01F9DB554004F9235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		697E9AE21FA416DC004F9235 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
-		697E9AE41FA41BB6004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito; sourceTree = SOURCE_ROOT; };
-		697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognitoIdentityProvider; path = Pods/AWSCognitoIdentityProvider; sourceTree = SOURCE_ROOT; };
-		697E9AE81FA41BD5004F9235 /* AWSDynamoDB */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSDynamoDB; path = Pods/AWSDynamoDB; sourceTree = SOURCE_ROOT; };
 		697E9AE91FA41BD5004F9235 /* AWSCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCore; path = Pods/AWSCore; sourceTree = SOURCE_ROOT; };
-		697E9AF01FA593C9004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito; sourceTree = SOURCE_ROOT; };
-		697E9AF21FA594F7004F9235 /* AWSCognito */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AWSCognito; path = Pods/AWSCognito/AWSCognito; sourceTree = SOURCE_ROOT; };
 		D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Controllers/LoginViewController.swift; sourceTree = "<group>"; };
 		D8B8D9311F9D7BEE00E70A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Layouts/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,12 +77,7 @@
 		697E9AC51F9827D4004F9235 /* Drop */ = {
 			isa = PBXGroup;
 			children = (
-				697E9AF01FA593C9004F9235 /* AWSCognito */,
-				697E9AF21FA594F7004F9235 /* AWSCognito */,
 				697E9AE91FA41BD5004F9235 /* AWSCore */,
-				697E9AE81FA41BD5004F9235 /* AWSDynamoDB */,
-				697E9AE61FA41BC6004F9235 /* AWSCognitoIdentityProvider */,
-				697E9AE41FA41BB6004F9235 /* AWSCognito */,
 				D8B8D9301F9D7BEE00E70A87 /* LaunchScreen.storyboard */,
 				D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */,
 				697E9AE01F9DB554004F9235 /* HomeViewController.swift */,
@@ -176,11 +163,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				697E9AEB1FA41BD5004F9235 /* AWSCore in Resources */,
-				697E9AE51FA41BB7004F9235 /* AWSCognito in Resources */,
 				D8B8D9321F9D7BEF00E70A87 /* LaunchScreen.storyboard in Resources */,
 				697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */,
-				697E9AE71FA41BC6004F9235 /* AWSCognitoIdentityProvider in Resources */,
-				697E9AEA1FA41BD5004F9235 /* AWSDynamoDB in Resources */,
 				697E9AD91F982808004F9235 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,17 +212,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Drop/Pods-Drop-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSDynamoDB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

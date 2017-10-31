@@ -8,6 +8,6 @@ AWS Mobile Hub http://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-a
 account: airsplit130@gmail.com
    
 passcode: Airsplit130!
-  
+
 This above account is used to sign into AWS Mobile Hub to manage the database
 

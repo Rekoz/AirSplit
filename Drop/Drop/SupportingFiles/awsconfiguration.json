@@ -1,0 +1,56 @@
+{
+  "UserAgent": "MobileHub/1.0",
+  "Version": "1.0",
+  "CredentialsProvider": {
+    "CognitoIdentity": {
+      "Default": {
+        "PoolId": "us-east-1:ae2a0664-e6bd-4061-b7fb-3dbed403955a",
+        "Region": "us-east-1"
+      }
+    }
+  },
+  "IdentityManager": {
+    "Default": {}
+  },
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "us-east-1_G2Z4VyqVt",
+      "AppClientId": "1gmv3alk7lhre46m0ncctrae17",
+      "AppClientSecret": "5g2vk74d5e84er09cqkt95qil1k28it2n3afbjfn7g9336gn9li",
+      "Region": "us-east-1"
+    }
+  },
+  "S3TransferUtility": {
+    "Default": {
+      "Bucket": "airsplit-userfiles-mobilehub-2093393909",
+      "Region": "us-east-1"
+    }
+  },
+  "Cognito": {
+    "Default": {
+      "Region": "us-east-1"
+    }
+  },
+  "DynamoDBObjectMapper": {
+    "Default": {
+      "Region": "us-east-1"
+    }
+  },
+  "PinpointAnalytics": {
+    "Default": {
+      "AppId": "bfc63d8ef4904b86b558e12939962f86",
+      "Region": "us-east-1"
+    }
+  },
+  "PinpointTargeting": {
+    "Default": {
+      "Region": "us-east-1"
+    }
+  },
+  "UserFileManager": {
+    "Default": {
+      "Bucket": "airsplit-userfiles-mobilehub-2093393909",
+      "Region": "us-east-1"
+    }
+  }
+}

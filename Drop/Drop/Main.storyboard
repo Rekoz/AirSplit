@@ -127,16 +127,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-User Male-48" translatesAutoresizingMaskIntoConstraints="NO" id="Sog-oN-f4z">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ouj-IU-6uc" userLabel="ImagePopUp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="29.5"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdW-hO-w7g" userLabel="Name">
+                                                    <rect key="frame" x="0.0" y="29.5" width="50" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Sog-oN-f4z" secondAttribute="trailing" id="0sO-mb-cqt"/>
-                                            <constraint firstItem="Sog-oN-f4z" firstAttribute="top" secondItem="aNO-9H-kaY" secondAttribute="top" id="8IR-tA-1ti"/>
-                                            <constraint firstItem="Sog-oN-f4z" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="9kt-Q3-GcH"/>
-                                            <constraint firstAttribute="bottom" secondItem="Sog-oN-f4z" secondAttribute="bottom" id="GtM-Ob-rdM"/>
+                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="8nb-pp-uqh"/>
+                                            <constraint firstAttribute="trailing" secondItem="bdW-hO-w7g" secondAttribute="trailing" id="JSo-sj-tdt"/>
+                                            <constraint firstAttribute="bottom" secondItem="bdW-hO-w7g" secondAttribute="bottom" id="aTM-dU-y2t"/>
+                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="top" secondItem="aNO-9H-kaY" secondAttribute="top" id="iZg-nr-0Hh"/>
+                                            <constraint firstAttribute="trailing" secondItem="ouj-IU-6uc" secondAttribute="trailing" id="rIY-OP-8PA"/>
+                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="bottom" secondItem="bdW-hO-w7g" secondAttribute="top" id="tSf-TM-O4K"/>
+                                            <constraint firstItem="bdW-hO-w7g" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="yrg-XS-foA"/>
                                         </constraints>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="988-Fm-QdL">
@@ -462,7 +471,6 @@
         <image name="icons8-Add Filled-50" width="50" height="50"/>
         <image name="icons8-Home Filled-50" width="50" height="50"/>
         <image name="icons8-Money Bag Filled-50" width="50" height="50"/>
-        <image name="icons8-User Male-48" width="48" height="48"/>
         <image name="icons8-average-3" width="100" height="100"/>
     </resources>
 </document>

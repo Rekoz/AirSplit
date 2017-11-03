@@ -1,10 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target :'Drop' do
     pod 'AWSAuthCore', '~> 2.6.1'
     pod 'AWSDynamoDB', '~> 2.6.1'
+    pod 'AWSPinpoint', '~> 2.6.1'
+    pod 'AWSAuthUI', '~> 2.6.1'
+    pod 'AWSUserPoolsSignIn', '~> 2.6.1'
 end

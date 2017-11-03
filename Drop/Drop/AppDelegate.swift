@@ -18,17 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isInitialized = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let didFinishLaunching = AWSSignInManager.sharedInstance().interceptApplication(
-            application, didFinishLaunchingWithOptions: launchOptions)
-        
-        if (!isInitialized) {
-            AWSSignInManager.sharedInstance().resumeSession(completionHandler: {
-                (result: Any?, error: Error?) in
-                print("Result: \(result) \n Error:\(error)")
-            })
-            isInitialized = true
-        }
-        return didFinishLaunching
+//        let didFinishLaunching = AWSSignInManager.sharedInstance().interceptApplication(
+//            application, didFinishLaunchingWithOptions: launchOptions)
+//
+//        if (!isInitialized) {
+//            AWSSignInManager.sharedInstance().resumeSession(completionHandler: {
+//                (result: Any?, error: Error?) in
+//                print("Result: \(result) \n Error:\(error)")
+//            })
+//            isInitialized = true
+//        }
+//        return didFinishLaunching
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

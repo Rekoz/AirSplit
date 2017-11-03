@@ -11,3 +11,5 @@ passcode: Airsplit130!
 
 This above account is used to sign into AWS Mobile Hub to manage the database
 
+Run `pod install` after git pull.
+---

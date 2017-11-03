@@ -5,7 +5,6 @@ platform :ios, '8.0'
 use_frameworks!
 
 target :'Drop' do
-    pod 'AWSCognito'
-    pod 'AWSCognitoIdentityProvider'
+    pod 'AWSAuthCore'
     pod 'AWSDynamoDB'
 end

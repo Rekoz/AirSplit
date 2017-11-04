@@ -12,6 +12,8 @@
 		3BC68FAA1FAD702B00B3089D /* SupportingFiles in Resources */ = {isa = PBXBuildFile; fileRef = 3BC68FA91FAD702A00B3089D /* SupportingFiles */; };
 		3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
 		69157F5C1FAD767600314F46 /* SupportingFiles in Resources */ = {isa = PBXBuildFile; fileRef = 69157F5B1FAD767500314F46 /* SupportingFiles */; };
+		69157F601FAD92A700314F46 /* PeopleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69157F5F1FAD92A700314F46 /* PeopleCollectionViewController.swift */; };
+		69157F621FAD92B700314F46 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69157F611FAD92B700314F46 /* ItemCollectionViewController.swift */; };
 		697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
 		697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697E9ACD1F9827D4004F9235 /* Assets.xcassets */; };
 		697E9AD91F982808004F9235 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697E9AD81F982807004F9235 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 		3BC68FAB1FAD724500B3089D /* Multipeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multipeer.swift; sourceTree = "<group>"; };
 		62681D5F08534DE306B53D50 /* Pods_Drop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69157F5B1FAD767500314F46 /* SupportingFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SupportingFiles; sourceTree = "<group>"; };
+		69157F5F1FAD92A700314F46 /* PeopleCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewController.swift; sourceTree = "<group>"; };
+		69157F611FAD92B700314F46 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
 		697E9AC31F9827D4004F9235 /* Drop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		697E9AC61F9827D4004F9235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		697E9ACD1F9827D4004F9235 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				D8B8D92E1F9D7B1400E70A87 /* LoginViewController.swift */,
 				697E9AE01F9DB554004F9235 /* HomeViewController.swift */,
 				697E9ADA1F9D6148004F9235 /* EventViewController.swift */,
+				69157F5F1FAD92A700314F46 /* PeopleCollectionViewController.swift */,
+				69157F611FAD92B700314F46 /* ItemCollectionViewController.swift */,
 				697E9AE21FA416DC004F9235 /* PaymentViewController.swift */,
 				697E9AC61F9827D4004F9235 /* AppDelegate.swift */,
 				697E9AD81F982807004F9235 /* Main.storyboard */,
@@ -254,6 +260,8 @@
 				D8B8D92F1F9D7B1400E70A87 /* LoginViewController.swift in Sources */,
 				697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */,
 				697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */,
+				69157F621FAD92B700314F46 /* ItemCollectionViewController.swift in Sources */,
+				69157F601FAD92A700314F46 /* PeopleCollectionViewController.swift in Sources */,
 				697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */,
 				697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */,
 				3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */,

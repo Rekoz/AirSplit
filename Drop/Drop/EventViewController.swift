@@ -41,21 +41,22 @@ class EventViewController: UIViewController {
 
 }
 
-//related to Tableview
-extension EventViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1  //implement
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) 
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 //implement
-    }
-}
+////related to Tableview
+//extension EventViewController: UITableViewDataSource, UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1  //implement
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath)
+//        return cell
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1 //implement
+//    }
+//}
+
 
 //related to Collection view
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -72,3 +73,20 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
 }
+//
+////related to Collection view
+//extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath)
+//        return cell
+//    }
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1
+//    }
+//
+//}
+

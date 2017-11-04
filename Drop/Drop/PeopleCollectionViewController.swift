@@ -11,21 +11,6 @@ import UIKit
 private let reuseIdentifier = "ParticipantPopCell"
 
 class PeopleCollectionViewController: UICollectionViewController {
-    
-    private var appDelegate : AppDelegate
-    private var multipeer : MultipeerManager
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.multipeer = appDelegate.multipeer
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.multipeer = appDelegate.multipeer
-        super.init(coder: aDecoder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +22,6 @@ class PeopleCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        self.multipeer.delegate = self
-        self.multipeer.setSession()
-        self.multipeer.startBrowsing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,9 +91,4 @@ class PeopleCollectionViewController: UICollectionViewController {
     }
     */
 
-}
-
-extension PeopleCollectionViewController : MultipeerManagerDelegate {
-    func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
-    }
 }

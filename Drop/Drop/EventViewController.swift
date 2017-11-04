@@ -12,12 +12,29 @@ class EventViewController: UIViewController {
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
+    
+    private var appDelegate : AppDelegate
+    private var multipeer : MultipeerManager
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.multipeer = appDelegate.multipeer
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.multipeer = appDelegate.multipeer
+        super.init(coder: aDecoder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
       //  self.tabBarController?.tabBar.isHidden = true
 
         // Do any additional setup after loading the view.
+        self.multipeer.delegate = self
+        self.multipeer.startBrowsing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,3 +107,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 //
 //}
 
+extension EventViewController : MultipeerManagerDelegate {
+    func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
+    }
+}

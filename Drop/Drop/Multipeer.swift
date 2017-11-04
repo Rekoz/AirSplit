@@ -19,7 +19,6 @@ class MultipeerManager : NSObject {
     private var myPeerId : MCPeerID
     private var serviceAdvertiser : MCNearbyServiceAdvertiser
     private var serviceBrowser : MCNearbyServiceBrowser
-    private var session : MCSession
     
     var delegate : MultipeerManagerDelegate?
     
@@ -27,7 +26,6 @@ class MultipeerManager : NSObject {
         self.myPeerId = MCPeerID(displayName: UIDevice.current.name)
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceName)
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceName)
-        self.session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
         super.init()
     }
     
@@ -38,10 +36,6 @@ class MultipeerManager : NSObject {
     
     func setPeerDisplayName(name: String) {
         self.myPeerId = MCPeerID(displayName: name)
-    }
-    
-    func setSession() {
-        self.session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .required)
     }
     
     func startAdvertising() {
@@ -75,7 +69,6 @@ extension MultipeerManager : MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("%@", "foundPeer: \(peerID)")
         NSLog("%@", "invitePeer: \(peerID)")
-        browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 120)
         self.delegate?.deviceDetection(manager: self, detectedDevice: peerID.displayName)
     }
     

@@ -9,13 +9,26 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
-    let multipeer = MultipeerManager()
 
+    private var appDelegate : AppDelegate
+    private var multipeer : MultipeerManager
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.multipeer = appDelegate.multipeer
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.multipeer = appDelegate.multipeer
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        multipeer.setPeerDisplayName(name: "dummy")
-        multipeer.startAdvertising()
+        self.multipeer.setPeerDisplayName(name: "dummy")
+        self.multipeer.startAdvertising()
         // Do any additional setup after loading the view.
     }
 

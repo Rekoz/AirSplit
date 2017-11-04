@@ -13,6 +13,7 @@ import AWSAuthCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let multipeer = MultipeerManager()
   
     // set up the initialized flag
     var isInitialized = false

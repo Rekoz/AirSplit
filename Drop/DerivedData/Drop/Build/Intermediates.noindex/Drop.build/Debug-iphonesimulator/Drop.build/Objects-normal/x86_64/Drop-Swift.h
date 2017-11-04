@@ -174,6 +174,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_feature(modules)
 @import UIKit;
 @import Foundation;
+@import ObjectiveC;
+@import MultipeerConnectivity;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -221,15 +223,6 @@ SWIFT_CLASS("_TtC4Drop19EventViewController")
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView * _Nonnull)collectionView SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@class UITableView;
-@class UITableViewCell;
-
-@interface EventViewController (SWIFT_EXTENSION(Drop)) <UITableViewDataSource, UITableViewDelegate>
-- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
-@end
-
 @class UIStoryboardSegue;
 
 SWIFT_CLASS("_TtC4Drop18HomeViewController")
@@ -257,6 +250,29 @@ SWIFT_CLASS("_TtC4Drop19LoginViewController")
 @end
 
 
+SWIFT_CLASS("_TtC4Drop16MultipeerManager")
+@interface MultipeerManager : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class MCNearbyServiceAdvertiser;
+@class MCPeerID;
+@class MCSession;
+
+@interface MultipeerManager (SWIFT_EXTENSION(Drop)) <MCNearbyServiceAdvertiserDelegate>
+- (void)advertiser:(MCNearbyServiceAdvertiser * _Nonnull)advertiser didNotStartAdvertisingPeer:(NSError * _Nonnull)error;
+- (void)advertiser:(MCNearbyServiceAdvertiser * _Nonnull)advertiser didReceiveInvitationFromPeer:(MCPeerID * _Nonnull)peerID withContext:(NSData * _Nullable)context invitationHandler:(void (^ _Nonnull)(BOOL, MCSession * _Nullable))invitationHandler;
+@end
+
+@class MCNearbyServiceBrowser;
+
+@interface MultipeerManager (SWIFT_EXTENSION(Drop)) <MCNearbyServiceBrowserDelegate>
+- (void)browser:(MCNearbyServiceBrowser * _Nonnull)browser didNotStartBrowsingForPeers:(NSError * _Nonnull)error;
+- (void)browser:(MCNearbyServiceBrowser * _Nonnull)browser foundPeer:(MCPeerID * _Nonnull)peerID withDiscoveryInfo:(NSDictionary<NSString *, NSString *> * _Nullable)info;
+- (void)browser:(MCNearbyServiceBrowser * _Nonnull)browser lostPeer:(MCPeerID * _Nonnull)peerID;
+@end
+
+
 SWIFT_CLASS("_TtC4Drop21PaymentViewController")
 @interface PaymentViewController : UIViewController
 - (void)viewDidLoad;
@@ -265,6 +281,8 @@ SWIFT_CLASS("_TtC4Drop21PaymentViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UITableView;
+@class UITableViewCell;
 
 @interface PaymentViewController (SWIFT_EXTENSION(Drop)) <UITableViewDataSource, UITableViewDelegate>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;

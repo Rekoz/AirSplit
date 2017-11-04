@@ -73,7 +73,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
 }
-//
+
 ////related to Collection view
 //extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

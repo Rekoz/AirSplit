@@ -6,7 +6,7 @@
 	<dict>
 		<key>AWSAuthUI.bundle/Assets.car</key>
 		<data>
-		V83t6YdtyDtckv0ThUBKIX9DmFI=
+		CDcaqzALUA9oZSuOMnqe/jBLyFU=
 		</data>
 		<key>AWSAuthUI.bundle/Info.plist</key>
 		<data>
@@ -18,15 +18,15 @@
 		</data>
 		<key>AWSAuthUI.bundle/SignIn.storyboardc/SignIn.nib</key>
 		<data>
-		C74ij0y4gUJSd4IL1E4vAfZ8DB0=
+		bLvE9RjFBcVdfOehYUNNY9tUi2s=
 		</data>
 		<key>AWSAuthUI.bundle/SignIn.storyboardc/xc1-Jg-Y5t-view-n6k-Ut-fuw.nib</key>
 		<data>
-		bDxiiSgAp033YkA8X4CEnZ6C/5M=
+		yCeF54hm1W5vBdt76xEssISEMDA=
 		</data>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeDirectory</key>
 		<data>
-		4CA5RdhYnHxr+T2ON+qTbwRjBvQ=
+		wl8oaYdHw1x27oSoJZvjNIRpqiQ=
 		</data>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeRequirements</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeRequirements-1</key>
 		<data>
-		zWkbc7D53tVQ6ANfU6vnwd3SkqE=
+		/J2pJnPxHp2ymYLMQ2BIsYErmB8=
 		</data>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeResources</key>
 		<data>
-		czorfgBcvLbE4KNZkgqCVDDpmlc=
+		5fgOFfarI2oEw/IJ3MSSTBXFGJU=
 		</data>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeSignature</key>
 		<data>
@@ -55,11 +55,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			V83t6YdtyDtckv0ThUBKIX9DmFI=
+			CDcaqzALUA9oZSuOMnqe/jBLyFU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9Png8LF1Z0zSrYDeR6DtCeT7XilrFlZQ5EIvFsZKzKc=
+			QdyIHuKX755f3B27DlLNjaqh9BvflanATwXK9ZFIri8=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/Info.plist</key>
@@ -88,33 +88,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			C74ij0y4gUJSd4IL1E4vAfZ8DB0=
+			bLvE9RjFBcVdfOehYUNNY9tUi2s=
 			</data>
 			<key>hash2</key>
 			<data>
-			xiljZgVJUq+mAVKWYcqgmDX9Sr3BiK/6AQH/2fK2yUg=
+			I6qzCjdDvC5wuv4dboLFbKKtSgDIV7pntn+CncExccc=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/SignIn.storyboardc/xc1-Jg-Y5t-view-n6k-Ut-fuw.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bDxiiSgAp033YkA8X4CEnZ6C/5M=
+			yCeF54hm1W5vBdt76xEssISEMDA=
 			</data>
 			<key>hash2</key>
 			<data>
-			38uJJHCShhAMN0MbnGwrB1GVjhGy4Eieiq4gIRT7qcQ=
+			0P79Zb3Ia8MHDdonc48jcynp6V56DKTM/NIRpaxWYgc=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeDirectory</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4CA5RdhYnHxr+T2ON+qTbwRjBvQ=
+			wl8oaYdHw1x27oSoJZvjNIRpqiQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			GQM/cqr0lEFUYNSAbPGmWla/GP/8qekTMAyg7jeHUGI=
+			Obrzh+icHqfQ+ZLNuuLr3c3mXbkuKCX1LSsYueGRim0=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeRequirements</key>
@@ -132,22 +132,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zWkbc7D53tVQ6ANfU6vnwd3SkqE=
+			/J2pJnPxHp2ymYLMQ2BIsYErmB8=
 			</data>
 			<key>hash2</key>
 			<data>
-			UiWweK0SiayfmymkxnTqzE170FC7cPkfMWTR+Mer0uc=
+			J/iqCPkcxfGjdvTDKI/MTjDEgPUXH8StgzResGUnUI0=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			czorfgBcvLbE4KNZkgqCVDDpmlc=
+			5fgOFfarI2oEw/IJ3MSSTBXFGJU=
 			</data>
 			<key>hash2</key>
 			<data>
-			TQowO6b//Cn0syGxjx8GX+K95ot9nUTDSRLPkzhsNNQ=
+			BUl3FJusOfYluGW1WMEtYbrxHcjErD5m/u2BfrASx5w=
 			</data>
 		</dict>
 		<key>AWSAuthUI.bundle/_CodeSignature/CodeSignature</key>

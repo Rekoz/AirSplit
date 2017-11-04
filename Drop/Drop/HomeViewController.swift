@@ -9,10 +9,13 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    let multipeer = MultipeerManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        multipeer.setPeerDisplayName(name: "dummy")
+        multipeer.startAdvertising()
         // Do any additional setup after loading the view.
     }
 

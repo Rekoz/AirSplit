@@ -24,10 +24,10 @@ class MultipeerManager : NSObject {
     var delegate : MultipeerManagerDelegate?
     
     override init() {
-        self.myPeerId = MCPeerID()
-        self.serviceAdvertiser = MCNearbyServiceAdvertiser()
-        self.serviceBrowser = MCNearbyServiceBrowser()
-        self.session = MCSession()
+        self.myPeerId = MCPeerID(displayName: UIDevice.current.name)
+        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceName)
+        self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceName)
+        self.session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .required)
         super.init()
     }
     

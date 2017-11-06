@@ -42,6 +42,12 @@ class EventViewController: UIViewController {
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
     }
+    
+    func executeLeave() {
+        people.removeAll()
+        print("good")
+        print(people.count)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,6 +57,7 @@ class EventViewController: UIViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         people = [String]()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
+        self.executeLeave()
     }
 }
 
@@ -96,5 +103,15 @@ extension EventViewController : MultipeerManagerDelegate {
             people.remove(at: index)
         }
         self.PeopleCollectionView.reloadData()
+    }
+}
+
+extension EventViewController: UITabBarControllerDelegate {
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        if let myController = viewController as? EventViewController {
+            myController.executeLeave()
+            print("good")
+        }
+        return true
     }
 }

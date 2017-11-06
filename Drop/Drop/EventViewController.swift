@@ -34,11 +34,13 @@ class EventViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.people.removeAll()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
+        print("will load")
     }
 
     override func didReceiveMemoryWarning() {

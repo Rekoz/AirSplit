@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "Camille")
+        self.multipeer.setPeerDisplayName(name: "123")
         self.multipeer.startAdvertising()
         // Do any additional setup after loading the view.
     }

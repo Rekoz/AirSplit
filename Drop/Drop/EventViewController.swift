@@ -24,29 +24,21 @@ class EventViewController: UIViewController {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        people = [String]()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(coder: aDecoder)
-        people = [String]()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        people = [String]()
+        self.people.removeAll()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
-    }
-    
-    func executeLeave() {
-        people.removeAll()
-        print("good")
-        print(people.count)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,9 +47,8 @@ class EventViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        people = [String]()
+        self.people.removeAll()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
-        self.executeLeave()
     }
 }
 
@@ -93,25 +84,17 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 extension EventViewController : MultipeerManagerDelegate {
     func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
-        print("append to people")
+        if self.people.contains(detectedDevice) {
+            return
+        }
         self.people.append(detectedDevice)
         self.PeopleCollectionView.reloadData()
     }
     
     func loseDevice(manager : MultipeerManager, removedDevice: String) {
-        if let index = people.index(of: removedDevice) {
-            people.remove(at: index)
+        if let index = self.people.index(of: removedDevice) {
+            self.people.remove(at: index)
         }
         self.PeopleCollectionView.reloadData()
-    }
-}
-
-extension EventViewController: UITabBarControllerDelegate {
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if let myController = viewController as? EventViewController {
-            myController.executeLeave()
-            print("good")
-        }
-        return true
     }
 }

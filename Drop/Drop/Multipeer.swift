@@ -11,6 +11,7 @@ import MultipeerConnectivity
 
 protocol MultipeerManagerDelegate {
     func deviceDetection(manager : MultipeerManager, detectedDevice: String)
+    func loseDevice(manager : MultipeerManager, removedDevice: String)
 }
 
 class MultipeerManager : NSObject {
@@ -74,6 +75,7 @@ extension MultipeerManager : MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         NSLog("%@", "lostPeer: \(peerID)")
+        self.delegate?.loseDevice(manager: self, removedDevice: peerID.displayName)
     }
 }
 

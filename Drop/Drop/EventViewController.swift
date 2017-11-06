@@ -12,6 +12,10 @@ class EventViewController: UIViewController {
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
+    var people = [String]()
+    
+    @IBOutlet weak var PeopleCollectionView: UICollectionView!
+    @IBOutlet weak var ItemCollectionView: UICollectionView!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -20,19 +24,21 @@ class EventViewController: UIViewController {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        people = [String]()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(coder: aDecoder)
+        people = [String]()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  self.tabBarController?.tabBar.isHidden = true
 
         // Do any additional setup after loading the view.
+        people = [String]()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
     }
@@ -43,71 +49,52 @@ class EventViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        people = [String]()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
-
-////related to Tableview
-//extension EventViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1  //implement
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath)
-//        return cell
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1 //implement
-//    }
-//}
-
 
 //related to Collection view
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        if collectionView == self.PeopleCollectionView {
+            return self.people.count
+        } else {
+            return 0
+        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.PeopleCollectionView {
+            print("create cell")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
+            if indexPath.row < self.people.count {
+                cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
+                cell.accountName.text = self.people[indexPath.row]
+            }
+            return cell
+        }
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath)
         return cell
     }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
 }
-
-////related to Collection view
-//extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath)
-//        return cell
-//    }
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-//
-//}
 
 extension EventViewController : MultipeerManagerDelegate {
     func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
+        print("append to people")
+        self.people.append(detectedDevice)
+        self.PeopleCollectionView.reloadData()
+    }
+    
+    func loseDevice(manager : MultipeerManager, removedDevice: String) {
+        if let index = people.index(of: removedDevice) {
+            people.remove(at: index)
+        }
+        self.PeopleCollectionView.reloadData()
     }
 }

@@ -32,7 +32,7 @@
 		3BC68FAB1FAD724500B3089D /* Multipeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multipeer.swift; sourceTree = "<group>"; };
 		3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewCell.swift; sourceTree = "<group>"; };
 		62681D5F08534DE306B53D50 /* Pods_Drop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		697E9AC31F9827D4004F9235 /* AirSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		697E9AC31F9827D4004F9235 /* Drop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		697E9AC61F9827D4004F9235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		697E9ACD1F9827D4004F9235 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		697E9AD81F982807004F9235 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		697E9AC41F9827D4004F9235 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				697E9AC31F9827D4004F9235 /* AirSplit.app */,
+				697E9AC31F9827D4004F9235 /* Drop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,7 +136,7 @@
 			);
 			name = Drop;
 			productName = Drop;
-			productReference = 697E9AC31F9827D4004F9235 /* AirSplit.app */;
+			productReference = 697E9AC31F9827D4004F9235 /* Drop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -403,7 +403,8 @@
 				INFOPLIST_FILE = Drop/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ucla.Drop;
-				PRODUCT_NAME = AirSplit;
+				PRODUCT_MODULE_NAME = Drop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,7 +420,8 @@
 				INFOPLIST_FILE = Drop/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ucla.Drop;
-				PRODUCT_NAME = AirSplit;
+				PRODUCT_MODULE_NAME = Drop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

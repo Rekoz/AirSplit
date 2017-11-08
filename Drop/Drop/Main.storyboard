@@ -44,6 +44,7 @@
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HS6-Yp-xqY"/>
+                                    <segue destination="uT6-dE-73G" kind="show" id="YDh-xG-UxL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lqb-gZ-hwF">

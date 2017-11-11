@@ -248,7 +248,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pSc-jg-fcm"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Create Event" image="icons8-Add Filled-51" id="4h0-ad-pHp"/>
+                    <tabBarItem key="tabBarItem" title="Create Event" image="icons8-Add Filled-52" id="4h0-ad-pHp">
+                        <color key="badgeColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="ItemCollectionView" destination="OLj-NW-UuO" id="qQr-Fe-PtH"/>
                         <outlet property="PeopleCollectionView" destination="wf6-Rf-gqp" id="xUu-fm-BRq"/>
@@ -320,7 +322,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XcF-Ni-EqL"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="icons8-Home Filled-51" id="QRS-UK-ypT"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="icons8-Home Filled-52" selectedImage="icons8-Home Filled-52" id="QRS-UK-ypT">
+                        <color key="badgeColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="fJf-0z-p2i"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WS1-s3-2OC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -330,12 +338,13 @@
         <!--Tab Bar Controller-->
         <scene sceneID="HAC-oa-NwX">
             <objects>
-                <tabBarController id="uT6-dE-73G" sceneMemberID="viewController">
+                <tabBarController id="uT6-dE-73G" colorLabel="IBBuiltInLabel-Green" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="sNh-On-iLi"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GPP-WI-5mk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="dxD-u0-Nyx" kind="relationship" relationship="viewControllers" id="4xA-Ix-8g2"/>
@@ -408,7 +417,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7qh-vs-92T"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Payment Center" image="icons8-Money Bag Filled-51" id="bYg-FD-fp9"/>
+                    <tabBarItem key="tabBarItem" title="Payment Center" image="icons8-Money Bag Filled-52" id="bYg-FD-fp9">
+                        <color key="badgeColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="cJn-fT-exk" id="QME-zw-gDa"/>
                     </connections>
@@ -681,8 +695,8 @@
     <resources>
         <image name="Component" width="216" height="284"/>
         <image name="Rectangle2" width="221" height="330"/>
-        <image name="icons8-Add Filled-51" width="40" height="40"/>
-        <image name="icons8-Home Filled-51" width="40" height="40"/>
-        <image name="icons8-Money Bag Filled-51" width="40" height="40"/>
+        <image name="icons8-Add Filled-52" width="35" height="35"/>
+        <image name="icons8-Home Filled-52" width="35" height="35"/>
+        <image name="icons8-Money Bag Filled-52" width="35" height="35"/>
     </resources>
 </document>

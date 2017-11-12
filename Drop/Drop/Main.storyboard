@@ -284,6 +284,14 @@
                                             <constraint firstAttribute="height" constant="70" id="a4X-qL-KVE"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jq6-Vc-Njb">
+                                        <rect key="frame" x="319" y="25" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="icons8-logout-rounded-up-filled">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -333,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WS1-s3-2OC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="790" y="887"/>
+            <point key="canvasLocation" x="789.60000000000002" y="886.50674662668678"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="HAC-oa-NwX">
@@ -698,5 +706,6 @@
         <image name="icons8-Add Filled-52" width="35" height="35"/>
         <image name="icons8-Home Filled-52" width="35" height="35"/>
         <image name="icons8-Money Bag Filled-52" width="35" height="35"/>
+        <image name="icons8-logout-rounded-up-filled" width="50" height="50"/>
     </resources>
 </document>

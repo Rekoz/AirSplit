@@ -1,1 +1,6 @@
-*.DS_Store
+Podfile.lock
+Pods
+Drop.xcodeproj/project.xcworkspace/xcuserdata
+Drop.xcodeproj/xcuserdata
+Drop.xcworkspace/xcuserdata
+Drop/CognitoConfig.plist

@@ -3,4 +3,4 @@ Pods
 Drop.xcodeproj/project.xcworkspace/xcuserdata
 Drop.xcodeproj/xcuserdata
 Drop.xcworkspace/xcuserdata
-*.DS_Store
+**/*.DS_Store

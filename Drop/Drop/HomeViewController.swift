@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import AWSCognitoIdentityProvider
 
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
+    
+    var user:AWSCognitoIdentityUser?
+    var userAttributes:[AWSCognitoIdentityProviderAttributeType]?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -29,7 +33,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.multipeer.setPeerDisplayName(name: "123")
         self.multipeer.startAdvertising()
-        // Do any additional setup after loading the view.
+        loadUserValues()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,9 +41,37 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func unwindToHome(_ segue: UIStoryboardSegue) {}
+    /*************** Cognito - retrieve/update user info. *****************/
     
-
+    func loadUserValues () {
+        self.fetchUserAttributes()
+    }
+    
+    func fetchUserAttributes() {
+        user = AppDelegate.defaultUserPool().currentUser()
+        user?.getDetails().continueOnSuccessWith(block: { (task) -> Any? in
+            guard task.result != nil else {
+                return nil
+            }
+            self.userAttributes = task.result?.userAttributes
+            //self.mfaSettings = task.result?.mfaOptions
+            self.userAttributes?.forEach({ (attribute) in
+                print("Name: " + attribute.name!)
+            })
+            return nil
+        })
+    }
+    
+    func valueForAttribute(name:String) -> String? {
+        let values = self.userAttributes?.filter { $0.name == name }
+        return values?.first?.value
+    }
+    
+    @IBAction func logout(_ sender:AnyObject) {
+        user?.signOut()
+        self.fetchUserAttributes()
+    }
+    
     /*
     // MARK: - Navigation
 

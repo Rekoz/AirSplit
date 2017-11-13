@@ -1,6 +1,6 @@
-Podfile.lock
-Pods
-Drop.xcodeproj/project.xcworkspace/xcuserdata
-Drop.xcodeproj/xcuserdata
-Drop.xcworkspace/xcuserdata
+Drop/Podfile.lock
+Drop/Pods
+Drop/Drop.xcodeproj/project.xcworkspace/xcuserdata
+Drop/Drop.xcodeproj/xcuserdata
+Drop/Drop.xcworkspace/xcuserdata
 **/*.DS_Store

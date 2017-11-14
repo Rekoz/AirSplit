@@ -1,6 +1,6 @@
 //
 //  SignUpViewController.swift
-//  Drop
+//  AirSplit
 //
 //  Created by Shirley He on 11/7/17.
 //  Copyright © 2017 Camille Zhang. All rights reserved.
@@ -9,6 +9,9 @@
 import UIKit
 import AWSCognitoIdentityProvider
 
+/**
+    View controller for registering new users.
+ */
 class SignupViewController : UIViewController {
     
     @IBOutlet weak var firstName: UITextField!
@@ -20,6 +23,11 @@ class SignupViewController : UIViewController {
     
     var user: AWSCognitoIdentityUser?
     
+    /**
+     Notifies the view controller that its view is about to be added to a view hierarchy.
+     
+     - Parameter animated: If true, the view is being added to the window using an animation.
+    */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.submitButton.isEnabled = false
@@ -30,6 +38,13 @@ class SignupViewController : UIViewController {
         self.confirmPassword.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
     }
     
+    /**
+     Enables register button if none of the required user information is empty or if confirmed password does not match with password, disables otherwise.
+     
+     - Parameter sender: Client's action to enter/clear registration information.
+     
+     - Returns: Returns immediately if any of the required fields is empty.
+     */
     @objc func inputDidChange(_ sender:AnyObject) {
         if(firstName.text == nil || lastName.text == nil) {
             self.submitButton.isEnabled = false
@@ -46,6 +61,13 @@ class SignupViewController : UIViewController {
         self.submitButton.isEnabled = (password.text == confirmPassword.text)
     }
     
+    /**
+     Registers user when register button is pressed. If registration is successful, this function dismisses signup view. Otherwise, it displays an error.
+     
+     - Parameter sender: Client's action to press register button.
+     
+     - Returns: nil.
+     */
     @IBAction func signupPressed(_ sender: AnyObject) {
         let userPool = AppDelegate.defaultUserPool()
         let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email.text!)

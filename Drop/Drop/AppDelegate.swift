@@ -30,6 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AWSCognitoIdentityUserPool(forKey: userPoolID)
     }
     
+    /**
+     Initializes app and set up AWS logger and AWS Cognito. Tells the delegate that the launch process is almost done and the app is almost ready to run.
+     
+     - Parameter application: A singleton app object.
+     - Parameter launchOptions: A dictionary indicating the reason the app was launched.
+     
+     - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true. The return value is ignored if the app is launched as a result of a remote notification.
+    */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // setup logging
         AWSDDLog.sharedInstance.logLevel = .verbose
@@ -45,6 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    /**
+     Set up AWS Cognito User Pool based on the configurations specified in CognitoConfig.plist.
+    */
     func setupCognitoUserPool() {
         let clientId:String = self.cognitoConfig!.getClientId()
         let poolId:String = self.cognitoConfig!.getPoolId()
@@ -62,6 +73,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
     
+    /**
+     Initialize ui to prompt end user for username and password.
+     
+     - Returns: LoginViewController.
+    */
     func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
         
         if(self.tabBarController == nil) {

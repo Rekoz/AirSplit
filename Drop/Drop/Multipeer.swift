@@ -14,6 +14,7 @@ protocol MultipeerManagerDelegate {
     func loseDevice(manager : MultipeerManager, removedDevice: String)
 }
 
+/// Multipeer API delegate
 class MultipeerManager : NSObject {
     
     private let serviceName = "AirSplit"
@@ -23,6 +24,7 @@ class MultipeerManager : NSObject {
     
     var delegate : MultipeerManagerDelegate?
     
+    /// constructor
     override init() {
         self.myPeerId = MCPeerID(displayName: UIDevice.current.name)
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceName)
@@ -35,16 +37,21 @@ class MultipeerManager : NSObject {
         self.serviceBrowser.stopBrowsingForPeers()
     }
     
+    /// set the display peer name as one's full name
+    ///
+    /// - Parameter name: user's full name
     func setPeerDisplayName(name: String) {
         self.myPeerId = MCPeerID(displayName: name)
     }
     
+    /// make one device visible by browser
     func startAdvertising() {
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceName)
         self.serviceAdvertiser.delegate = self
         self.serviceAdvertiser.startAdvertisingPeer()
     }
     
+    /// enable one device to browse surrounding visible devices
     func startBrowsing() {
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceName)
         self.serviceBrowser.delegate = self
@@ -67,12 +74,23 @@ extension MultipeerManager : MCNearbyServiceBrowserDelegate {
         NSLog("%@", "didNotStartBrowsingForPeers: \(error)")
     }
     
+    /// When the browser detects a new device, we update the people collection view accordingly
+    ///
+    /// - Parameters:
+    ///   - browser: MCNearbyServiceBrowser
+    ///   - peerID: new device's peer ID
+    ///   - info: browser's information
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("%@", "foundPeer: \(peerID)")
         NSLog("%@", "invitePeer: \(peerID)")
         self.delegate?.deviceDetection(manager: self, detectedDevice: peerID.displayName)
     }
     
+    /// When the browser detects a peer loss, we update the people collection view accordingly
+    ///
+    /// - Parameters:
+    ///   - browser: MCNearbyServiceBrowser
+    ///   - peerID: lost device's peer ID
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         NSLog("%@", "lostPeer: \(peerID)")
         self.delegate?.loseDevice(manager: self, removedDevice: peerID.displayName)

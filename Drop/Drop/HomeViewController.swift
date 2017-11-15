@@ -9,6 +9,9 @@
 import UIKit
 import AWSCognitoIdentityProvider
 
+/**
+    View controller that displays recent user activities.
+ */
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate

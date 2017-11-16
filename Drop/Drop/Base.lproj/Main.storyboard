@@ -109,7 +109,7 @@
         <!--Create Event-->
         <scene sceneID="aOZ-uQ-Oom">
             <objects>
-                <viewController id="Epx-l8-6Wq" customClass="EventViewController" customModule="Drop" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventViewController" id="Epx-l8-6Wq" customClass="EventViewController" customModule="Drop" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1XS-6e-69A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,6 +130,9 @@
                                         <barButtonItem key="rightBarButtonItem" title="Camera" id="F2u-pV-xQc">
                                             <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="5"/>
                                             <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="addImage:" destination="Epx-l8-6Wq" id="70g-rW-G3r"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -564,6 +567,11 @@
                                     <constraint firstItem="9o1-2D-ihM" firstAttribute="leading" secondItem="4PP-Va-7uU" secondAttribute="leading" id="zPD-O8-F5d"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOP-Ba-qsh">
+                                <rect key="frame" x="28" y="28" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="icons8-left-50"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -585,7 +593,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5d-Nl-OGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1030" y="-1164"/>
+            <point key="canvasLocation" x="1029.5999999999999" y="-1164.4677661169417"/>
         </scene>
     </scenes>
     <resources>
@@ -594,6 +602,7 @@
         <image name="icons8-Add Filled-52" width="35" height="35"/>
         <image name="icons8-Home Filled-52" width="35" height="35"/>
         <image name="icons8-Money Bag Filled-52" width="35" height="35"/>
+        <image name="icons8-left-50" width="50" height="50"/>
         <image name="setting_gray" width="116" height="118"/>
     </resources>
 </document>

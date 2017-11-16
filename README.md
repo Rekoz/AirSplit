@@ -6,11 +6,16 @@ Part A report: https://docs.google.com/document/d/1lgfaYHzcnapfvrdr63vOl2-i9UUow
 AWS Mobile Hub http://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-aws-mobile-sdk.html#add-aws-mobile-sdk-setup-app
 
 AWS Console Login:
+
 account: airsplit130@gmail.com  
+
 passcode: Airsplit130!
 
+
 AirSplit Login:
+
 email: 1234@gmail.com
+
 password: 123456
 
 Run `pod install` after git pull.

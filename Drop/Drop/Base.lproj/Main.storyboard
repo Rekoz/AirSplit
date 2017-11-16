@@ -455,7 +455,7 @@
         <!--Signup View Controller-->
         <scene sceneID="vby-MP-x63">
             <objects>
-                <viewController id="MaE-NL-YPk" customClass="SignupViewController" customModule="Drop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MaE-NL-YPk" customClass="SignupViewController" customModule="Drop" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yRZ-Nl-HSc"/>
                         <viewControllerLayoutGuide type="bottom" id="srr-3C-agP"/>

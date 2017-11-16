@@ -46,15 +46,15 @@ class SignupViewController : UIViewController {
      - Returns: Returns immediately if any of the required fields is empty.
      */
     @objc func inputDidChange(_ sender:AnyObject) {
-        if(firstName.text == nil || lastName.text == nil) {
+        if(firstName.text == "" || lastName.text == "") {
             self.submitButton.isEnabled = false
             return
         }
-        if(email.text == nil) {
+        if(email.text == "") {
             self.submitButton.isEnabled = false
             return
         }
-        if(password.text == nil || confirmPassword.text == nil) {
+        if(password.text == "" || confirmPassword.text == "") {
             self.submitButton.isEnabled = false
             return
         }

@@ -44,6 +44,10 @@ class MultipeerManager : NSObject {
         self.myPeerId = MCPeerID(displayName: name)
     }
     
+    func getPeerDisplayName() -> String {
+        return self.myPeerId.displayName
+    }
+    
     /// make one device visible by browser
     func startAdvertising() {
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceName)

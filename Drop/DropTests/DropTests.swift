@@ -24,8 +24,16 @@ class DropTests: XCTestCase {
         multipeer = nil;
     }
     
-    func testSetPeerDisplayName() {
-        multipeer.setPeerDisplayName(name: "Zeyu")
+    func testPeerDisplayName() {
+        multipeer.setPeerDisplayName(name: "Minghong")
+        XCTAssertTrue(multipeer.getPeerDisplayName() == "Minghong")
     }
     
+    func testStartAdvertising() {
+        multipeer.startAdvertising()
+    }
+    
+    func testStartBrowsing() {
+        multipeer.startBrowsing()
+    }
 }

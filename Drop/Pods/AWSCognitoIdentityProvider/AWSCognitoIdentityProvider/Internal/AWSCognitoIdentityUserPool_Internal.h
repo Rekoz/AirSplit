@@ -22,7 +22,6 @@
 
 @interface AWSCognitoIdentityUserPool()
 @property (nonatomic, strong) AWSUICKeyChainStore *keychain;
-@property (nonatomic, readonly) AWSCognitoIdentityProviderAnalyticsMetadataType * analyticsMetadata;
 
 - (NSString *) calculateSecretHash: (NSString*) userName;
 - (void) setCurrentUser:(NSString *) username;

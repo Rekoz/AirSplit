@@ -1,97 +1,94 @@
 //
 //  SignUpViewController.swift
-//  Drop
+//  AirSplit
 //
 //  Created by Shirley He on 11/7/17.
 //  Copyright © 2017 Camille Zhang. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import AWSCognitoIdentityProvider
 
-class SignUpViewController: UIViewController {
+/**
+    View controller for registering new users.
+ */
+class SignupViewController : UIViewController {
     
-    var pool: AWSCognitoIdentityUserPool?
-    var sentTo: String?
-    
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var phone: UITextField!
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var confirmPassword: UITextField!
+    @IBOutlet weak var submitButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoUserPoolsSignInProviderKey)
-    }
+    var user: AWSCognitoIdentityUser?
     
+    /**
+     Notifies the view controller that its view is about to be added to a view hierarchy.
+     
+     - Parameter animated: If true, the view is being added to the window using an animation.
+    */
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        super.viewWillAppear(animated)
+        self.submitButton.isEnabled = false
+        self.firstName.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
+        self.lastName.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
+        self.email.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
+        self.password.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
+        self.confirmPassword.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let signUpConfirmationViewController = segue.destination as? ConfirmSignUpViewController {
-            signUpConfirmationViewController.sentTo = self.sentTo
-            signUpConfirmationViewController.user = self.pool?.getUser(self.username.text!)
+    /**
+     Enables register button if none of the required user information is empty or if confirmed password does not match with password, disables otherwise.
+     
+     - Parameter sender: Client's action to enter/clear registration information.
+     
+     - Returns: Returns immediately if any of the required fields is empty.
+     */
+    @objc func inputDidChange(_ sender:AnyObject) {
+        if(firstName.text == nil || lastName.text == nil) {
+            self.submitButton.isEnabled = false
+            return
         }
+        if(email.text == nil) {
+            self.submitButton.isEnabled = false
+            return
+        }
+        if(password.text == nil || confirmPassword.text == nil) {
+            self.submitButton.isEnabled = false
+            return
+        }
+        self.submitButton.isEnabled = (password.text == confirmPassword.text)
     }
     
-    @IBAction func signUp(_ sender: AnyObject) {
-        
-        guard let userNameValue = self.username.text, !userNameValue.isEmpty,
-            let passwordValue = self.password.text, !passwordValue.isEmpty else {
-                let alertController = UIAlertController(title: "Missing Required Fields",
-                                                        message: "Username / Password are required for registration.",
-                                                        preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                
-                self.present(alertController, animated: true, completion:  nil)
-                return
-        }
-        
-        var attributes = [AWSCognitoIdentityUserAttributeType]()
-        
-        if let phoneValue = self.phone.text, !phoneValue.isEmpty {
-            let phone = AWSCognitoIdentityUserAttributeType()
-            phone?.name = "phone_number"
-            phone?.value = phoneValue
-            attributes.append(phone!)
-        }
-        
-        if let emailValue = self.email.text, !emailValue.isEmpty {
-            let email = AWSCognitoIdentityUserAttributeType()
-            email?.name = "email"
-            email?.value = emailValue
-            attributes.append(email!)
-        }
-        
-        
-        
-        //sign up the user
-        self.pool?.signUp(userNameValue, password: passwordValue, userAttributes: attributes, validationData: nil).continueWith {[weak self] (task) -> Any? in
-            guard let strongSelf = self else { return nil }
-            DispatchQueue.main.async(execute: {
-                if let error = task.error as? NSError {
-                    let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
-                                                            message: error.userInfo["message"] as? String,
-                                                            preferredStyle: .alert)
-                    let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
-                    alertController.addAction(retryAction)
-                    
-                    self?.present(alertController, animated: true, completion:  nil)
-                } else if let result = task.result  {
-                    // handle the case where user has to confirm his identity via email / SMS
-                    if (result.user.confirmedStatus != AWSCognitoIdentityUserStatus.confirmed) {
-                        strongSelf.sentTo = result.codeDeliveryDetails?.destination
-                        strongSelf.performSegue(withIdentifier: "confirmSignUpSegue", sender:sender)
-                    } else {
-                        let _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+    /**
+     Registers user when register button is pressed. If registration is successful, this function dismisses signup view. Otherwise, it displays an error.
+     
+     - Parameter sender: Client's action to press register button.
+     
+     - Returns: nil.
+     */
+    @IBAction func signupPressed(_ sender: AnyObject) {
+        let userPool = AppDelegate.defaultUserPool()
+        let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email.text!)
+        let firstNameAttribute = AWSCognitoIdentityUserAttributeType(name: "given_name", value: firstName.text!)
+        let lastNameAttribute = AWSCognitoIdentityUserAttributeType(name: "family_name", value: lastName.text!)
+        let attributes:[AWSCognitoIdentityUserAttributeType] = [emailAttribute, firstNameAttribute, lastNameAttribute];
+        userPool.signUp(email.text!, password: password.text!, userAttributes: attributes, validationData: nil)
+            .continueWith { (response) -> Any? in
+                if response.error != nil {
+                    // Error in the Signup Process
+                    let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.user = response.result!.user
+                    DispatchQueue.main.async {
+                        self.presentingViewController?.dismiss(animated: true, completion: nil)
                     }
                 }
-                
-            })
-            return nil
+                return nil
         }
     }
+    
 }

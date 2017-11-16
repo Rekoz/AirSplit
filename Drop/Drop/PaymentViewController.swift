@@ -7,30 +7,27 @@
 //
 
 import UIKit
-
+/**
+    View controller that handles payment processing.
+ */
 class PaymentViewController: UIViewController {
+    
     let paymentCellIdentifier = "PaymentCell"
+    
+    /**
+        Called after the controller's view is loaded into memory.
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
+    /**
+        Sent to the view controller when the app receives a memory warning.
+    */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 //
@@ -52,15 +49,42 @@ class PaymentViewController: UIViewController {
 
 //related to payment Tableview
 extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    /**
+     Tells the data source to return the number of rows in a given section of a table view.
+     
+     - Parameters:
+        tableView: The table-view object requesting this information.
+        section: An index number identifying a section in tableView.
+     
+     - Returns: The number of rows in section.
+    */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    /**
+     Asks the data source for a cell to insert in a particular location of the table view.
+     
+     - Parameters:
+        tableView: A table-view object requesting the cell.
+        indexPath: An index path locating a row in tableView.
+     
+     - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
+     
+    */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
         return cell
     }
     
+    /**
+     Asks the data source to return the number of sections in the table view.
+     
+     - Parameter tableView: An object representing the table view requesting this information.
+     
+     - Returns: The number of sections in tableView. The default value is 1.
+    */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

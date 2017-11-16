@@ -107,7 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *clientId;
 @property (nonatomic, readonly, nullable) NSString *clientSecret;
 @property (nonatomic, readonly) NSString *poolId;
-@property (nonatomic, readonly) NSString *pinpointAppId;
 @property (nonatomic, readonly) BOOL shouldProvideCognitoValidationData;
 
 - (instancetype)initWithClientId:(NSString *)clientId
@@ -118,12 +117,6 @@ NS_ASSUME_NONNULL_BEGIN
                     clientSecret:(nullable NSString *)clientSecret
                           poolId:(NSString *)poolId
 shouldProvideCognitoValidationData:(BOOL)shouldProvideCognitoValidationData;
-
-- (instancetype)initWithClientId:(NSString *)clientId
-                    clientSecret:(nullable NSString *)clientSecret
-                          poolId:(NSString *)poolId
-shouldProvideCognitoValidationData:(BOOL)shouldProvideCognitoValidationData
-                   pinpointAppId:(nullable NSString *)pinpointAppId;
 
 @end
 

@@ -17,7 +17,9 @@ class EventViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        eventViewController = storyboard.instantiateViewController(withIdentifier: "EventViewController") as! EventViewController
+//        eventViewController = storyboard.instantiateViewController(withIdentifier: "EventViewController") as! EventViewController
+        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "EventViewController")
+        eventViewController = vc as! EventViewController
         _ = eventViewController.view
         multipeer = MultipeerManager()
         // Put setup code here. This method is called before the invocation of each test method in the class.

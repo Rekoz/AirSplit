@@ -109,7 +109,7 @@
         <!--Create Event-->
         <scene sceneID="aOZ-uQ-Oom">
             <objects>
-                <viewController storyboardIdentifier="EventViewController" id="Epx-l8-6Wq" customClass="EventViewController" customModule="Drop" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Epx-l8-6Wq" customClass="EventViewController" customModule="Drop" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1XS-6e-69A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

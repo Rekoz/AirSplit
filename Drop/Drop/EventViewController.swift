@@ -9,7 +9,9 @@
 import UIKit
 
 /// controller that handles user's actions on event creating page
-class EventViewController: UIViewController {
+class EventViewController: UIViewController,
+    UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate {
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
@@ -20,105 +22,6 @@ class EventViewController: UIViewController {
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
-    
-    @IBAction func addImage(_ sender: Any) {
-        
-        let actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
-        
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            } else {
-                print("Camera not available")
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
-        }))
-        
-        self.present(actionSheet, animated: true, completion: nil);
-        
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
-        var request = URLRequest(url: url)
-        request.setValue("apikey", forHTTPHeaderField: "a445ca40c4a311e7a0ebfdc7a5da208a")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        let boundary = "Boundary-\(UUID().uuidString)"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        let params = [
-            "refresh": "false",
-            "incognito": "false"
-        ];
-        
-        request.httpBody = createBody(
-            parameters: params,
-            boundary: boundary,
-            data: UIImageJPEGRepresentation(receipt, 0.5)!,
-            mimeType: "image/jpg",
-            filename: "receipt.jpg"
-        )
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error!)")
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response!)")
-            }
-            
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString!)")
-        }
-        task.resume()
-        picker.dismiss(animated: true, completion: nil)
-    }
-
-    func createBody(parameters: [String: String],
-                    boundary: String,
-                    data: Data,
-                    mimeType: String,
-                    filename: String) -> Data {
-        let body = NSMutableData()
-        
-        let boundaryPrefix = "--\(boundary)\r\n"
-        
-        for (key, value) in parameters {
-            body.appendString(boundaryPrefix)
-            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-            body.appendString("\(value)\r\n")
-        }
-        
-        body.appendString(boundaryPrefix)
-        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
-        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
-        body.append(data)
-        body.appendString("\r\n")
-        body.appendString("--".appending(boundary.appending("--\r\n")))
-
-        return body as Data
-    }
-    
-
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
@@ -162,6 +65,123 @@ class EventViewController: UIViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.people.removeAll()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
+    }
+    
+    /// The callback function for when the Camera button is clicked
+    ///
+    /// - Parameter sender: The object that initiates the action
+    @IBAction func addImage(_ sender: Any) {
+        
+        let actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            } else {
+                print("Camera not available")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
+        }))
+        
+        self.present(actionSheet, animated: true, completion: nil);
+        
+    }
+    
+    /// Fetches the picked image and uploads it to the server for processing
+    ///
+    /// - Parameters:
+    ///   - picker: The picker manages user interactions and delivers the results of those interactions to a delegate object.
+    ///   - info: A dictionary containing the original image and the edited image, if an image was picked; or a filesystem URL for the movie, if a movie was picked.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
+        var request = URLRequest(url: url)
+        request.setValue("apikey", forHTTPHeaderField: "a445ca40c4a311e7a0ebfdc7a5da208a")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        let params = [
+            "refresh": "false",
+            "incognito": "false"
+        ];
+        
+        request.httpBody = createBody(
+            parameters: params,
+            boundary: boundary,
+            data: UIImageJPEGRepresentation(receipt, 0.5)!,
+            mimeType: "image/jpg",
+            filename: "receipt.jpg"
+        )
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                print("error=\(error!)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response!)")
+            }
+            
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString!)")
+        }
+        task.resume()
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    /// Creates the body for the POST request that conforms with the HTTP standard
+    ///
+    /// - Parameters:
+    ///   - parameters: The parameters to add as the form-data
+    ///   - boundary: The boundary string which should be generated randomly to separate different parts of the request body
+    ///   - data: The file's data to send, in our case the receipt image's data
+    ///   - mimeType: The mimeType of the body, in our case it will set to 'image/jpg'
+    ///   - filename: The filename of the to-be uploaded receipt image
+    /// - Returns: The generated body string encoded as byte stream
+    func createBody(parameters: [String: String],
+                    boundary: String,
+                    data: Data,
+                    mimeType: String,
+                    filename: String) -> Data {
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+        for (key, value) in parameters {
+            body.appendString(boundaryPrefix)
+            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString("\(value)\r\n")
+        }
+        
+        body.appendString(boundaryPrefix)
+        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--".appending(boundary.appending("--\r\n")))
+        
+        return body as Data
+    }
+    
+    /// Callback when the user cancels the image picking
+    ///
+    /// - Parameter picker: The picker manages user interactions and delivers the results of those interactions to a delegate object.
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -11,11 +11,8 @@
 		3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B004DF11FBA99DD006ECFB8 /* DropTests.swift */; };
 		3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
 		3BC68FAE1FAFB4B000B3089D /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
-		3BEED3B31FBD4B5D0042AEA2 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
 		3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
-		3BEED3B61FBD5C300042AEA2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 		3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
-		3BEED3B61FBD5C300042AEA2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 		3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
 		3BEED3BA1FBD5C440042AEA2 /* CognitoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D831416C1FB93E2200C6FE10 /* CognitoConfig.swift */; };
 		3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
@@ -34,6 +31,9 @@
 		D83D44E61FB2B61400BB4615 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 		D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84971871FBD5E150017D841 /* SignupTests.swift */; };
 		D849718B1FBD64800017D841 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9ADA1F9D6148004F9235 /* EventViewController.swift */; };
+		D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
+		D85E25191FBE523A00CB2B22 /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
+		D85E251A1FBE525100CB2B22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -387,18 +387,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D85E251A1FBE525100CB2B22 /* LoginViewController.swift in Sources */,
+				D85E25191FBE523A00CB2B22 /* Multipeer.swift in Sources */,
+				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
 				3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */,
 				D849718B1FBD64800017D841 /* EventViewController.swift in Sources */,
 				3BEED3BA1FBD5C440042AEA2 /* CognitoConfig.swift in Sources */,
 				3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */,
 				3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */,
-				3BEED3B61FBD5C300042AEA2 /* LoginViewController.swift in Sources */,
 				3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */,
-				3BEED3B11FBACA2B0042AEA2 /* Multipeer.swift in Sources */,
 				D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */,
-				3BEED3B61FBD5C300042AEA2 /* LoginViewController.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
-				3BEED3B31FBD4B5D0042AEA2 /* EventViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,12 +596,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU4QS52S4V;
-				INFOPLIST_FILE = Drop/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ucla.Drop-";
-				DEVELOPMENT_TEAM = T3B3U2TJWZ;
-				INFOPLIST_FILE = Drop/SupportingFiles/Info.plist;
 				DEVELOPMENT_TEAM = 3HX3B97Y7D;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -620,12 +613,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU4QS52S4V;
-				INFOPLIST_FILE = Drop/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ucla.Drop-";
-				DEVELOPMENT_TEAM = T3B3U2TJWZ;
-				INFOPLIST_FILE = Drop/SupportingFiles/Info.plist;
 				DEVELOPMENT_TEAM = 3HX3B97Y7D;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

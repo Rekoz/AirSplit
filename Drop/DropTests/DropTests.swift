@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Drop
 
 class DropTests: XCTestCase {
     

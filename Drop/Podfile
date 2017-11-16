@@ -12,4 +12,9 @@ target :'Drop' do
 #    pod 'AWSUserPoolsSignIn', '~> 2.6.1'
     pod 'AWSCore', '~> 2.5.5'
     pod 'AWSCognitoIdentityProvider', '~> 2.5.5'
+    
+    target 'DropTests' do
+        inherit! :search_paths
+        pod 'AWSCognitoIdentityProvider', '~> 2.5.5'
+    end
 end

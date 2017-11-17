@@ -296,7 +296,6 @@
                                         </state>
                                         <connections>
                                             <action selector="logout:" destination="dxD-u0-Nyx" eventType="touchUpInside" id="s6x-lT-peN"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="fJJ-g7-QgK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -571,6 +570,9 @@
                                 <rect key="frame" x="28" y="28" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icons8-left-50"/>
+                                <connections>
+                                    <action selector="backPressed:" destination="MaE-NL-YPk" eventType="touchUpInside" id="MvZ-37-tSX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

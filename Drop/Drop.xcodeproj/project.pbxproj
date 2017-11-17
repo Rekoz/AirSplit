@@ -28,6 +28,7 @@
 		D83D44E61FB2B61400BB4615 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 		D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84971871FBD5E150017D841 /* SignupTests.swift */; };
 		D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
+		D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B9F6591FBE5E8E008786BB /* LoginTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		D83D44DF1FB2B61300BB4615 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D83D44E11FB2B61300BB4615 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D84971871FBD5E150017D841 /* SignupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
+		D8B9F6591FBE5E8E008786BB /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		3B004DF01FBA99DD006ECFB8 /* DropTests */ = {
 			isa = PBXGroup;
 			children = (
+				D8B9F6591FBE5E8E008786BB /* LoginTests.swift */,
 				D84971871FBD5E150017D841 /* SignupTests.swift */,
 				3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */,
 				3B004DF11FBA99DD006ECFB8 /* DropTests.swift */,
@@ -384,6 +387,7 @@
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
 				3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */,
 				3BEED3BA1FBD5C440042AEA2 /* CognitoConfig.swift in Sources */,
+				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
 				D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
 			);

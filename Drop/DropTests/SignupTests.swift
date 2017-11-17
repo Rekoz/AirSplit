@@ -9,6 +9,9 @@
 import XCTest
 @testable import Drop
 
+/**
+    Testings for registering new users.
+ */
 class SignupTests: XCTestCase {
     
     var vcSignup: SignupViewController!
@@ -19,6 +22,9 @@ class SignupTests: XCTestCase {
     let password = "123456"
     let unmatched_password = "123"
     
+    /**
+     Initialize storyboard and signup view controller.
+    */
     override func setUp() {
         super.setUp()
         
@@ -28,14 +34,19 @@ class SignupTests: XCTestCase {
         _ = vcSignup.view
     }
     
+    /**
+     Clean up signup view controller.
+    */
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         vcSignup = nil
     }
     
+    /**
+     If any of the required registration info fields is empty, submit button is disabled.
+    */
     func testSubmitButtonDisabledWithEmptyRegistrationInfo () {
-        vcSignup.email.text = nil
+        vcSignup.email.text = ""
         vcSignup.firstName.text = self.firstname
         vcSignup.lastName.text = self.lastname
         vcSignup.password.text = self.password
@@ -44,6 +55,9 @@ class SignupTests: XCTestCase {
         XCTAssertFalse(vcSignup.submitButton.isEnabled)
     }
     
+    /**
+     If password is not confirmed, submit button is disabled.
+    */
     func testSubmitButtonDisabledWithUnmatchedConfirmPassword() {
         vcSignup.email.text = self.email
         vcSignup.firstName.text = self.firstname
@@ -54,6 +68,9 @@ class SignupTests: XCTestCase {
         XCTAssertFalse(vcSignup.submitButton.isEnabled)
     }
     
+    /**
+     If all registration info are inputted correctly, submit button is enabled.
+    */
     func testSubmitButtonEnabledWithCorrectInfo() {
         vcSignup.email.text = self.email
         vcSignup.firstName.text = self.firstname

@@ -16,6 +16,8 @@ class EventViewController: UIViewController,
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
     var people = [String]()
+    var actionSheet: UIAlertController!
+    var imagePickerController: UIImagePickerController!
     
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var ItemCollectionView: UICollectionView!
@@ -42,6 +44,30 @@ class EventViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.imagePickerController.sourceType = .camera
+                self.present(self.imagePickerController, animated: true, completion: nil)
+            } else {
+                print("Camera not available")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(self.imagePickerController, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
+        }))
+        
     }
     
     /// clear the detected devices array and start browsing when we get to the event creating page every time
@@ -71,32 +97,7 @@ class EventViewController: UIViewController,
     ///
     /// - Parameter sender: The object that initiates the action
     @IBAction func addImage(_ sender: Any) {
-        
-        let actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
-        
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            } else {
-                print("Camera not available")
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
-        }))
-        
-        self.present(actionSheet, animated: true, completion: nil);
-        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     /// Fetches the picked image and uploads it to the server for processing

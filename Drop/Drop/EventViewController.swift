@@ -108,6 +108,7 @@ class EventViewController: UIViewController,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
         let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
+        //let url = URL(string: "https://api.taggun.io/api/receipt/v1/simple/url")!
         var request = URLRequest(url: url)
         request.setValue("apikey", forHTTPHeaderField: "a445ca40c4a311e7a0ebfdc7a5da208a")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -126,6 +127,11 @@ class EventViewController: UIViewController,
             mimeType: "image/jpg",
             filename: "receipt.jpg"
         )
+        
+        //let backToString = String(data: request.httpBody!, encoding: String.Encoding.utf8) as String!
+        //print(request.httpBody!)
+//        request.httpBody = "{\r\n\"url\": \"https://www.taggun.io/api/receipt/v1/benchmark/download/be17cfba5acae69032b7856fd89f4286\",\r\n\"headers\": {\"x-custom-key\": \"string\"}\r\n}".data(using: .utf8)!
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
                 print("error=\(error!)")
@@ -171,6 +177,7 @@ class EventViewController: UIViewController,
         body.appendString(boundaryPrefix)
         body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        print(NSString(data: body as Data, encoding: String.Encoding.utf8.rawValue)!)
         body.append(data)
         body.appendString("\r\n")
         body.appendString("--".appending(boundary.appending("--\r\n")))

@@ -15,7 +15,7 @@ class EventViewController: UIViewController,
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
-    var people = [String]()
+    //var people = [String]()
     var actionSheet: UIAlertController!
     var imagePickerController: UIImagePickerController!
     
@@ -44,6 +44,7 @@ class EventViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("didLoad")
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -74,7 +75,8 @@ class EventViewController: UIViewController,
     ///
     /// - Parameter animated: boolean
     override func viewWillAppear(_ animated: Bool) {
-        self.people.removeAll()
+        self.appDelegate.people.removeAll()
+        self.PeopleCollectionView.reloadData()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
         print("will load")
@@ -89,7 +91,7 @@ class EventViewController: UIViewController,
     ///
     /// - Parameter sender: Any
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.people.removeAll()
+        self.appDelegate.people.removeAll()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
     }
     
@@ -196,7 +198,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     /// - Returns: number of detected devices in the people array if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.PeopleCollectionView {
-            return self.people.count
+            return self.appDelegate.people.count
         } else {
             return 0
         }
@@ -212,9 +214,9 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if collectionView == self.PeopleCollectionView {
             print("create cell")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
-            if indexPath.row < self.people.count {
+            if indexPath.row < self.appDelegate.people.count {
                 cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.accountName.text = self.people[indexPath.row]
+                cell.accountName.text = self.appDelegate.people[indexPath.row]
             }
             return cell
         }
@@ -239,10 +241,10 @@ extension EventViewController : MultipeerManagerDelegate {
     ///   - manager: MultipeerManager
     ///   - detectedDevice: detected device's user's name
     func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
-        if self.people.contains(detectedDevice) {
+        if self.appDelegate.people.contains(detectedDevice) {
             return
         }
-        self.people.append(detectedDevice)
+        self.appDelegate.people.append(detectedDevice)
         self.PeopleCollectionView.reloadData()
     }
     
@@ -252,8 +254,8 @@ extension EventViewController : MultipeerManagerDelegate {
     ///   - manager: MultipeerManager
     ///   - removedDevice: lost device's user's name
     func loseDevice(manager : MultipeerManager, removedDevice: String) {
-        if let index = self.people.index(of: removedDevice) {
-            self.people.remove(at: index)
+        if let index = self.appDelegate.people.index(of: removedDevice) {
+            self.appDelegate.people.remove(at: index)
         }
         self.PeopleCollectionView.reloadData()
     }

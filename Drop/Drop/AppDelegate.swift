@@ -16,6 +16,7 @@ let userPoolID = "SampleUserPool"
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let multipeer = MultipeerManager()
+    var people = [String]()
     
     var window: UIWindow?
     
@@ -29,6 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var cognitoConfig: CognitoConfig?
     class func defaultUserPool() -> AWSCognitoIdentityUserPool {
         return AWSCognitoIdentityUserPool(forKey: userPoolID)
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("home clicked")
+        self.people.removeAll()
+        multipeer.delegate?.loseDevice(manager: multipeer, removedDevice: "anything")
     }
     
     /**

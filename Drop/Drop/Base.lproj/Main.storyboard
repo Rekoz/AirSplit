@@ -129,7 +129,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eO-tY-8tA">
-                                            <rect key="frame" x="162.5" y="0.0" width="50" height="44"/>
+                                            <rect key="frame" x="166" y="5" width="43" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Done">
@@ -231,7 +231,7 @@
                                                         <color key="titleColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="add_item:" destination="bIe-xw-TlQ" eventType="touchUpInside" id="KZT-94-amc"/>
+                                                        <action selector="add_item:" destination="bIe-xw-TlQ" eventType="touchUpInside" id="E9a-fW-Hwr"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-0v-ZYc">
@@ -262,7 +262,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="AddButton" destination="rHT-eP-8Sl" id="EvL-SP-dJH"/>
+                                            <outlet property="AddButton" destination="rHT-eP-8Sl" id="fYk-BO-A6Y"/>
                                             <outlet property="ItemName" destination="IGm-c4-4pc" id="0Mf-Qu-WTT"/>
                                             <outlet property="ItemPrice" destination="aT9-3a-OZB" id="snh-jO-9xI"/>
                                         </connections>

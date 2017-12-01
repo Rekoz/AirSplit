@@ -15,12 +15,12 @@ class EventViewController: UIViewController,
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
-    var people = [String]()
+    //var people = [String]()
     var actionSheet: UIAlertController!
     var imagePickerController: UIImagePickerController!
     
+    @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
-    @IBOutlet weak var ItemCollectionView: UICollectionView!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -44,6 +44,7 @@ class EventViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("didLoad")
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -68,16 +69,23 @@ class EventViewController: UIViewController,
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
         }))
         
+        //related to item table view
+        self.appDelegate.items.append("item")
+        
     }
     
     /// clear the detected devices array and start browsing when we get to the event creating page every time
     ///
     /// - Parameter animated: boolean
     override func viewWillAppear(_ animated: Bool) {
-        self.people.removeAll()
+        self.appDelegate.people.removeAll()
+//        self.appDelegate.items.removeAll()
+        self.ItemTableView.reloadData()
+//        self.appDelegate.items.append("item")
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
         print("will load")
+        print("item array has" + String(appDelegate.items.count) + "elements at view will appear")
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,7 +97,8 @@ class EventViewController: UIViewController,
     ///
     /// - Parameter sender: Any
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.people.removeAll()
+        self.appDelegate.people.removeAll()
+        self.appDelegate.items.removeAll()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
     }
     
@@ -192,6 +201,36 @@ class EventViewController: UIViewController,
         picker.dismiss(animated: true, completion: nil)
     }
 }
+//======================
+//related to table view
+//======================
+extension EventViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 // your number of cell here
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // your cell coding
+        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+        cell.delegate = self as? ItemTableViewCellDelegate
+        return cell
+    }
+    
+    func cell_did_add_item(_ sender: ItemTableViewCell) {
+        print("tapped add button")
+        self.ItemTableView.reloadData()
+        
+    }
+    
+    
+    
+    
+//    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+//        // cell selected code here
+//    }
+}
+
 
 //related to Collection view
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -202,11 +241,8 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     ///   - section: An index number identifying a section in collectionView. This index value is 0-based.
     /// - Returns: number of detected devices in the people array if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.PeopleCollectionView {
-            return self.people.count
-        } else {
-            return 0
-        }
+        return self.appDelegate.people.count
+        
     }
 
     /// Asks your data source object for the cell that corresponds to the specified item in the collection view.
@@ -216,17 +252,11 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     ///   - indexPath: The index path that specifies the location of the item.
     /// - Returns: a peopleCollectionViewCell if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.PeopleCollectionView {
-            print("create cell")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
-            if indexPath.row < self.people.count {
-                cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.accountName.text = self.people[indexPath.row]
-            }
-            return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
+        if indexPath.row < self.appDelegate.people.count {
+            cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
+            cell.accountName.text = self.appDelegate.people[indexPath.row]
         }
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath)
         return cell
     }
     
@@ -239,17 +269,24 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
 }
 
+//Related to Multipeer API
 extension EventViewController : MultipeerManagerDelegate {
+    func reloadItemView(index: Int) {
+//        self.ItemTableView.reloadData()
+        return
+    }
+    
+    
     /// handler for detecting a new device and updating people collection view
     ///
     /// - Parameters:
     ///   - manager: MultipeerManager
     ///   - detectedDevice: detected device's user's name
     func deviceDetection(manager : MultipeerManager, detectedDevice: String) {
-        if self.people.contains(detectedDevice) {
+        if self.appDelegate.people.contains(detectedDevice) {
             return
         }
-        self.people.append(detectedDevice)
+        self.appDelegate.people.append(detectedDevice)
         self.PeopleCollectionView.reloadData()
     }
     
@@ -259,11 +296,18 @@ extension EventViewController : MultipeerManagerDelegate {
     ///   - manager: MultipeerManager
     ///   - removedDevice: lost device's user's name
     func loseDevice(manager : MultipeerManager, removedDevice: String) {
-        if let index = self.people.index(of: removedDevice) {
-            self.people.remove(at: index)
+        if let index = self.appDelegate.people.index(of: removedDevice) {
+            self.appDelegate.people.remove(at: index)
         }
         self.PeopleCollectionView.reloadData()
     }
+    
+//    func reloadItemView(index: Int) {
+//        let indexPath = IndexPath(row: index, section: 0)
+//        self.ItemCollectionView.performBatchUpdates({
+//            self.ItemCollectionView.insertItems(at: [indexPath])
+//        }, completion: nil)
+//    }
 }
 
 extension NSMutableData {

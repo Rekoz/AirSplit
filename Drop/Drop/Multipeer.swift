@@ -12,6 +12,7 @@ import MultipeerConnectivity
 protocol MultipeerManagerDelegate {
     func deviceDetection(manager : MultipeerManager, detectedDevice: String)
     func loseDevice(manager : MultipeerManager, removedDevice: String)
+    func reloadItemView(index: Int)
 }
 
 /// Multipeer API delegate

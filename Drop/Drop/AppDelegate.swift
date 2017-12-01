@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognitoIdentityProvider
+import AWSMobileClient
 
 let userPoolID = "SampleUserPool"
 
@@ -15,6 +16,8 @@ let userPoolID = "SampleUserPool"
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let multipeer = MultipeerManager()
+    var people = [String]()
+    var items = [String]()
     
     var window: UIWindow?
     
@@ -28,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var cognitoConfig: CognitoConfig?
     class func defaultUserPool() -> AWSCognitoIdentityUserPool {
         return AWSCognitoIdentityUserPool(forKey: userPoolID)
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("home clicked")
+        self.people.removeAll()
+        multipeer.delegate?.loseDevice(manager: multipeer, removedDevice: "anything")
     }
     
     /**
@@ -50,7 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupCognitoUserPool()
         
         // Override point for customization after application launch.
-        return true
+        return AWSMobileClient.sharedInstance().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+    
+    func application(_ application: UIApplication, open url: URL,
+                     sourceApplication: String?, annotation: Any) -> Bool {
+        
+        return AWSMobileClient.sharedInstance().interceptApplication(
+            application, open: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation)
+        
     }
 
     /**

@@ -91,4 +91,9 @@ class SignupViewController : UIViewController {
         }
     }
     
+    @IBAction func backPressed(_ sender: AnyObject) {
+        DispatchQueue.main.async {
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
 }

@@ -19,8 +19,8 @@ class EventViewController: UIViewController,
     var actionSheet: UIAlertController!
     var imagePickerController: UIImagePickerController!
     
+    @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
-    @IBOutlet weak var ItemCollectionView: UICollectionView!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -78,7 +78,7 @@ class EventViewController: UIViewController,
         self.appDelegate.people.removeAll()
         self.appDelegate.items.removeAll()
         self.PeopleCollectionView.reloadData()
-        self.ItemCollectionView.reloadData()
+//        self.ItemTableView.reloadData()
         self.appDelegate.items.append("item")
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
@@ -191,6 +191,24 @@ class EventViewController: UIViewController,
         picker.dismiss(animated: true, completion: nil)
     }
 }
+//related to table view
+extension EventViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 // your number of cell here
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // your cell coding
+        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+        return cell
+    }
+    
+//    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+//        // cell selected code here
+//    }
+}
+
 
 //related to Collection view
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -201,14 +219,9 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     ///   - section: An index number identifying a section in collectionView. This index value is 0-based.
     /// - Returns: number of detected devices in the people array if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.PeopleCollectionView {
-            print ("get people count")
-            return self.appDelegate.people.count
-        } else {
-            print ("get items count")
-            //self.ItemCollectionView.reloadData()
-            return self.appDelegate.items.count
-        }
+        print ("get people count")
+        return self.appDelegate.people.count
+        
     }
 
     /// Asks your data source object for the cell that corresponds to the specified item in the collection view.
@@ -218,17 +231,12 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     ///   - indexPath: The index path that specifies the location of the item.
     /// - Returns: a peopleCollectionViewCell if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.PeopleCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
-            if indexPath.row < self.appDelegate.people.count {
-                cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.accountName.text = self.appDelegate.people[indexPath.row]
-            }
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as! ItemCollectionViewCell
-            return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
+        if indexPath.row < self.appDelegate.people.count {
+            cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
+            cell.accountName.text = self.appDelegate.people[indexPath.row]
         }
+        return cell
     }
     
     /// Asks your data source object for the number of sections in the collection view.
@@ -241,6 +249,10 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 extension EventViewController : MultipeerManagerDelegate {
+    func reloadItemView(index: Int) {
+        return;
+    }
+    
     
     /// handler for detecting a new device and updating people collection view
     ///
@@ -267,12 +279,12 @@ extension EventViewController : MultipeerManagerDelegate {
         self.PeopleCollectionView.reloadData()
     }
     
-    func reloadItemView(index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        self.ItemCollectionView.performBatchUpdates({
-            self.ItemCollectionView.insertItems(at: [indexPath])
-        }, completion: nil)
-    }
+//    func reloadItemView(index: Int) {
+//        let indexPath = IndexPath(row: index, section: 0)
+//        self.ItemCollectionView.performBatchUpdates({
+//            self.ItemCollectionView.insertItems(at: [indexPath])
+//        }, completion: nil)
+//    }
 }
 
 extension NSMutableData {

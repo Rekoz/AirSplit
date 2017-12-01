@@ -8,6 +8,11 @@
 
 import UIKit
 
+//use Protocol
+protocol ItemTableViewCellDelegate: class {
+    func cell_did_add_item(_ sender: ItemTableViewCell)
+    func cell_did_add_people(_ sender: ItemTableViewCell)
+}
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemName: UITextField!
     @IBOutlet weak var ItemPrice: UITextField!
@@ -45,9 +50,4 @@ class ItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-}
-//use Protocol
-protocol ItemTableViewCellDelegate: class {
-    func cell_did_add_item(_ sender: ItemTableViewCell)
-    func cell_did_add_people(_ sender: ItemTableViewCell)
 }

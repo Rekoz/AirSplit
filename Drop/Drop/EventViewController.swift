@@ -78,8 +78,8 @@ class EventViewController: UIViewController,
         self.appDelegate.people.removeAll()
         self.appDelegate.items.removeAll()
         self.PeopleCollectionView.reloadData()
-        //self.ItemCollectionView.reloadData()
-        self.appDelegate.items.append(0)
+        self.ItemCollectionView.reloadData()
+        self.appDelegate.items.append("item")
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
         print("will load")
@@ -206,7 +206,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return self.appDelegate.people.count
         } else {
             print ("get items count")
-//            self.ItemCollectionView.reloadData()
+            //self.ItemCollectionView.reloadData()
             return self.appDelegate.items.count
         }
     }
@@ -241,6 +241,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 extension EventViewController : MultipeerManagerDelegate {
+    
     /// handler for detecting a new device and updating people collection view
     ///
     /// - Parameters:
@@ -266,19 +267,10 @@ extension EventViewController : MultipeerManagerDelegate {
         self.PeopleCollectionView.reloadData()
     }
     
-    func addItems(index: Int) {
+    func reloadItemView(index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         self.ItemCollectionView.performBatchUpdates({
             self.ItemCollectionView.insertItems(at: [indexPath])
-        }, completion: nil)
-    }
-    
-    func removeItems(index: Int) {
-        appDelegate.items.remove(at: index)
-        
-        let indexPath = IndexPath(row: index, section: 0)
-        self.ItemCollectionView.performBatchUpdates({
-            self.ItemCollectionView.deleteItems(at: [indexPath])
         }, completion: nil)
     }
 }

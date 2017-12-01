@@ -76,7 +76,10 @@ class EventViewController: UIViewController,
     /// - Parameter animated: boolean
     override func viewWillAppear(_ animated: Bool) {
         self.appDelegate.people.removeAll()
+        self.appDelegate.items.removeAll()
         self.PeopleCollectionView.reloadData()
+        //self.ItemCollectionView.reloadData()
+        self.appDelegate.items.append(0)
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
         print("will load")
@@ -92,6 +95,7 @@ class EventViewController: UIViewController,
     /// - Parameter sender: Any
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.appDelegate.people.removeAll()
+        self.appDelegate.items.removeAll()
         self.performSegue(withIdentifier: "unwindToHome", sender: self)
     }
     
@@ -198,9 +202,12 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     /// - Returns: number of detected devices in the people array if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.PeopleCollectionView {
+            print ("get people count")
             return self.appDelegate.people.count
         } else {
-            return 0
+            print ("get items count")
+//            self.ItemCollectionView.reloadData()
+            return self.appDelegate.items.count
         }
     }
 
@@ -212,17 +219,16 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     /// - Returns: a peopleCollectionViewCell if collectionView == PeopleCollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.PeopleCollectionView {
-            print("create cell")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
             if indexPath.row < self.appDelegate.people.count {
                 cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
                 cell.accountName.text = self.appDelegate.people[indexPath.row]
             }
             return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as! ItemCollectionViewCell
+            return cell
         }
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath)
-        return cell
     }
     
     /// Asks your data source object for the number of sections in the collection view.
@@ -258,6 +264,22 @@ extension EventViewController : MultipeerManagerDelegate {
             self.appDelegate.people.remove(at: index)
         }
         self.PeopleCollectionView.reloadData()
+    }
+    
+    func addItems(index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        self.ItemCollectionView.performBatchUpdates({
+            self.ItemCollectionView.insertItems(at: [indexPath])
+        }, completion: nil)
+    }
+    
+    func removeItems(index: Int) {
+        appDelegate.items.remove(at: index)
+        
+        let indexPath = IndexPath(row: index, section: 0)
+        self.ItemCollectionView.performBatchUpdates({
+            self.ItemCollectionView.deleteItems(at: [indexPath])
+        }, completion: nil)
     }
 }
 

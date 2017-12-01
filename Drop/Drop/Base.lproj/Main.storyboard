@@ -219,14 +219,43 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sRr-Kf-6wG" userLabel="Replaced Collection View">
+                                                    <rect key="frame" x="0.0" y="11" width="307" height="33"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="33" id="FbI-fu-FgR"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dvP-Gg-VH1">
+                                                        <size key="itemSize" width="50" height="50"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="coT-9u-Nvu" userLabel="ReplacedCell">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C06-2h-T6K" userLabel="ReplacedPopUp">
+                                                                        <rect key="frame" x="-95" y="-39" width="240" height="128"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </view>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IGm-c4-4pc">
-                                                    <rect key="frame" x="23" y="13.5" width="8" height="17"/>
+                                                    <rect key="frame" x="23" y="14" width="8" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHT-eP-8Sl">
-                                                    <rect key="frame" x="172" y="6.5" width="30" height="30"/>
+                                                    <rect key="frame" x="172" y="7" width="30" height="30"/>
                                                     <state key="normal" title="Add">
                                                         <color key="titleColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -235,27 +264,30 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-0v-ZYc">
-                                                    <rect key="frame" x="285" y="4" width="98" height="35"/>
+                                                    <rect key="frame" x="285" y="5" width="98" height="35"/>
                                                     <state key="normal" image="icons8-Add Filled-52"/>
                                                     <connections>
                                                         <action selector="add_people:" destination="bIe-xw-TlQ" eventType="touchUpInside" id="hC8-Ue-qZV"/>
                                                     </connections>
                                                 </button>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aT9-3a-OZB">
-                                                    <rect key="frame" x="299" y="13.5" width="8" height="17"/>
+                                                    <rect key="frame" x="299" y="14" width="8" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="sRr-Kf-6wG" firstAttribute="leading" secondItem="5dg-ep-DPo" secondAttribute="leading" id="26t-YU-2fk"/>
                                                 <constraint firstItem="aT9-3a-OZB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IGm-c4-4pc" secondAttribute="trailing" constant="8" symbolic="YES" id="661-Z1-foU"/>
                                                 <constraint firstItem="IGm-c4-4pc" firstAttribute="centerY" secondItem="5dg-ep-DPo" secondAttribute="centerY" id="OXG-RW-cOb"/>
+                                                <constraint firstAttribute="bottom" secondItem="sRr-Kf-6wG" secondAttribute="bottom" id="SfW-Lg-Cw5"/>
                                                 <constraint firstItem="IGm-c4-4pc" firstAttribute="leading" secondItem="5dg-ep-DPo" secondAttribute="leadingMargin" constant="8" id="Uab-vq-6yU"/>
                                                 <constraint firstItem="aT9-3a-OZB" firstAttribute="centerY" secondItem="lYh-0v-ZYc" secondAttribute="centerY" id="YEA-qv-1st"/>
                                                 <constraint firstItem="lYh-0v-ZYc" firstAttribute="leading" secondItem="rHT-eP-8Sl" secondAttribute="trailing" constant="83" id="iWx-Hg-4SH"/>
                                                 <constraint firstItem="rHT-eP-8Sl" firstAttribute="centerX" secondItem="5dg-ep-DPo" secondAttribute="centerX" id="lcV-ws-AyJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="aT9-3a-OZB" secondAttribute="trailing" constant="53" id="nHg-Hf-1zx"/>
+                                                <constraint firstItem="sRr-Kf-6wG" firstAttribute="trailing" secondItem="aT9-3a-OZB" secondAttribute="trailing" id="nRG-6n-hpa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="lYh-0v-ZYc" secondAttribute="trailing" constant="-23" id="qL1-x4-6JW"/>
                                                 <constraint firstItem="IGm-c4-4pc" firstAttribute="baseline" secondItem="rHT-eP-8Sl" secondAttribute="baseline" id="xqe-Rg-w9C"/>
                                                 <constraint firstItem="rHT-eP-8Sl" firstAttribute="baseline" secondItem="aT9-3a-OZB" secondAttribute="baseline" id="yAQ-fQ-yIy"/>

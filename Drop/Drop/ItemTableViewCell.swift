@@ -13,6 +13,7 @@ protocol ItemTableViewCellDelegate: class {
     func cell_did_add_item(_ sender: ItemTableViewCell)
     func cell_did_add_people(_ sender: ItemTableViewCell)
 }
+
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemName: UITextField!
     @IBOutlet weak var ItemPrice: UITextField!

@@ -193,7 +193,12 @@ class EventViewController: UIViewController,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    @IBOutlet weak var SearchButton: UISearchBar!
+    
+    
 }
+
+
 //======================
 //related to table view
 //======================

@@ -11,7 +11,8 @@ import UIKit
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate {
+    UINavigationControllerDelegate,
+    UISearchBarDelegate{
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
@@ -21,6 +22,7 @@ class EventViewController: UIViewController,
     
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
+    @IBOutlet weak var SearchButton: UISearchBar!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -45,6 +47,8 @@ class EventViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didLoad")
+        
+        SearchButton.delegate = self
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -117,6 +121,7 @@ class EventViewController: UIViewController,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
         let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
+//        let url = URL(string: "https://api.taggun.io/api/receipt/v1/simple/file")!
         var request = URLRequest(url: url)
         
         let boundary = "Boundary-\(UUID().uuidString)"
@@ -149,8 +154,10 @@ class EventViewController: UIViewController,
                 print("response = \(response!)")
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString!)")
+            let result = self.convertToDictionary(text: data)!
+//            print("responseString = \(responseJSON!)")
+//            dump(result)
+            print(((result["totalAmount"] as AnyObject)["regions"] as! [AnyObject])[0])
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)
@@ -198,9 +205,23 @@ class EventViewController: UIViewController,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    @IBOutlet weak var SearchButton: UISearchBar!
     
+    func convertToDictionary(text: Data) -> [String: Any]? {
+        do {
+            return try (JSONSerialization.jsonObject(with: text, options: []) as! [String: Any])
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("searchText \(searchText)")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchText \(searchBar.text)")
+    }
 }
 
 

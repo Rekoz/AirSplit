@@ -5,11 +5,11 @@ Part A report: https://docs.google.com/document/d/1lgfaYHzcnapfvrdr63vOl2-i9UUow
 
 AWS Mobile Hub http://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-aws-mobile-sdk.html#add-aws-mobile-sdk-setup-app
 
-AWS Console Login:
+Gmail and AWS
 
-account: airsplit130@gmail.com  
+account: 130airsplit@gmail.com
 
-passcode: Airsplit130!
+password: 130airsplit!
 
 
 AirSplit Login:

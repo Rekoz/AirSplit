@@ -207,25 +207,15 @@ class EventViewController: UIViewController,
 extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 // your number of cell here
+        return self.appDelegate.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
-        cell.delegate = self as? ItemTableViewCellDelegate
+        cell.delegate = self
         return cell
     }
-    
-    func cell_did_add_item(_ sender: ItemTableViewCell) {
-        print("tapped add button")
-        self.ItemTableView.reloadData()
-        
-    }
-    
-    
-    
-    
 //    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 //        // cell selected code here
 //    }
@@ -271,12 +261,6 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 //Related to Multipeer API
 extension EventViewController : MultipeerManagerDelegate {
-    func reloadItemView(index: Int) {
-//        self.ItemTableView.reloadData()
-        return
-    }
-    
-    
     /// handler for detecting a new device and updating people collection view
     ///
     /// - Parameters:
@@ -301,13 +285,22 @@ extension EventViewController : MultipeerManagerDelegate {
         }
         self.PeopleCollectionView.reloadData()
     }
+}
+
+extension EventViewController : ItemTableViewCellDelegate {
+    func cell_did_add_people(_ sender: ItemTableViewCell) {
+        //
+    }
     
-//    func reloadItemView(index: Int) {
-//        let indexPath = IndexPath(row: index, section: 0)
-//        self.ItemCollectionView.performBatchUpdates({
-//            self.ItemCollectionView.insertItems(at: [indexPath])
-//        }, completion: nil)
-//    }
+    func cell_did_add_item(_ sender: ItemTableViewCell) {
+        print("tapped add button")
+        sender.AddButton.isHidden = true
+        sender.ItemName.placeholder = "Item Name"
+        sender.ItemPrice.placeholder = "Item Price"
+        self.appDelegate.items.append("Item")
+        
+        self.ItemTableView.reloadData()
+    }
 }
 
 extension NSMutableData {

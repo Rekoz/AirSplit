@@ -28,6 +28,9 @@ class EventViewController: UIViewController,
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
+    private var splitable : Bool
+    private var assignees = [PeopleCollectionViewCell]()
+    
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
     /// - Parameters:
@@ -36,12 +39,14 @@ class EventViewController: UIViewController,
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
+        self.splitable = false
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
+        self.splitable = false
         super.init(coder: aDecoder)
     }
 
@@ -328,6 +333,38 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    
+    // Select and de-select people during splitting
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        guard self.splitable else {
+            print("Not splittable")
+            return
+        }
+        
+        let person = self.PeopleCollectionView.cellForItem(at: indexPath) as! PeopleCollectionViewCell
+        
+        // toggle color
+        person.accountImageView.alpha = (person.accountImageView.alpha == 1) ? 0.5 : 1
+        
+        // de-select
+        if (assignees.contains(person)) {
+            print(person.accountName.text! + " is de-selected")
+            assignees = assignees.filter({ $0.accountName != person.accountName })
+        }
+            // select
+        else {
+            print(person.accountName.text! + " is selected")
+            assignees.append(person)
+        }
+        
+        // DEBUG
+        print("Assignees: ")
+        for assignee in assignees as [PeopleCollectionViewCell] {
+            print(assignee.accountName.text! + " ")
+        }
+    }
 }
 
 //Related to Multipeer API
@@ -360,7 +397,33 @@ extension EventViewController : MultipeerManagerDelegate {
 
 extension EventViewController : ItemTableViewCellDelegate {
     func cell_did_add_people(_ sender: ItemTableViewCell) {
-        //
+        
+        self.splitable = !self.splitable
+        
+        // Unselect
+        guard self.splitable else {
+            print("Splitting finished")
+            for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+                let icon = person.accountImageView
+                icon?.alpha = 1
+            }
+            self.assignees.removeAll()
+            self.PeopleCollectionView.allowsMultipleSelection = false
+            return
+        }
+        
+        // Select
+        print("Start splitting")
+        for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+            let icon = person.accountImageView
+            icon?.alpha = 0.5
+        }
+        self.PeopleCollectionView.allowsMultipleSelection = true
+        let row = sender.tag
+        let indexPath = IndexPath(row: row, section: 0)
+        let cell = self.ItemTableView.cellForRow(at: indexPath) as! ItemTableViewCell
+        cell.assignees = self.assignees
+        self.ItemTableView.reloadData()
     }
     
     func cell_did_add_item(_ sender: ItemTableViewCell) {

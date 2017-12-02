@@ -11,6 +11,10 @@
 		3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B004DF11FBA99DD006ECFB8 /* DropTests.swift */; };
 		3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
 		3BC68FAE1FAFB4B000B3089D /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
+		3BEED3B31FBD4B5D0042AEA2 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
+		3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
+		3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
+		3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
 		3BEED3BA1FBD5C440042AEA2 /* CognitoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D831416C1FB93E2200C6FE10 /* CognitoConfig.swift */; };
 		3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
 		676720296168351346229D56 /* Pods_DropTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CBF0E962FFDC8F1D900D0E /* Pods_DropTests.framework */; };
@@ -30,6 +34,8 @@
 		D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84971871FBD5E150017D841 /* SignupTests.swift */; };
 		D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
 		D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B9F6591FBE5E8E008786BB /* LoginTests.swift */; };
+		EE89FFBD1FD2226400ECB828 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE89FFBC1FD2226400ECB828 /* User.swift */; };
+		EE89FFBF1FD222DE00ECB828 /* UserTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE89FFBE1FD222DE00ECB828 /* UserTable.swift */; };
 		EEA4C0491FC14BA300595DE5 /* TransactionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C0471FC14BA300595DE5 /* TransactionTable.swift */; };
 		EEA4C04A1FC14BA300595DE5 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C0481FC14BA300595DE5 /* Transaction.swift */; };
 		EEA4C04C1FC14C1100595DE5 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = EEA4C04B1FC14C1100595DE5 /* awsconfiguration.json */; };
@@ -75,6 +81,8 @@
 		D83D44E11FB2B61300BB4615 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D84971871FBD5E150017D841 /* SignupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
 		D8B9F6591FBE5E8E008786BB /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
+		EE89FFBC1FD2226400ECB828 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EE89FFBE1FD222DE00ECB828 /* UserTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTable.swift; sourceTree = "<group>"; };
 		EEA4C0471FC14BA300595DE5 /* TransactionTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTable.swift; sourceTree = "<group>"; };
 		EEA4C0481FC14BA300595DE5 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		EEA4C04B1FC14C1100595DE5 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
@@ -182,6 +190,8 @@
 			children = (
 				EEA4C0481FC14BA300595DE5 /* Transaction.swift */,
 				EEA4C0471FC14BA300595DE5 /* TransactionTable.swift */,
+				EE89FFBE1FD222DE00ECB828 /* UserTable.swift */,
+				EE89FFBC1FD2226400ECB828 /* User.swift */,
 				EEA4C04D1FC14CC700595DE5 /* NoSQLModelHelpers.swift */,
 			);
 			path = DDB;
@@ -419,6 +429,9 @@
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
 				3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */,
 				3BEED3BA1FBD5C440042AEA2 /* CognitoConfig.swift in Sources */,
+				3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */,
+				3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */,
+				3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */,
 				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
 				D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
@@ -430,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEA4C04A1FC14BA300595DE5 /* Transaction.swift in Sources */,
+				EE89FFBF1FD222DE00ECB828 /* UserTable.swift in Sources */,
 				D83D44E61FB2B61400BB4615 /* LoginViewController.swift in Sources */,
 				697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */,
 				D83D44E41FB2B61400BB4615 /* SignUpViewController.swift in Sources */,
@@ -437,6 +451,7 @@
 				697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */,
 				EEA4C0491FC14BA300595DE5 /* TransactionTable.swift in Sources */,
 				D831416D1FB93E2200C6FE10 /* CognitoConfig.swift in Sources */,
+				EE89FFBD1FD2226400ECB828 /* User.swift in Sources */,
 				697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */,
 				3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */,
 				3BC68FAE1FAFB4B000B3089D /* PeopleCollectionViewCell.swift in Sources */,
@@ -481,7 +496,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 77569F29Z2;
+				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				INFOPLIST_FILE = DropTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = class.DropTests;
@@ -498,7 +513,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 77569F29Z2;
+				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				INFOPLIST_FILE = DropTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = class.DropTests;
@@ -624,6 +639,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				DEVELOPMENT_TEAM = 3HX3B97Y7D;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -641,6 +657,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				DEVELOPMENT_TEAM = 3HX3B97Y7D;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

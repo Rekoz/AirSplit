@@ -570,7 +570,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2694" y="199"/>
+            <point key="canvasLocation" x="3249" y="345"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="vby-MP-x63">
@@ -786,7 +786,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYs-Br-BkL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="v73-7t-T74" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2935" y="824"/>
+            <point key="canvasLocation" x="2372" y="887"/>
         </scene>
     </scenes>
     <resources>

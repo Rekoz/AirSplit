@@ -11,7 +11,8 @@ import UIKit
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate {
+    UINavigationControllerDelegate,
+    UISearchBarDelegate{
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
@@ -22,6 +23,7 @@ class EventViewController: UIViewController,
     
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
+    @IBOutlet weak var SearchButton: UISearchBar!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -46,6 +48,8 @@ class EventViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didLoad")
+        
+        SearchButton.delegate = self
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -118,12 +122,15 @@ class EventViewController: UIViewController,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
         let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
+//        let url = URL(string: "https://api.taggun.io/api/receipt/v1/simple/file")!
         var request = URLRequest(url: url)
-        request.setValue("apikey", forHTTPHeaderField: "a445ca40c4a311e7a0ebfdc7a5da208a")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
+        
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("a445ca40c4a311e7a0ebfdc7a5da208a", forHTTPHeaderField: "apikey")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        
         let params = [
             "refresh": "false",
             "incognito": "false"
@@ -136,6 +143,7 @@ class EventViewController: UIViewController,
             mimeType: "image/jpg",
             filename: "receipt.jpg"
         )
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
                 print("error=\(error!)")
@@ -147,8 +155,10 @@ class EventViewController: UIViewController,
                 print("response = \(response!)")
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString!)")
+            let result = self.convertToDictionary(text: data)!
+//            print("responseString = \(responseJSON!)")
+//            dump(result)
+            print(((result["totalAmount"] as AnyObject)["regions"] as! [AnyObject])[0])
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)
@@ -181,9 +191,11 @@ class EventViewController: UIViewController,
         body.appendString(boundaryPrefix)
         body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        print(NSString(data: body as Data, encoding: String.Encoding.utf8.rawValue)!)
         body.append(data)
         body.appendString("\r\n")
-        body.appendString("--".appending(boundary.appending("--\r\n")))
+        
+        body.appendString("--\(boundary)--\r\n")
         
         return body as Data
     }
@@ -194,7 +206,26 @@ class EventViewController: UIViewController,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    func convertToDictionary(text: Data) -> [String: Any]? {
+        do {
+            return try (JSONSerialization.jsonObject(with: text, options: []) as! [String: Any])
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("searchText \(searchText)")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchText \(searchBar.text)")
+    }
 }
+
+
 //======================
 //related to table view
 //======================

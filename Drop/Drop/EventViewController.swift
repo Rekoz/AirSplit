@@ -118,11 +118,13 @@ class EventViewController: UIViewController,
         let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
         let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
         var request = URLRequest(url: url)
-        request.setValue("apikey", forHTTPHeaderField: "a445ca40c4a311e7a0ebfdc7a5da208a")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
+        
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("a445ca40c4a311e7a0ebfdc7a5da208a", forHTTPHeaderField: "apikey")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        
         let params = [
             "refresh": "false",
             "incognito": "false"
@@ -135,6 +137,7 @@ class EventViewController: UIViewController,
             mimeType: "image/jpg",
             filename: "receipt.jpg"
         )
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
                 print("error=\(error!)")
@@ -180,9 +183,11 @@ class EventViewController: UIViewController,
         body.appendString(boundaryPrefix)
         body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        print(NSString(data: body as Data, encoding: String.Encoding.utf8.rawValue)!)
         body.append(data)
         body.appendString("\r\n")
-        body.appendString("--".appending(boundary.appending("--\r\n")))
+        
+        body.appendString("--\(boundary)--\r\n")
         
         return body as Data
     }
@@ -200,25 +205,15 @@ class EventViewController: UIViewController,
 extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 // your number of cell here
+        return self.appDelegate.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
-        cell.delegate = self as? ItemTableViewCellDelegate
+        cell.delegate = self
         return cell
     }
-    
-    func cell_did_add_item(_ sender: ItemTableViewCell) {
-        print("tapped add button")
-        self.ItemTableView.reloadData()
-        
-    }
-    
-    
-    
-    
 //    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 //        // cell selected code here
 //    }
@@ -264,12 +259,6 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 //Related to Multipeer API
 extension EventViewController : MultipeerManagerDelegate {
-    func reloadItemView(index: Int) {
-//        self.ItemTableView.reloadData()
-        return
-    }
-    
-    
     /// handler for detecting a new device and updating people collection view
     ///
     /// - Parameters:
@@ -294,13 +283,22 @@ extension EventViewController : MultipeerManagerDelegate {
         }
         self.PeopleCollectionView.reloadData()
     }
+}
+
+extension EventViewController : ItemTableViewCellDelegate {
+    func cell_did_add_people(_ sender: ItemTableViewCell) {
+        //
+    }
     
-//    func reloadItemView(index: Int) {
-//        let indexPath = IndexPath(row: index, section: 0)
-//        self.ItemCollectionView.performBatchUpdates({
-//            self.ItemCollectionView.insertItems(at: [indexPath])
-//        }, completion: nil)
-//    }
+    func cell_did_add_item(_ sender: ItemTableViewCell) {
+        print("tapped add button")
+        sender.AddButton.isHidden = true
+        sender.ItemName.placeholder = "Item Name"
+        sender.ItemPrice.placeholder = "Item Price"
+        self.appDelegate.items.append("Item")
+        
+        self.ItemTableView.reloadData()
+    }
 }
 
 extension NSMutableData {

@@ -157,8 +157,8 @@ class EventViewController: UIViewController,
             let result = self.convertToDictionary(text: data)
             let lineAmounts = result["lineAmounts"] as! [AnyObject]
             for item in lineAmounts {
-                print(item["description"] as! String)
-                //self.appDelegate.items.append(item["description"] as! String)
+                //print(item["description"] as! String)
+                self.appDelegate.items.append(item["description"] as! String)
             }
             
             //reload

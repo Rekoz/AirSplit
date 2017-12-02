@@ -210,7 +210,12 @@ class EventViewController: UIViewController,
         }
         return nil
     }
+    @IBOutlet weak var SearchButton: UISearchBar!
+    
+    
 }
+
+
 //======================
 //related to table view
 //======================

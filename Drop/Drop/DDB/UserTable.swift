@@ -1,5 +1,5 @@
 //
-//  TransactionTable.swift
+//  UserTable.swift
 //  MySampleApp
 //
 //
@@ -16,7 +16,7 @@ import UIKit
 import AWSDynamoDB
 import AWSAuthCore
 
-class TransactionTable: NSObject, Table {
+class UserTable: NSObject, Table {
     
     var tableName: String
     var partitionKeyName: String
@@ -30,12 +30,12 @@ class TransactionTable: NSObject, Table {
     }
     var tableDisplayName: String {
 
-        return "Transaction"
+        return "User"
     }
     
     override init() {
 
-        model = Transaction()
+        model = User()
         
         tableName = model.classForCoder.dynamoDBTableName()
         partitionKeyName = model.classForCoder.hashKeyAttribute()
@@ -56,17 +56,17 @@ class TransactionTable: NSObject, Table {
      */
 
     func tableAttributeName(_ dataObjectAttributeName: String) -> String {
-        return Transaction.jsonKeyPathsByPropertyKey()[dataObjectAttributeName] as! String
+        return User.jsonKeyPathsByPropertyKey()[dataObjectAttributeName] as! String
     }
     
     func getItemDescription() -> String {
-        let hashKeyValue = "test-item"
-        return "Find Item with transactionId = \(hashKeyValue)."
+        let hashKeyValue = AWSIdentityManager.default().identityId!
+        return "Find Item with userId = \(hashKeyValue)."
     }
     
     func getItemWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBObjectModel?, _ error: NSError?) -> Void) {
         let objectMapper = AWSDynamoDBObjectMapper.default()
-        objectMapper.load(Transaction.self, hashKey: "test-item", rangeKey: nil) { (response: AWSDynamoDBObjectModel?, error: Error?) in
+        objectMapper.load(User.self, hashKey: "test-item", rangeKey: nil) { (response: AWSDynamoDBObjectModel?, error: Error?) in
             DispatchQueue.main.async(execute: {
                 completionHandler(response, error as NSError?)
             })
@@ -82,7 +82,7 @@ class TransactionTable: NSObject, Table {
         let scanExpression = AWSDynamoDBScanExpression()
         scanExpression.limit = 5
 
-        objectMapper.scan(Transaction.self, expression: scanExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
+        objectMapper.scan(User.self, expression: scanExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
             DispatchQueue.main.async(execute: {
                 completionHandler(response, error as NSError?)
             })
@@ -90,19 +90,19 @@ class TransactionTable: NSObject, Table {
     }
     
     func scanWithFilterDescription() -> String {
-        let scanFilterValue = 666
-        return "Find all items with borrower = \(scanFilterValue)."
+        let scanFilterValue = "666"
+        return "Find all items with accountName < \(scanFilterValue)."
     }
     
     func scanWithFilterWithCompletionHandler(_ completionHandler: @escaping (_ response: AWSDynamoDBPaginatedOutput?, _ error: NSError?) -> Void) {
         let objectMapper = AWSDynamoDBObjectMapper.default()
         let scanExpression = AWSDynamoDBScanExpression()
         
-        scanExpression.filterExpression = "#borrower = :borrower"
-        scanExpression.expressionAttributeNames = ["#borrower": "borrower" ,]
-        scanExpression.expressionAttributeValues = [":borrower": 666 ,]
+        scanExpression.filterExpression = "#firstName = :firstName"
+        scanExpression.expressionAttributeNames = ["#firstName": "firstName" ,]
+        scanExpression.expressionAttributeValues = [":firstName": "test" ,]
 
-        objectMapper.scan(Transaction.self, expression: scanExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
+        objectMapper.scan(User.self, expression: scanExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
             DispatchQueue.main.async(execute: {
                 completionHandler(response, error as? NSError)
             })
@@ -113,15 +113,20 @@ class TransactionTable: NSObject, Table {
         let objectMapper = AWSDynamoDBObjectMapper.default()
         var errors: [NSError] = []
         let group: DispatchGroup = DispatchGroup()
+        let numberOfObjects = 20
         
-        let itemForGet: Transaction! = Transaction()
+
+        let itemForGet: User! = User()
         
-        itemForGet._transactionId = "test-item"
-        itemForGet._borrower = 666
-        itemForGet._lender = 666
-        itemForGet._transactionDate = "test-date"
+        itemForGet._userId = "test-item"
+        itemForGet._accountName = "test-accountName"
+        itemForGet._firstName = "test-firstName"
+        itemForGet._lastName = "test-lastName"
+        itemForGet._profilePhoto = "test-profilePhoto"
+        itemForGet._friends = ["test-friend1", "test-friend2"]
         
         group.enter()
+        
 
         objectMapper.save(itemForGet, completionHandler: {(error: Error?) -> Void in
             if let error = error as? NSError {
@@ -131,6 +136,23 @@ class TransactionTable: NSObject, Table {
             }
             group.leave()
         })
+        
+        for _ in 1..<numberOfObjects {
+
+            let item: User = User()
+            item._userId = AWSIdentityManager.default().identityId!
+            
+            group.enter()
+            
+            objectMapper.save(item, completionHandler: {(error: Error?) -> Void in
+                if error != nil {
+                    DispatchQueue.main.async(execute: {
+                        errors.append(error! as NSError)
+                    })
+                }
+                group.leave()
+            })
+        }
         
         group.notify(queue: DispatchQueue.main, execute: {
             if errors.count > 0 {
@@ -144,12 +166,12 @@ class TransactionTable: NSObject, Table {
     
     func removeSampleDataWithCompletionHandler(_ completionHandler: @escaping ([NSError]?) -> Void) {
         let objectMapper = AWSDynamoDBObjectMapper.default()
-        let scanExpression = AWSDynamoDBScanExpression()
-        scanExpression.filterExpression = "begins_with(#transactionId, :transactionId)"
-        scanExpression.expressionAttributeNames = ["#transactionId": "transactionId"]
-        scanExpression.expressionAttributeValues = [":transactionId": "test-"]
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        queryExpression.expressionAttributeNames = ["#userId": "userId"]
+        queryExpression.expressionAttributeValues = [":userId": "test-",]
 
-        objectMapper.scan(Transaction.self, expression: scanExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
+        objectMapper.query(User.self, expression: queryExpression) { (response: AWSDynamoDBPaginatedOutput?, error: Error?) in
             if let error = error as? NSError {
                 DispatchQueue.main.async(execute: {
                     completionHandler([error]);
@@ -178,6 +200,26 @@ class TransactionTable: NSObject, Table {
                 })
             }
         }
+    }
+    
+    func updateItem(_ item: AWSDynamoDBObjectModel, completionHandler: @escaping (_ error: NSError?) -> Void) {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
+        
+
+        let itemToUpdate: User = item as! User
+        
+        itemToUpdate._userId = "test-item"
+        itemToUpdate._accountName = "test-accountName"
+        itemToUpdate._firstName = "test-firstName"
+        itemToUpdate._lastName = "test-lastName"
+        itemToUpdate._profilePhoto = "test-profilePhoto"
+        itemToUpdate._friends = ["test-friend1", "test-friend2"]
+        
+        objectMapper.save(itemToUpdate, completionHandler: {(error: Error?) in
+            DispatchQueue.main.async(execute: {
+                completionHandler(error as? NSError)
+            })
+        })
     }
     
     func removeItem(_ item: AWSDynamoDBObjectModel, completionHandler: @escaping (_ error: NSError?) -> Void) {

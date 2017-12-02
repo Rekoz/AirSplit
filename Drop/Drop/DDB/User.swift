@@ -1,5 +1,5 @@
 //
-//  Transaction.swift
+//  User.swift
 //  MySampleApp
 //
 //
@@ -15,29 +15,33 @@ import Foundation
 import UIKit
 import AWSDynamoDB
 
-class Transaction: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
+class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    var _transactionId: String?
-    var _borrower: NSNumber?
-    var _lender: NSNumber?
-    var _transactionDate: String?
+    var _userId: String?
+    var _accountName: String?
+    var _firstName: String?
+    var _friends: [String]?
+    var _lastName: String?
+    var _profilePhoto: String?
     
     class func dynamoDBTableName() -> String {
 
-        return "airsplit-mobilehub-446684325-Transaction"
+        return "airsplit-mobilehub-446684325-User"
     }
     
     class func hashKeyAttribute() -> String {
 
-        return "_transactionId"
+        return "_userId"
     }
     
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
-               "_transactionId" : "transactionId",
-               "_borrower" : "borrower",
-               "_lender" : "lender",
-               "_transactionDate" : "transactionDate",
+               "_userId" : "userId",
+               "_accountName" : "accountName",
+               "_firstName" : "firstName",
+               "_friends" : "friends",
+               "_lastName" : "lastName",
+               "_profilePhoto" : "profilePhoto",
         ]
     }
 }

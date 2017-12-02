@@ -117,6 +117,7 @@ class EventViewController: UIViewController,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let receipt = info[UIImagePickerControllerOriginalImage] as! UIImage
         let url = URL(string: "https://api.taggun.io/api/receipt/v1/verbose/file")!
+//        let url = URL(string: "https://api.taggun.io/api/receipt/v1/simple/file")!
         var request = URLRequest(url: url)
         
         let boundary = "Boundary-\(UUID().uuidString)"
@@ -149,8 +150,10 @@ class EventViewController: UIViewController,
                 print("response = \(response!)")
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString!)")
+            let result = self.convertToDictionary(text: data)!
+//            print("responseString = \(responseJSON!)")
+//            dump(result)
+            print(((result["totalAmount"] as AnyObject)["regions"] as! [AnyObject])[0])
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)
@@ -197,6 +200,15 @@ class EventViewController: UIViewController,
     /// - Parameter picker: The picker manages user interactions and delivers the results of those interactions to a delegate object.
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func convertToDictionary(text: Data) -> [String: Any]? {
+        do {
+            return try (JSONSerialization.jsonObject(with: text, options: []) as! [String: Any])
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
     }
 }
 //======================

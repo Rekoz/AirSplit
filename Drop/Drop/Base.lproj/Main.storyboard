@@ -147,7 +147,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="pmd-0x-Urt">
+                            <searchBar contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="pmd-0x-Urt">
                                 <rect key="frame" x="0.0" y="60" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>

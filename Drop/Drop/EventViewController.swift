@@ -11,7 +11,8 @@ import UIKit
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate {
+    UINavigationControllerDelegate,
+    UISearchBarDelegate{
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
@@ -21,6 +22,7 @@ class EventViewController: UIViewController,
     
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
+    @IBOutlet weak var SearchButton: UISearchBar!
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -45,6 +47,8 @@ class EventViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didLoad")
+        
+        SearchButton.delegate = self
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -210,9 +214,14 @@ class EventViewController: UIViewController,
         }
         return nil
     }
-    @IBOutlet weak var SearchButton: UISearchBar!
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("searchText \(searchText)")
+    }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchText \(searchBar.text)")
+    }
 }
 
 

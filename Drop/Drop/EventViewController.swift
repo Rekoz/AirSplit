@@ -160,10 +160,14 @@ class EventViewController: UIViewController,
                 print("response = \(response!)")
             }
             
-            let result = self.convertToDictionary(text: data)!
-//            print("responseString = \(responseJSON!)")
-//            dump(result)
-            print(((result["totalAmount"] as AnyObject)["regions"] as! [AnyObject])[0])
+            let result = self.convertToDictionary(text: data)
+            let lineAmounts = result["lineAmounts"] as! [AnyObject]
+            for item in lineAmounts {
+                //print(item["description"] as! String)
+                self.appDelegate.items.append(item["description"] as! String)
+            }
+            
+            //reload
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)
@@ -212,13 +216,8 @@ class EventViewController: UIViewController,
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func convertToDictionary(text: Data) -> [String: Any]? {
-        do {
-            return try (JSONSerialization.jsonObject(with: text, options: []) as! [String: Any])
-        } catch {
-            print(error.localizedDescription)
-        }
-        return nil
+    func convertToDictionary(text: Data) -> [String: Any] {
+        return try! JSONSerialization.jsonObject(with: text, options: []) as! [String: Any]
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

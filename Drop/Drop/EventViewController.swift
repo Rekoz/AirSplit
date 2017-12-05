@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
@@ -24,6 +25,11 @@ class EventViewController: UIViewController,
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var SearchButton: UISearchBar!
+    @IBOutlet weak var SearchTable: UITableView!
+    
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -55,6 +61,9 @@ class EventViewController: UIViewController,
         print("didLoad")
         
         SearchButton.delegate = self
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -226,6 +235,12 @@ class EventViewController: UIViewController,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchText \(searchText)")
+        let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
+        query.observe(.value, with: { (snapshot) in
+            for childSnapshot in snapshot.children {
+                print(childSnapshot)
+            }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -292,9 +307,6 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     func cancelDeleteItem(alertAction: UIAlertAction!) {
         deleteItemIndexPath = nil
     }
-//    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-//        // cell selected code here
-//    }
 }
 
 

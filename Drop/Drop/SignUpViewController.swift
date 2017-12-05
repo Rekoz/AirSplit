@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognitoIdentityProvider
+import Firebase
 
 /**
     View controller for registering new users.
@@ -21,7 +22,19 @@ class SignupViewController : UIViewController {
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
+    
     var user: AWSCognitoIdentityUser?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
+    }
     
     /**
      Notifies the view controller that its view is about to be added to a view hierarchy.
@@ -76,17 +89,7 @@ class SignupViewController : UIViewController {
         let attributes:[AWSCognitoIdentityUserAttributeType] = [emailAttribute, firstNameAttribute, lastNameAttribute];
         userPool.signUp(email.text!, password: password.text!, userAttributes: attributes, validationData: nil)
             .continueWith { (response) -> Any? in
-//                if response.error != nil {
-//                    // Error in the Signup Process
-//                    let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-//                    self.present(alert, animated: true, completion: nil)
-//                } else {
-//                    self.user = response.result!.user
-//                    DispatchQueue.main.async {
-//                        self.presentingViewController?.dismiss(animated: true, completion: nil)
-//                    }
-//                }
+
                 DispatchQueue.main.async {
                     if response.error != nil {
                         let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
@@ -99,6 +102,7 @@ class SignupViewController : UIViewController {
                 }
                 return nil
         }
+        self.ref.child("users").child(firstName.text! + "_" + lastName.text!).setValue(["accountName": firstName.text!.uppercased() + " " + lastName.text!.uppercased(), "firstName":firstName.text!, "lastName": lastName.text!])
     }
     
     @IBAction func backPressed(_ sender: AnyObject) {

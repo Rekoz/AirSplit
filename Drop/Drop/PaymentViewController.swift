@@ -30,22 +30,6 @@ class PaymentViewController: UIViewController {
     }
 
 }
-//
-////related to Tableview
-//extension EventViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1  //implement
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath)
-//        return cell
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1 //implement
-//    }
-//}
 
 //related to payment Tableview
 extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {

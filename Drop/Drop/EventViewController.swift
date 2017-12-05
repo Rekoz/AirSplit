@@ -25,6 +25,8 @@ class EventViewController: UIViewController,
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var SearchButton: UISearchBar!
+    @IBOutlet weak var SearchTable: UITableView!
+    
     // [START define_database_reference]
     var ref: DatabaseReference!
     // [END define_database_reference]
@@ -305,9 +307,6 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     func cancelDeleteItem(alertAction: UIAlertAction!) {
         deleteItemIndexPath = nil
     }
-//    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-//        // cell selected code here
-//    }
 }
 
 

@@ -375,6 +375,7 @@
                         <outlet property="ItemTableView" destination="Aek-rt-eXF" id="SX7-wJ-e9a"/>
                         <outlet property="PeopleCollectionView" destination="wf6-Rf-gqp" id="xUu-fm-BRq"/>
                         <outlet property="SearchButton" destination="pmd-0x-Urt" id="7aL-eF-1MY"/>
+                        <outlet property="SearchTable" destination="hnU-Yi-Px1" id="ikq-1v-tUD"/>
                         <segue destination="b2y-bJ-Ll5" kind="unwind" identifier="unwindToHome" unwindAction="unwindToHome:" id="K9m-IM-ipK"/>
                     </connections>
                 </viewController>

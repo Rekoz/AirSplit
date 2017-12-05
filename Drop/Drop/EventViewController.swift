@@ -29,6 +29,7 @@ class EventViewController: UIViewController,
     private var multipeer : MultipeerManager
     
     private var splitable : Bool
+    private var splitAtIndex: Int
     private var assignees = [PeopleCollectionViewCell]()
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
@@ -40,6 +41,7 @@ class EventViewController: UIViewController,
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         self.splitable = false
+        self.splitAtIndex = -1
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -47,6 +49,7 @@ class EventViewController: UIViewController,
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         self.splitable = false
+        self.splitAtIndex = -1
         super.init(coder: aDecoder)
     }
 
@@ -397,33 +400,14 @@ extension EventViewController : MultipeerManagerDelegate {
 
 extension EventViewController : ItemTableViewCellDelegate {
     func cell_did_add_people(_ sender: ItemTableViewCell) {
-        
-        self.splitable = !self.splitable
-        
-        // Unselect
-        guard self.splitable else {
-            print("Splitting finished")
-            for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
-                let icon = person.accountImageView
-                icon?.alpha = 1
-            }
-            self.assignees.removeAll()
-            self.PeopleCollectionView.allowsMultipleSelection = false
-            return
+        // Start splitting
+        if (self.splitAtIndex != ItemTableView.indexPath(for: sender)?.row) {
+            initializeSplitting(cell: sender)
         }
-        
-        // Select
-        print("Start splitting")
-        for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
-            let icon = person.accountImageView
-            icon?.alpha = 0.5
+        // End splitting
+        else {
+            endSplitting(cell: sender)
         }
-        self.PeopleCollectionView.allowsMultipleSelection = true
-        let row = sender.tag
-        let indexPath = IndexPath(row: row, section: 0)
-        let cell = self.ItemTableView.cellForRow(at: indexPath) as! ItemTableViewCell
-        cell.assignees = self.assignees
-        self.ItemTableView.reloadData()
     }
     
     func cell_did_add_item(_ sender: ItemTableViewCell) {
@@ -440,6 +424,56 @@ extension EventViewController : ItemTableViewCellDelegate {
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()
+    }
+    
+    func initializeSplitting(cell: ItemTableViewCell) {
+        print("Start splitting")
+        self.splitAtIndex = (ItemTableView.indexPath(for: cell)?.row)!
+        self.splitable = true;
+        self.assignees.removeAll()
+        for person in self.PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+            let icon = person.accountImageView
+            icon?.alpha = 0.5
+        }
+        self.PeopleCollectionView.allowsMultipleSelection = false
+        
+        // DEBUG
+        print("Assignees: ")
+        for assignee in assignees as [PeopleCollectionViewCell] {
+            print(assignee.accountName.text! + " ")
+        }
+    }
+    
+    func endSplitting(cell: ItemTableViewCell) {
+        print("End splitting")
+        self.splitAtIndex = -1
+        self.splitable = false
+        
+//        cell.AssigneeCollection.performBatchUpdates({
+//            cell.assignees.removeAll()
+//            cell.assignees.append(contentsOf: self.assignees)
+//        }, completion: nil)
+        cell.assignees.removeAll()
+        cell.assignees.append(contentsOf: self.assignees)
+        cell.AssigneeCollection.reloadData()
+        
+        self.assignees.removeAll()
+        for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+            let icon = person.accountImageView
+            icon?.alpha = 1
+        }
+//        self.PeopleCollectionView.allowsMultipleSelection = false
+        
+        // DEBUG
+        print("Assignees: ")
+        for assignee in assignees as [PeopleCollectionViewCell] {
+            print(assignee.accountName.text! + " ")
+        }
+        let i = self.ItemTableView.indexPath(for: cell)?.row
+        print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")
+        for person in cell.AssigneeCollection.visibleCells as! [PeopleCollectionViewCell] {
+            print("\(person.accountName.text)")
+        }
     }
 }
 

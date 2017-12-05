@@ -11,6 +11,8 @@ import UIKit
 ///Cell for display the detected device with its user's image and full name
 class PeopleCollectionViewCell: UICollectionViewCell {
     
+
+
     @IBOutlet weak var accountImageView: UIImageView!
     @IBOutlet weak var accountName: UILabel!
     

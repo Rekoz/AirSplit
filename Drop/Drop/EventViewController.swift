@@ -342,8 +342,23 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
-            cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
             cell.accountName.text = self.appDelegate.people[indexPath.row]
+            let lblNameInitialize = UILabel()
+            lblNameInitialize.frame.size = CGSize(width: 50, height: 50)
+            lblNameInitialize.textColor = UIColor.white
+            lblNameInitialize.text = String(cell.accountName.text!.characters.first!) + String(cell.accountName.text!.characters.first!)
+            lblNameInitialize.textAlignment = NSTextAlignment.center
+            lblNameInitialize.backgroundColor = UIColor.black
+            lblNameInitialize.layer.cornerRadius = 25
+            
+            
+            UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
+            lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
+            cell.accountImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            
+//            cell.accountName.text = self.appDelegate.people[indexPath.row]
         }
         return cell
     }

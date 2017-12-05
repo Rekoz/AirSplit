@@ -191,7 +191,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ouj-IU-6uc" userLabel="ImagePopUp">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pTC-Mk-9yH" userLabel="ImagePopUp">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="49"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdW-hO-w7g" userLabel="Name">
@@ -206,16 +206,16 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="8nb-pp-uqh"/>
+                                            <constraint firstItem="pTC-Mk-9yH" firstAttribute="top" secondItem="aNO-9H-kaY" secondAttribute="top" id="0Ve-So-uvC"/>
                                             <constraint firstAttribute="trailing" secondItem="bdW-hO-w7g" secondAttribute="trailing" id="JSo-sj-tdt"/>
-                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="top" secondItem="aNO-9H-kaY" secondAttribute="top" id="iZg-nr-0Hh"/>
+                                            <constraint firstAttribute="trailing" secondItem="pTC-Mk-9yH" secondAttribute="trailing" id="N0K-e9-B9F"/>
+                                            <constraint firstItem="bdW-hO-w7g" firstAttribute="top" secondItem="pTC-Mk-9yH" secondAttribute="bottom" id="iRr-vK-XTr"/>
                                             <constraint firstAttribute="bottom" secondItem="bdW-hO-w7g" secondAttribute="bottom" id="lNC-NT-Aay"/>
-                                            <constraint firstAttribute="trailing" secondItem="ouj-IU-6uc" secondAttribute="trailing" id="rIY-OP-8PA"/>
-                                            <constraint firstItem="ouj-IU-6uc" firstAttribute="bottom" secondItem="bdW-hO-w7g" secondAttribute="top" id="tSf-TM-O4K"/>
+                                            <constraint firstItem="pTC-Mk-9yH" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="m0C-Cs-vEc"/>
                                             <constraint firstItem="bdW-hO-w7g" firstAttribute="leading" secondItem="aNO-9H-kaY" secondAttribute="leading" id="yrg-XS-foA"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="accountImageView" destination="ouj-IU-6uc" id="LwS-UF-xHT"/>
+                                            <outlet property="accountImageView" destination="pTC-Mk-9yH" id="mEl-3f-lSM"/>
                                             <outlet property="accountName" destination="bdW-hO-w7g" id="fwe-MT-Gww"/>
                                         </connections>
                                     </collectionViewCell>

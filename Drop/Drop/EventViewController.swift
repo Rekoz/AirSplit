@@ -260,6 +260,16 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
+        if (self.appDelegate.items[indexPath.row] == "addedItem") {
+            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+            cell.delegate = self
+            cell.AddButton.isHidden = true
+            cell.ItemName.isHidden = false
+            cell.ItemName.text = "added"
+            cell.ItemPrice.isHidden = false
+            cell.ItemPrice.text = "added"
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
         cell.delegate = self
         cell.AddButton.isHidden = false
@@ -445,10 +455,10 @@ extension EventViewController : ItemTableViewCellDelegate {
         sender.ItemPrice.placeholder = "Item Price"
         sender.ItemPrice.isHidden = false
         let row = self.appDelegate.items.count
+        self.appDelegate.items[row-1] = "addedItem"
         let indexPath = IndexPath.init(row: row, section: 0)
         self.ItemTableView.beginUpdates()
         self.appDelegate.items.append("Item")
-        print(self.appDelegate.items.count)
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()

@@ -20,6 +20,7 @@ class EventViewController: UIViewController,
     //var people = [String]()
     var actionSheet: UIAlertController!
     var imagePickerController: UIImagePickerController!
+    var deleteItemIndexPath : NSIndexPath? = nil
     
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
@@ -31,6 +32,9 @@ class EventViewController: UIViewController,
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
+    private var splitable : Bool
+    private var assignees = [PeopleCollectionViewCell]()
+    
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
     /// - Parameters:
@@ -39,12 +43,14 @@ class EventViewController: UIViewController,
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
+        self.splitable = false
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
+        self.splitable = false
         super.init(coder: aDecoder)
     }
 
@@ -161,10 +167,18 @@ class EventViewController: UIViewController,
                 print("response = \(response!)")
             }
             
-            let result = self.convertToDictionary(text: data)!
-//            print("responseString = \(responseJSON!)")
-//            dump(result)
-            print(((result["totalAmount"] as AnyObject)["regions"] as! [AnyObject])[0])
+            let result = self.convertToDictionary(text: data)
+            let lineAmounts = result["lineAmounts"] as! [AnyObject]
+            for item in lineAmounts {
+                // Append items to cells
+                //print(item["description"] as! String)
+                self.appDelegate.items.append(item["description"] as! String)
+                print(self.appDelegate.items.count)
+                // Note that indexPath is wrapped in an array:  [indexPath]
+                DispatchQueue.main.async(execute: {
+                    self.ItemTableView.reloadData()
+                })
+            }
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)
@@ -213,13 +227,8 @@ class EventViewController: UIViewController,
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func convertToDictionary(text: Data) -> [String: Any]? {
-        do {
-            return try (JSONSerialization.jsonObject(with: text, options: []) as! [String: Any])
-        } catch {
-            print(error.localizedDescription)
-        }
-        return nil
+    func convertToDictionary(text: Data) -> [String: Any] {
+        return try! JSONSerialization.jsonObject(with: text, options: []) as! [String: Any]
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -251,7 +260,50 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         // your cell coding
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
         cell.delegate = self
+        cell.AddButton.isHidden = false
+        cell.ItemName.isHidden = true
+        cell.ItemName.text = ""
+        cell.ItemPrice.isHidden = true
+        cell.ItemPrice.text = ""
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deleteItemIndexPath = indexPath as NSIndexPath
+            confirmDelete()
+        }
+    }
+    
+    func confirmDelete() {
+        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete the item?", preferredStyle: .actionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeleteItem)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeleteItem)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        // Support display in iPad
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteItem(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteItemIndexPath {
+            self.ItemTableView.beginUpdates()
+            self.appDelegate.items.remove(at: indexPath.row)
+            // Note that indexPath is wrapped in an array:  [indexPath]
+            self.ItemTableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            deleteItemIndexPath = nil
+            self.ItemTableView.endUpdates()
+        }
+    }
+    
+    func cancelDeleteItem(alertAction: UIAlertAction!) {
+        deleteItemIndexPath = nil
     }
 //    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 //        // cell selected code here
@@ -294,6 +346,38 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    
+    // Select and de-select people during splitting
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        guard self.splitable else {
+            print("Not splittable")
+            return
+        }
+        
+        let person = self.PeopleCollectionView.cellForItem(at: indexPath) as! PeopleCollectionViewCell
+        
+        // toggle color
+        person.accountImageView.alpha = (person.accountImageView.alpha == 1) ? 0.5 : 1
+        
+        // de-select
+        if (assignees.contains(person)) {
+            print(person.accountName.text! + " is de-selected")
+            assignees = assignees.filter({ $0.accountName != person.accountName })
+        }
+            // select
+        else {
+            print(person.accountName.text! + " is selected")
+            assignees.append(person)
+        }
+        
+        // DEBUG
+        print("Assignees: ")
+        for assignee in assignees as [PeopleCollectionViewCell] {
+            print(assignee.accountName.text! + " ")
+        }
+    }
 }
 
 //Related to Multipeer API
@@ -326,17 +410,49 @@ extension EventViewController : MultipeerManagerDelegate {
 
 extension EventViewController : ItemTableViewCellDelegate {
     func cell_did_add_people(_ sender: ItemTableViewCell) {
-        //
+        
+        self.splitable = !self.splitable
+        
+        // Unselect
+        guard self.splitable else {
+            print("Splitting finished")
+            for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+                let icon = person.accountImageView
+                icon?.alpha = 1
+            }
+            self.assignees.removeAll()
+            self.PeopleCollectionView.allowsMultipleSelection = false
+            return
+        }
+        
+        // Select
+        print("Start splitting")
+        for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
+            let icon = person.accountImageView
+            icon?.alpha = 0.5
+        }
+        self.PeopleCollectionView.allowsMultipleSelection = true
+        let row = sender.tag
+        let indexPath = IndexPath(row: row, section: 0)
+        let cell = self.ItemTableView.cellForRow(at: indexPath) as! ItemTableViewCell
+        cell.assignees = self.assignees
+        self.ItemTableView.reloadData()
     }
     
     func cell_did_add_item(_ sender: ItemTableViewCell) {
-        print("tapped add button")
         sender.AddButton.isHidden = true
         sender.ItemName.placeholder = "Item Name"
+        sender.ItemName.isHidden = false
         sender.ItemPrice.placeholder = "Item Price"
+        sender.ItemPrice.isHidden = false
+        let row = self.appDelegate.items.count
+        let indexPath = IndexPath.init(row: row, section: 0)
+        self.ItemTableView.beginUpdates()
         self.appDelegate.items.append("Item")
-        
-        self.ItemTableView.reloadData()
+        print(self.appDelegate.items.count)
+        // Note that indexPath is wrapped in an array:  [indexPath]
+        self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+        self.ItemTableView.endUpdates()
     }
 }
 

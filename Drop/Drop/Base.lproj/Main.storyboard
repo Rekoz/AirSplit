@@ -306,6 +306,45 @@
                                     <outlet property="delegate" destination="Epx-l8-6Wq" id="s5f-mU-OnP"/>
                                 </connections>
                             </tableView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hnU-Yi-Px1" userLabel="Search Table View">
+                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZKJ-tr-HgX">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZKJ-tr-HgX" id="dUK-Bk-Yb7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UVu-Mg-UO9" userLabel="SearchedImage View">
+                                                    <rect key="frame" x="20" y="3" width="38" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="37.5" id="ktQ-vn-b78"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searched Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqQ-bX-bro">
+                                                    <rect key="frame" x="130" y="2" width="151" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="C6T-GI-olQ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UVu-Mg-UO9" firstAttribute="top" secondItem="dUK-Bk-Yb7" secondAttribute="top" constant="3" id="0Rz-c5-8mY"/>
+                                                <constraint firstItem="UVu-Mg-UO9" firstAttribute="leading" secondItem="dUK-Bk-Yb7" secondAttribute="leading" constant="20" id="3Ve-aI-amW"/>
+                                                <constraint firstItem="UVu-Mg-UO9" firstAttribute="centerY" secondItem="dUK-Bk-Yb7" secondAttribute="centerY" id="UnK-Ls-GKO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qqQ-bX-bro" secondAttribute="trailing" constant="79" id="cFN-KY-Srp"/>
+                                                <constraint firstItem="qqQ-bX-bro" firstAttribute="leading" secondItem="UVu-Mg-UO9" secondAttribute="trailing" constant="72" id="e0b-c1-E7V"/>
+                                                <constraint firstItem="qqQ-bX-bro" firstAttribute="centerY" secondItem="dUK-Bk-Yb7" secondAttribute="centerY" id="r6s-8e-lSA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -315,12 +354,16 @@
                             <constraint firstItem="dn0-rm-uwC" firstAttribute="top" secondItem="pSc-jg-fcm" secondAttribute="top" id="9mb-O1-L0T"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="wf6-Rf-gqp" secondAttribute="trailing" constant="5" id="F7q-LR-Bqq"/>
                             <constraint firstItem="pmd-0x-Urt" firstAttribute="top" secondItem="dn0-rm-uwC" secondAttribute="bottom" id="O3M-XD-8AA"/>
+                            <constraint firstItem="hnU-Yi-Px1" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="Wot-hk-Xb8"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="pmd-0x-Urt" secondAttribute="trailing" id="ZBR-Gi-t9e"/>
                             <constraint firstItem="pmd-0x-Urt" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="e1g-MV-abH"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="Aek-rt-eXF" secondAttribute="trailing" id="gck-Tl-ucq"/>
                             <constraint firstItem="Aek-rt-eXF" firstAttribute="top" secondItem="wf6-Rf-gqp" secondAttribute="bottom" id="j2Y-Zh-IlD"/>
                             <constraint firstItem="wf6-Rf-gqp" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="5" id="jeR-CY-uHS"/>
                             <constraint firstItem="wf6-Rf-gqp" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="kZd-Jm-vmU"/>
+                            <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="hnU-Yi-Px1" secondAttribute="trailing" id="l03-Yu-DPO"/>
+                            <constraint firstItem="pSc-jg-fcm" firstAttribute="bottom" secondItem="hnU-Yi-Px1" secondAttribute="bottom" id="lny-jK-bkY"/>
+                            <constraint firstItem="hnU-Yi-Px1" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="qvo-dW-6nC"/>
                             <constraint firstItem="Aek-rt-eXF" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="sLZ-91-wQG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pSc-jg-fcm"/>
@@ -527,7 +570,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2409" y="887"/>
+            <point key="canvasLocation" x="3249" y="345"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="vby-MP-x63">
@@ -671,6 +714,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5d-Nl-OGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1029.5999999999999" y="-1164.4677661169417"/>
+        </scene>
+        <!--Create Event-->
+        <scene sceneID="jMZ-X9-oZc">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="95L-xs-AxF" customClass="EventViewController" customModule="Drop" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SoT-jk-gWy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UD4-c9-AWO">
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="mTC-hv-Sek"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem id="Ene-jg-qm8">
+                                        <nil key="title"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="vpl-tT-2nr">
+                                            <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="cancelButtonTapped:" destination="95L-xs-AxF" id="emN-zY-2od"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tqz-Hn-fxl">
+                                            <rect key="frame" x="166" y="5" width="43" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" title="Done">
+                                                <color key="titleColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                        <barButtonItem key="rightBarButtonItem" title="Camera" id="Kfd-uJ-xkA">
+                                            <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="5"/>
+                                            <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="addImage:" destination="95L-xs-AxF" id="34x-Yn-s8B"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="IN5-F2-M95">
+                                <rect key="frame" x="0.0" y="60" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0ha-wj-wxd" id="VVo-HQ-UXU"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UD4-c9-AWO" firstAttribute="leading" secondItem="1Yg-l8-ZkO" secondAttribute="leading" id="6zP-dF-0K6"/>
+                            <constraint firstItem="1Yg-l8-ZkO" firstAttribute="trailing" secondItem="IN5-F2-M95" secondAttribute="trailing" id="VBl-su-zj4"/>
+                            <constraint firstItem="IN5-F2-M95" firstAttribute="top" secondItem="UD4-c9-AWO" secondAttribute="bottom" id="hqd-e1-0pc"/>
+                            <constraint firstItem="1Yg-l8-ZkO" firstAttribute="trailing" secondItem="UD4-c9-AWO" secondAttribute="trailing" id="jqP-mT-gAL"/>
+                            <constraint firstItem="UD4-c9-AWO" firstAttribute="top" secondItem="1Yg-l8-ZkO" secondAttribute="top" id="lZv-0d-vjv"/>
+                            <constraint firstItem="IN5-F2-M95" firstAttribute="leading" secondItem="1Yg-l8-ZkO" secondAttribute="leading" id="yve-IQ-Nr6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1Yg-l8-ZkO"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Create Event" image="icons8-Add Filled-52" id="9qs-T9-7Gp">
+                        <color key="badgeColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="SearchButton" destination="IN5-F2-M95" id="56k-cd-Prn"/>
+                        <segue destination="v73-7t-T74" kind="unwind" identifier="unwindToHome" unwindAction="unwindToHome:" id="i14-hh-l42"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dYs-Br-BkL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="v73-7t-T74" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2372" y="887"/>
         </scene>
     </scenes>
     <resources>

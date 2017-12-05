@@ -13,18 +13,23 @@ protocol ItemTableViewCellDelegate: class {
     func cell_did_add_item(_ sender: ItemTableViewCell)
     func cell_did_add_people(_ sender: ItemTableViewCell)
 }
+
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemName: UITextField!
     @IBOutlet weak var ItemPrice: UITextField!
     @IBOutlet weak var AddButton: UIButton!
+    @IBOutlet weak var SplitButton: UIButton!
     
     weak var delegate: ItemTableViewCellDelegate?
+    
+    public var assignees = [PeopleCollectionViewCell]()
     
     @IBAction func add_item(_ sender: Any) {
         delegate?.cell_did_add_item(self)
     }
 
     @IBAction func add_people(_ sender: Any) {
+        delegate?.cell_did_add_people(self)
     }
     
     override func awakeFromNib() {

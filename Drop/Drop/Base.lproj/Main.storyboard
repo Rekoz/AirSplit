@@ -155,16 +155,16 @@
                                 </connections>
                             </searchBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="c74-lb-yRu" userLabel="Self Image Popup">
-                                <rect key="frame" x="0.0" y="116" width="60" height="70"/>
+                                <rect key="frame" x="5" y="116" width="55" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cHJ-gA-J8x" userLabel="SelfImagePopup">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55" height="49"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="49" id="LLn-Ey-0KI"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hl-6O-yop" userLabel="SelfName">
-                                        <rect key="frame" x="0.0" y="49" width="60" height="21"/>
+                                        <rect key="frame" x="0.0" y="49" width="55" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -383,7 +383,7 @@
                             <constraint firstItem="pmd-0x-Urt" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="e1g-MV-abH"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="Aek-rt-eXF" secondAttribute="trailing" id="gck-Tl-ucq"/>
                             <constraint firstItem="Aek-rt-eXF" firstAttribute="top" secondItem="wf6-Rf-gqp" secondAttribute="bottom" id="j2Y-Zh-IlD"/>
-                            <constraint firstItem="c74-lb-yRu" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="jYg-aQ-b96"/>
+                            <constraint firstItem="c74-lb-yRu" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="5" id="jYg-aQ-b96"/>
                             <constraint firstItem="wf6-Rf-gqp" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="60" id="jeR-CY-uHS"/>
                             <constraint firstItem="wf6-Rf-gqp" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="kZd-Jm-vmU"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="hnU-Yi-Px1" secondAttribute="trailing" id="l03-Yu-DPO"/>

@@ -76,14 +76,24 @@ class SignupViewController : UIViewController {
         let attributes:[AWSCognitoIdentityUserAttributeType] = [emailAttribute, firstNameAttribute, lastNameAttribute];
         userPool.signUp(email.text!, password: password.text!, userAttributes: attributes, validationData: nil)
             .continueWith { (response) -> Any? in
-                if response.error != nil {
-                    // Error in the Signup Process
-                    let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    self.user = response.result!.user
-                    DispatchQueue.main.async {
+//                if response.error != nil {
+//                    // Error in the Signup Process
+//                    let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+//                    self.present(alert, animated: true, completion: nil)
+//                } else {
+//                    self.user = response.result!.user
+//                    DispatchQueue.main.async {
+//                        self.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    }
+//                }
+                DispatchQueue.main.async {
+                    if response.error != nil {
+                        let alert = UIAlertController(title: "Error", message: (response.error! as NSError).userInfo["message"] as? String, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.user = response.result!.user
                         self.presentingViewController?.dismiss(animated: true, completion: nil)
                     }
                 }

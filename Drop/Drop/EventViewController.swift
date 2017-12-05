@@ -163,11 +163,15 @@ class EventViewController: UIViewController,
             let result = self.convertToDictionary(text: data)
             let lineAmounts = result["lineAmounts"] as! [AnyObject]
             for item in lineAmounts {
+                // Append items to cells
                 //print(item["description"] as! String)
                 self.appDelegate.items.append(item["description"] as! String)
+                print(self.appDelegate.items.count)
+                // Note that indexPath is wrapped in an array:  [indexPath]
+                DispatchQueue.main.async(execute: {
+                    self.ItemTableView.reloadData()
+                })
             }
-            
-            //reload
         }
         task.resume()
         picker.dismiss(animated: true, completion: nil)

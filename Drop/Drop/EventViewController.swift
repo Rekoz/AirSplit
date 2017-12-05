@@ -233,7 +233,7 @@ class EventViewController: UIViewController,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchText \(searchText)")
-        let query = ref.child("users").queryOrdered(byChild: "lastName").queryStarting(atValue: searchText).queryEnding(atValue: searchText + "\u{f8ff}")
+        let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
         query.observe(.value, with: { (snapshot) in
             for childSnapshot in snapshot.children {
                 print(childSnapshot)

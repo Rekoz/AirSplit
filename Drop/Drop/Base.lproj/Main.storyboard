@@ -249,7 +249,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="coT-9u-Nvu" userLabel="ReplacedCell">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="coT-9u-Nvu" userLabel="ReplacedCell" customClass="TinyPeopleCollectionViewCell" customModule="Drop" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -262,6 +262,9 @@
                                                                     </imageView>
                                                                 </subviews>
                                                             </view>
+                                                            <connections>
+                                                                <outlet property="accountImageView" destination="C06-2h-T6K" id="cSV-bc-NdH"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
@@ -318,8 +321,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="AddButton" destination="rHT-eP-8Sl" id="fYk-BO-A6Y"/>
+                                            <outlet property="AssigneeCollection" destination="sRr-Kf-6wG" id="Xun-zT-pfL"/>
                                             <outlet property="ItemName" destination="IGm-c4-4pc" id="0Mf-Qu-WTT"/>
                                             <outlet property="ItemPrice" destination="aT9-3a-OZB" id="snh-jO-9xI"/>
+                                            <outlet property="SplitButton" destination="lYh-0v-ZYc" id="aTa-2e-M5T"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

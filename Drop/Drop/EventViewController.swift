@@ -508,8 +508,8 @@ extension EventViewController : ItemTableViewCellDelegate {
         }
         let i = self.ItemTableView.indexPath(for: cell)?.row
         print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")
-        for person in cell.AssigneeCollection.visibleCells as! [PeopleCollectionViewCell] {
-            print("\(person.accountName.text)")
+        for person in cell.AssigneeCollection.visibleCells as! [TinyPeopleCollectionViewCell] {
+            print("\(person.accountName)")
         }
     }
 }

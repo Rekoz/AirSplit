@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognitoIdentityProvider
+import Firebase
 
 /**
     View controller for registering new users.
@@ -21,7 +22,19 @@ class SignupViewController : UIViewController {
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
+    
     var user: AWSCognitoIdentityUser?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
+    }
     
     /**
      Notifies the view controller that its view is about to be added to a view hierarchy.
@@ -89,6 +102,7 @@ class SignupViewController : UIViewController {
                 }
                 return nil
         }
+        self.ref.child("users").child(firstName.text! + "_" + lastName.text!).setValue(["accountName": firstName.text! + " " + lastName.text!])
     }
     
     @IBAction func backPressed(_ sender: AnyObject) {

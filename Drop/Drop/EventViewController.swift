@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
@@ -24,6 +25,11 @@ class EventViewController: UIViewController,
     @IBOutlet weak var ItemTableView: UITableView!
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var SearchButton: UISearchBar!
+    @IBOutlet weak var SearchTable: UITableView!
+    
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
     
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
@@ -58,6 +64,9 @@ class EventViewController: UIViewController,
         print("didLoad")
         
         SearchButton.delegate = self
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
         
         actionSheet = UIAlertController(title: "Image Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -229,6 +238,12 @@ class EventViewController: UIViewController,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchText \(searchText)")
+        let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
+        query.observe(.value, with: { (snapshot) in
+            for childSnapshot in snapshot.children {
+                print(childSnapshot)
+            }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -248,6 +263,16 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
+        if (self.appDelegate.items[indexPath.row] == "addedItem") {
+            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+            cell.delegate = self
+            cell.AddButton.isHidden = true
+            cell.ItemName.isHidden = false
+            cell.ItemName.text = "added"
+            cell.ItemPrice.isHidden = false
+            cell.ItemPrice.text = "added"
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
         cell.delegate = self
         cell.AddButton.isHidden = false
@@ -295,9 +320,6 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     func cancelDeleteItem(alertAction: UIAlertAction!) {
         deleteItemIndexPath = nil
     }
-//    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-//        // cell selected code here
-//    }
 }
 
 
@@ -323,8 +345,23 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
-            cell.accountImageView.image = #imageLiteral(resourceName: "icons8-User Male-48")
             cell.accountName.text = self.appDelegate.people[indexPath.row]
+            let lblNameInitialize = UILabel()
+            lblNameInitialize.frame.size = CGSize(width: 50, height: 50)
+            lblNameInitialize.textColor = UIColor.white
+            lblNameInitialize.text = String(cell.accountName.text!.characters.first!) + String(cell.accountName.text!.characters.first!)
+            lblNameInitialize.textAlignment = NSTextAlignment.center
+            lblNameInitialize.backgroundColor = UIColor.black
+            lblNameInitialize.layer.cornerRadius = 25
+            
+            
+            UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
+            lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
+            cell.accountImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            
+//            cell.accountName.text = self.appDelegate.people[indexPath.row]
         }
         return cell
     }
@@ -417,10 +454,10 @@ extension EventViewController : ItemTableViewCellDelegate {
         sender.ItemPrice.placeholder = "Item Price"
         sender.ItemPrice.isHidden = false
         let row = self.appDelegate.items.count
+        self.appDelegate.items[row-1] = "addedItem"
         let indexPath = IndexPath.init(row: row, section: 0)
         self.ItemTableView.beginUpdates()
         self.appDelegate.items.append("Item")
-        print(self.appDelegate.items.count)
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()

@@ -8,7 +8,7 @@
 
 import UIKit
 import AWSCognitoIdentityProvider
-import AWSMobileClient
+import Firebase
 
 let userPoolID = "SampleUserPool"
 
@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var loginViewController: LoginViewController?
     var tabBarController: UITabBarController?
     var cognitoConfig: CognitoConfig?
+    var ref: DatabaseReference!
+    
     class func defaultUserPool() -> AWSCognitoIdentityUserPool {
         return AWSCognitoIdentityUserPool(forKey: userPoolID)
     }
@@ -48,9 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true. The return value is ignored if the app is launched as a result of a remote notification.
     */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // setup logging
-        AWSDDLog.sharedInstance.logLevel = .verbose
-        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+
+        FirebaseApp.configure()
         
         // setup cognito config
         self.cognitoConfig = CognitoConfig()
@@ -59,17 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupCognitoUserPool()
         
         // Override point for customization after application launch.
-        return AWSMobileClient.sharedInstance().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
     func application(_ application: UIApplication, open url: URL,
                      sourceApplication: String?, annotation: Any) -> Bool {
-        
-        return AWSMobileClient.sharedInstance().interceptApplication(
-            application, open: url,
-            sourceApplication: sourceApplication,
-            annotation: annotation)
-        
+        return true
     }
 
     /**

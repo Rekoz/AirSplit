@@ -247,6 +247,9 @@ class EventViewController: UIViewController,
                 for case let childSnapshot as DataSnapshot in snapshot.children {
                     if let data = childSnapshot.value as? [String: Any] {
                         print(" accountName = \(data["accountName"]!)")
+                        if self.searchResults.contains("\(data["accountName"]!)") {
+                            continue
+                        }
                         self.searchResults.append("\(data["accountName"]!)")
                     }
                 }
@@ -255,6 +258,10 @@ class EventViewController: UIViewController,
        
         let delayInSeconds = 0.3
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+            if searchText == "" {
+                self.searchResults = []
+            }
+            
             if (self.searchResults.count > 0) {
                 self.SearchTable.isHidden = false
             } else {

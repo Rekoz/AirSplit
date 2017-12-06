@@ -7,30 +7,23 @@
 //
 
 import UIKit
-import AWSCognitoIdentityProvider
+import Firebase
 
 /**
     View controller for user login.
  */
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var passwordInput: UITextField?
-    @IBOutlet weak var usernameInput: UITextField?
+    let loginToSongView = "LoginToHomeView"
+    
+    @IBOutlet weak var passwordInput: UITextField!
+    @IBOutlet weak var usernameInput: UITextField!
     @IBOutlet weak var loginButton: UIButton?
     
-    var passwordAuthenticationCompletion: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>?
-    
-    /**
-     Notifies the view controller that its view is about to be added to a view hierarchy.
-     
-     - Parameter animated: If true, the view is being added to the window using an animation.
-    */
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.passwordInput?.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
-        self.usernameInput?.addTarget(self, action: #selector(inputDidChange(_:)), for: .editingChanged)
-    }
-    
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
+
     /**
      Authenticates user when login button is pressed.
      
@@ -38,71 +31,136 @@ class LoginViewController: UIViewController {
      
      - Returns: Returns immediately if either username or password is empty.
     */
-    @IBAction func loginPressed(_ sender: AnyObject) {
-        if (self.usernameInput?.text == nil || self.passwordInput?.text == nil) {
-            return
+    @IBAction func loginDidTouch(_ sender: AnyObject) {
+        Auth.auth().signIn(withEmail: usernameInput.text!,
+                           password: passwordInput.text!) { user, error in
+                            if error == nil {
+                                print("Welcome \(user!.email!)")
+                                self.clearTextField()
+                            } else {
+                                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                                    print("Sign In Error: \(errCode)")
+                                }
+                            }
+                            
+        }
+    }
+    
+    @IBAction func signUpDidTouch(_ sender: AnyObject) {
+        let alert = UIAlertController(title: "Register",
+                                      message: "Register",
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default)
+        { action in
+            
+            // 1
+            let firstNameField = alert.textFields![0]
+            let lastNameField = alert.textFields![1]
+            let emailField = alert.textFields![2]
+            let passwordField = alert.textFields![3]
+            
+            // 2
+            Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!)
+            { user, error in
+                if error == nil {
+                    // 3
+                    if let user = user {
+                        self.clearTextField()
+                        print("We have new user! \(user.email!)")
+                        self.ref.child("users").child(firstNameField.text! + "_" + lastNameField.text!).setValue(["accountName": firstNameField.text!.uppercased() + " " + lastNameField.text!.uppercased(), "firstName":firstNameField.text!, "lastName": lastNameField.text!])
+                    }
+                    Auth.auth().signIn(withEmail: self.usernameInput.text!,
+                                       password: self.passwordInput.text!)
+                    print("Create User Successful")
+                } else {
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .invalidEmail:
+                            print("invalid email")
+                        case .emailAlreadyInUse:
+                            print("in use")
+                        default:
+                            print("Create User Error: \(error!)")
+                        }
+                    }
+                }
+            }
+            
         }
         
-        let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: self.usernameInput!.text!, password: self.passwordInput!.text! )
-        self.passwordAuthenticationCompletion?.set(result: authDetails)
-    }
-    
-    /**
-     Enables login button if neither username nor password is empty, disables otherwise.
-     
-     - Parameter sender: Client's action to enter/clear username or password.
-    */
-    @objc func inputDidChange(_ sender:AnyObject) {
-        if (self.usernameInput?.text != nil && self.passwordInput?.text != nil) {
-            self.loginButton?.isEnabled = true
-        } else {
-            self.loginButton?.isEnabled = false
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .default)
+        
+        alert.addTextField { textFirstName in
+            textFirstName.placeholder = "First name"
         }
+        
+        alert.addTextField { textLastName in
+            textLastName.placeholder = "Last name"
+        }
+        
+        alert.addTextField { textEmail in
+            textEmail.placeholder = "Email"
+        }
+        
+        alert.addTextField { textPassword in
+            textPassword.isSecureTextEntry = true
+            textPassword.placeholder = "Password"
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
-    
 }
 
-extension LoginViewController: AWSCognitoIdentityPasswordAuthentication {
-    
-    /**
-     Obtains username and password from end user.
-     
-     - Parameters:
-        - authenticationInput: input details including last known username.
-        - passwordAuthenticationCompletionSource: set passwordAuthenticationCompletionSource.result with the username and password received from the end user.
-    */
-    public func getDetails(_ authenticationInput: AWSCognitoIdentityPasswordAuthenticationInput, passwordAuthenticationCompletionSource: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>) {
-        self.passwordAuthenticationCompletion = passwordAuthenticationCompletionSource
-        DispatchQueue.main.async {
-            if (self.usernameInput?.text == nil) {
-                self.usernameInput?.text = authenticationInput.lastKnownUsername
-            }
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameInput {
+            passwordInput.becomeFirstResponder()
         }
+        if textField == passwordInput {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    func clearTextField() {
+        self.usernameInput.text = ""
+        self.passwordInput.text = ""
+    }
+}
+
+extension LoginViewController {
+    func addHideKeyboardOnTap()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(LoginViewController.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
     }
     
-    /**
-     Logs in user when login button is pressed. If login is successful, this function dismisses login view and proceed to home view. Otherwise, it displays an error.
-     
-     - Parameter error: the error if any that occured.
-    */
-    public func didCompleteStepWithError(_ error: Error?) {
-        DispatchQueue.main.async {
-            if error != nil {
-                let alertController = UIAlertController(title: "Cannot Login",
-                                                        message: (error! as NSError).userInfo["message"] as? String,
-                                                        preferredStyle: .alert)
-                let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
-                alertController.addAction(retryAction)
-                
-                self.present(alertController, animated: true, completion:  nil)
-            } else {
-                self.dismiss(animated: true, completion: {
-                    self.usernameInput?.text = nil
-                    self.passwordInput?.text = nil
-                })
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
+
+extension LoginViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ref = Database.database().reference()
+        // 1
+        Auth.auth().addStateDidChangeListener() { auth, user in
+            // 2
+            if user != nil {
+                // 3
+                self.performSegue(withIdentifier: self.loginToSongView, sender: nil)
             }
         }
+        self.addHideKeyboardOnTap()
     }
-    
 }
 

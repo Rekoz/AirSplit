@@ -5,16 +5,12 @@ platform :ios, '9.0'
 use_frameworks!
 
 target :'Drop' do
-    pod 'AWSCore', '~> 2.6.6’
-    pod 'AWSMobileClient', '~> 2.6.6'
-    pod 'AWSUserPoolsSignIn', '~> 2.6.6'
-    pod 'AWSDynamoDB', '~> 2.6.1'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
-        
+    pod 'Firebase/Auth'
 
     target 'DropTests' do
         inherit! :search_paths
-        pod 'AWSCognitoIdentityProvider', '~> 2.6.6'
+#        pod 'AWSCognitoIdentityProvider', '~> 2.6.6'
     end
 end

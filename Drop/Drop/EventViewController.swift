@@ -302,8 +302,11 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.SearchTable {
             self.SearchTable.isHidden = true
             tableView.deselectRow(at: indexPath, animated: true)
-            
+            self.SearchButton.text = ""
             let row = indexPath.row
+            if self.appDelegate.people.contains(searchResults[row]) {
+                return
+            }
             self.appDelegate.people.append(searchResults[row])
             self.PeopleCollectionView.reloadData()
             print("Row: \(row)")

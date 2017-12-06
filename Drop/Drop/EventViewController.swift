@@ -17,7 +17,6 @@ class EventViewController: UIViewController,
     
     let itemCellIdentifier = "ItemCell"
     let participantPopIdentifier = "ParticipantPopCell"
-    //var people = [String]()
     var actionSheet: UIAlertController!
     var imagePickerController: UIImagePickerController!
     var deleteItemIndexPath : NSIndexPath? = nil
@@ -36,6 +35,7 @@ class EventViewController: UIViewController,
     
     private var splitable : Bool
     private var assignees = [PeopleCollectionViewCell]()
+    private var searchResults = [String]()
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
@@ -235,12 +235,25 @@ class EventViewController: UIViewController,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchText \(searchText)")
+        
         let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
-        query.observe(.value, with: { (snapshot) in
-            for childSnapshot in snapshot.children {
-                print(childSnapshot)
+    
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            self.searchResults = []
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                   print(" accountName = \(data["accountName"]!)")
+                   self.searchResults.append("\(data["accountName"]!)")
+                }
             }
         })
+        let delayInSeconds = 0.3
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+            
+            print(self.searchResults)
+            return
+        }
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -255,25 +268,45 @@ class EventViewController: UIViewController,
 extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.appDelegate.items.count
+        var count:Int?
+        
+        if tableView == self.ItemTableView {
+            count = self.appDelegate.items.count
+        }
+        
+        if tableView == self.SearchTable {
+            count = self.searchResults.count
+        }
+        return count!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
-        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
-        cell.delegate = self
-        cell.AddButton.isHidden = false
-        cell.ItemName.isHidden = true
-        cell.ItemName.text = ""
-        cell.ItemPrice.isHidden = true
-        cell.ItemPrice.text = ""
-        return cell
+        if tableView == self.ItemTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+            cell.delegate = self
+            cell.AddButton.isHidden = false
+            cell.ItemName.isHidden = true
+            cell.ItemName.text = ""
+            cell.ItemPrice.isHidden = true
+            cell.ItemPrice.text = ""
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! SearchTableCell
+            if indexPath.row < self.appDelegate.people.count {
+                cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
+                cell.SearchName.text = self.searchResults[indexPath.row]
+            }
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            deleteItemIndexPath = indexPath as NSIndexPath
-            confirmDelete()
+        if tableView == self.ItemTableView {
+            if editingStyle == .delete {
+                deleteItemIndexPath = indexPath as NSIndexPath
+                confirmDelete()
+            }
         }
     }
     

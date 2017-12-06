@@ -331,7 +331,7 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZKJ-tr-HgX">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZKJ-tr-HgX" customClass="SearchTableCell" customModule="Drop" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZKJ-tr-HgX" id="dUK-Bk-Yb7">
@@ -363,6 +363,10 @@
                                                 <constraint firstItem="qqQ-bX-bro" firstAttribute="centerY" secondItem="dUK-Bk-Yb7" secondAttribute="centerY" id="r6s-8e-lSA"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="SearchImage" destination="UVu-Mg-UO9" id="BKk-zq-UDA"/>
+                                            <outlet property="SearchName" destination="qqQ-bX-bro" id="1X3-SG-zFo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

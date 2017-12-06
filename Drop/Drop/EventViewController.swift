@@ -238,18 +238,21 @@ class EventViewController: UIViewController,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("searchText \(searchText)")
-        
-        let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
-    
-        query.observeSingleEvent(of: .value, with: { (snapshot) in
-            self.searchResults = []
-            for case let childSnapshot as DataSnapshot in snapshot.children {
-                if let data = childSnapshot.value as? [String: Any] {
-                   print(" accountName = \(data["accountName"]!)")
-                   self.searchResults.append("\(data["accountName"]!)")
+        self.searchResults = []
+        if searchText != "" {
+            let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
+            
+            query.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                for case let childSnapshot as DataSnapshot in snapshot.children {
+                    if let data = childSnapshot.value as? [String: Any] {
+                        print(" accountName = \(data["accountName"]!)")
+                        self.searchResults.append("\(data["accountName"]!)")
+                    }
                 }
-            }
-        })
+            })
+        }
+       
         let delayInSeconds = 0.3
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             if (self.searchResults.count > 0) {
@@ -311,7 +314,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
-            if indexPath.row < self.appDelegate.people.count {
+            if indexPath.row < self.searchResults.count {
                 cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
                 cell.SearchName.text = self.searchResults[indexPath.row]
             }

@@ -249,19 +249,24 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="coT-9u-Nvu" userLabel="ReplacedCell" customClass="TinyPeopleCollectionViewCell" customModule="Drop" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssigneeCell" id="coT-9u-Nvu" userLabel="ReplacedCell" customClass="TinyPeopleCollectionViewCell" customModule="Drop" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C06-2h-T6K" userLabel="ReplacedPopUp">
-                                                                        <rect key="frame" x="-95" y="-39" width="240" height="128"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C06-2h-T6K" userLabel="ReplacedPopUp">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                     </imageView>
                                                                 </subviews>
                                                             </view>
+                                                            <constraints>
+                                                                <constraint firstItem="C06-2h-T6K" firstAttribute="leading" secondItem="coT-9u-Nvu" secondAttribute="leading" id="G67-cl-zR9"/>
+                                                                <constraint firstAttribute="trailing" secondItem="C06-2h-T6K" secondAttribute="trailing" id="HLw-oP-cHs"/>
+                                                                <constraint firstAttribute="bottom" secondItem="C06-2h-T6K" secondAttribute="bottom" id="X5E-Vw-HjL"/>
+                                                                <constraint firstItem="C06-2h-T6K" firstAttribute="top" secondItem="coT-9u-Nvu" secondAttribute="top" id="e35-fH-RDw"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="accountImageView" destination="C06-2h-T6K" id="cSV-bc-NdH"/>
                                                             </connections>

@@ -290,6 +290,12 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let tableViewCell = cell as? ItemTableViewCell else { return }
+        
+        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: tableViewCell, forRow: indexPath.row)
+    }
+    
     func confirmDelete() {
         let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete the item?", preferredStyle: .actionSheet)
         
@@ -486,10 +492,6 @@ extension EventViewController : ItemTableViewCellDelegate {
         self.splitAtIndex = -1
         self.splitable = false
         
-//        cell.AssigneeCollection.performBatchUpdates({
-//            cell.assignees.removeAll()
-//            cell.assignees.append(contentsOf: self.assignees)
-//        }, completion: nil)
         cell.assignees.removeAll()
         cell.assignees.append(contentsOf: self.assignees)
         cell.AssigneeCollection.reloadData()
@@ -499,7 +501,7 @@ extension EventViewController : ItemTableViewCellDelegate {
             let icon = person.accountImageView
             icon?.alpha = 1
         }
-//        self.PeopleCollectionView.allowsMultipleSelection = false
+        //self.PeopleCollectionView.allowsMultipleSelection = false
         
         // DEBUG
         print("Assignees: ")

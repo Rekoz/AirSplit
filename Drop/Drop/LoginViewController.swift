@@ -33,16 +33,33 @@ class LoginViewController: UIViewController {
     */
     @IBAction func loginDidTouch(_ sender: AnyObject) {
         Auth.auth().signIn(withEmail: usernameInput.text!,
-                           password: passwordInput.text!) { user, error in
-                            if error == nil {
-                                print("Welcome \(user!.email!)")
-                                self.clearTextField()
-                            } else {
-                                if let errCode = AuthErrorCode(rawValue: error!._code) {
-                                    print("Sign In Error: \(errCode)")
-                                }
-                            }
-                            
+                           password: passwordInput.text!)
+        { user, error in
+            if error == nil {
+                print("Welcome \(user!.email!)")
+                self.clearTextField()
+            } else {
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    var errorMessage = String()
+                    switch errCode {
+                    case .userNotFound:
+                        errorMessage = "Email address not found"
+                    case .invalidEmail:
+                        errorMessage = "Invalid email address"
+                    case .wrongPassword:
+                        errorMessage = "Invalid password"
+                    default:
+                        errorMessage = "\(error)"
+                    }
+                    DispatchQueue.main.async {
+                        let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                        let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+                        errorAlertController.addAction(retryAction)
+                        self.present(errorAlertController, animated: true, completion: nil)
+                    }
+                    print("Sign In Error: \(error)")
+                }
+            }
         }
     }
     
@@ -75,13 +92,24 @@ class LoginViewController: UIViewController {
                     print("Create User Successful")
                 } else {
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        var errorMessage = String()
                         switch errCode {
                         case .invalidEmail:
-                            print("invalid email")
+                            errorMessage = "Invalid email"
                         case .emailAlreadyInUse:
-                            print("in use")
+                            errorMessage = "Email alreay in use"
+                        case .weakPassword:
+                            errorMessage = "Password must have at least 6 characters"
                         default:
+                            errorMessage = "\(error)"
                             print("Create User Error: \(error!)")
+                        }
+                        
+                        DispatchQueue.main.async {
+                            let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                            let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+                            errorAlertController.addAction(retryAction)
+                            self.present(errorAlertController, animated: true, completion: nil)
                         }
                     }
                 }
@@ -106,7 +134,7 @@ class LoginViewController: UIViewController {
         
         alert.addTextField { textPassword in
             textPassword.isSecureTextEntry = true
-            textPassword.placeholder = "Password (Must have at least 6 characters)"
+            textPassword.placeholder = "Password (>= 6 characters)"
         }
         
         alert.addAction(saveAction)

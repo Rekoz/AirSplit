@@ -47,11 +47,11 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
-        let alert = UIAlertController(title: "Register",
-                                      message: "Register",
+        let alert = UIAlertController(title: "",
+                                      message: "Please enter your information",
                                       preferredStyle: .alert)
         
-        let saveAction = UIAlertAction(title: "Save", style: .default)
+        let saveAction = UIAlertAction(title: "Sign Up", style: .default)
         { action in
             
             // 1
@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
         
         alert.addTextField { textPassword in
             textPassword.isSecureTextEntry = true
-            textPassword.placeholder = "Password"
+            textPassword.placeholder = "Password (Must have at least 6 characters)"
         }
         
         alert.addAction(saveAction)

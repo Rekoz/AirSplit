@@ -19,6 +19,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemPrice: UITextField!
     @IBOutlet weak var AddButton: UIButton!
     @IBOutlet weak var SplitButton: UIButton!
+    @IBOutlet weak var AssigneeCollection: UICollectionView!
     
     weak var delegate: ItemTableViewCellDelegate?
     
@@ -46,5 +47,41 @@ class ItemTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setCollectionViewDataSourceDelegate
+        <D: UICollectionViewDataSource & UICollectionViewDelegate>
+        (dataSourceDelegate: D, forRow row: Int) {
+        
+        AssigneeCollection.delegate = dataSourceDelegate
+        AssigneeCollection.dataSource = dataSourceDelegate
+        AssigneeCollection.tag = row
+        AssigneeCollection.reloadData()
+    }
+}
 
+extension ItemTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    /// Asks your data source object for the number of items in the specified section.
+    ///
+    /// - Parameters:
+    ///   - collectionView: The collection view requesting this information.
+    ///   - section: An index number identifying a section in collectionView. This index value is 0-based.
+    /// - Returns: number of detected devices in the people array if collectionView == PeopleCollectionView
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return assignees.count
+    }
+    
+    /// Asks your data source object for the cell that corresponds to the specified item in the collection view.
+    ///
+    /// - Parameters:
+    ///   - collectionView: The collection view requesting this information.
+    ///   - indexPath: The index path that specifies the location of the item.
+    /// - Returns: a peopleCollectionViewCell if collectionView == PeopleCollectionView
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssigneeCell", for: indexPath) as! TinyPeopleCollectionViewCell
+        if indexPath.row < self.assignees.count {
+            cell.accountImageView.image = self.assignees[indexPath.row].accountImageView.image
+            cell.accountName = self.assignees[indexPath.row].accountName.text!
+        }
+        return cell
+    }
 }

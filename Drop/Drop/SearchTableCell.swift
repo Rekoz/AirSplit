@@ -8,6 +8,11 @@
 
 import UIKit
 
+//use Protocol
+protocol SearchTableCellDelegate: class {
+    func cell_clicked(_ sender: SearchTableCell)
+}
+
 class SearchTableCell: UITableViewCell {
 
 

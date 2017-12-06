@@ -298,6 +298,19 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         return count!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.SearchTable {
+            self.SearchTable.isHidden = true
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            let row = indexPath.row
+            self.appDelegate.people.append(searchResults[row])
+            self.PeopleCollectionView.reloadData()
+            print("Row: \(row)")
+            print(searchResults[row])
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
         if tableView == self.ItemTableView {

@@ -252,7 +252,12 @@ class EventViewController: UIViewController,
         })
         let delayInSeconds = 0.3
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            
+            if (self.searchResults.count > 0) {
+                self.SearchTable.isHidden = false
+            } else {
+                self.SearchTable.isHidden = true
+            }
+            self.SearchTable.reloadData()
             print(self.searchResults)
             return
         }
@@ -295,7 +300,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.ItemPrice.isHidden = false
                 cell.ItemPrice.text = "added"
                 return cell
-        }
+            }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
             cell.delegate = self
             cell.AddButton.isHidden = false
@@ -305,7 +310,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             cell.ItemPrice.text = ""
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! SearchTableCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
             if indexPath.row < self.appDelegate.people.count {
                 cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
                 cell.SearchName.text = self.searchResults[indexPath.row]

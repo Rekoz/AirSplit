@@ -330,6 +330,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
                 cell.delegate = self
                 cell.AddButton.isHidden = true
+                cell.SplitButton.isHidden = false
                 cell.ItemName.isHidden = false
                 cell.ItemName.text = "added"
                 cell.ItemPrice.isHidden = false
@@ -339,6 +340,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
                 cell.delegate = self
                 cell.AddButton.isHidden = true
+                cell.SplitButton.isHidden = false
                 cell.ItemName.isHidden = false
                 cell.ItemName.text = lastAddedItem
                 cell.ItemPrice.isHidden = false
@@ -348,6 +350,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
             cell.delegate = self
             cell.AddButton.isHidden = false
+            cell.SplitButton.isHidden = true
             cell.ItemName.isHidden = true
             cell.ItemName.text = ""
             cell.ItemPrice.isHidden = true
@@ -537,6 +540,7 @@ extension EventViewController : ItemTableViewCellDelegate {
     
     func cell_did_add_item(_ sender: ItemTableViewCell) {
         sender.AddButton.isHidden = true
+        sender.SplitButton.isHidden = false
         sender.ItemName.placeholder = "Item Name"
         sender.ItemName.isHidden = false
         sender.ItemPrice.placeholder = "Item Price"

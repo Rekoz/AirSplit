@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AWSCognitoIdentityProvider
+import Firebase
 
 /**
     View controller that displays recent user activities.
@@ -16,9 +16,6 @@ class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
-    
-    var user:AWSCognitoIdentityUser?
-    var userAttributes:[AWSCognitoIdentityProviderAttributeType]?
     
     /**
      Returns a newly initialized view controller with the nib file in the specified bundle.
@@ -48,7 +45,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.multipeer.setPeerDisplayName(name: "张楚越")
         self.multipeer.startAdvertising()
-        self.fetchUserAttributes()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,43 +53,14 @@ class HomeViewController: UIViewController {
     }
     
     /**
-     Fetches user info when user is logged in.
-     
-     - Returns: nil when user info is retrieved succesfully.
-    */
-    func fetchUserAttributes() {
-        user = AppDelegate.defaultUserPool().currentUser()
-        user?.getDetails().continueOnSuccessWith(block: { (task) -> Any? in
-            guard task.result != nil else {
-                return nil
-            }
-            self.userAttributes = task.result?.userAttributes
-            self.userAttributes?.forEach({ (attribute) in
-                print("Name: " + attribute.name!)
-            })
-            return nil
-        })
-    }
-    
-    /**
-     Retrieves attribute value based on provided attribute key.
-     
-     - Parameter name: attribute key.
-     
-     - Returns: attribute value.
-    */
-    func valueForAttribute(name:String) -> String? {
-        let values = self.userAttributes?.filter { $0.name == name }
-        return values?.first?.value
-    }
-    
-    /**
      Logs out user when logout button is pressed.
      
      - Parameter sender: Client's action to press logout button.
     */
     @IBAction func logout(_ sender:AnyObject) {
-        user?.signOut()
-        self.fetchUserAttributes()
+//        user?.signOut()
+//        self.fetchUserAttributes()
+        try! Auth.auth().signOut()
+        dismiss(animated: true, completion: nil)
     }
 }

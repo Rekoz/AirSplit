@@ -177,11 +177,17 @@ class EventViewController: UIViewController,
             for item in lineAmounts {
                 // Append items to cells
                 //print(item["description"] as! String)
-                self.appDelegate.items.append(item["description"] as! String)
+                // self.appDelegate.items.append(item["description"] as! String)
                 print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
-                    self.ItemTableView.reloadData()
+                    let row = self.appDelegate.items.count
+                    let indexPath = IndexPath.init(row: row, section: 0)
+                    self.ItemTableView.beginUpdates()
+                    self.appDelegate.items.append(item["description"] as! String)
+                    // Note that indexPath is wrapped in an array:  [indexPath]
+                    self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+                    self.ItemTableView.endUpdates()
                 })
             }
         }

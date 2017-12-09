@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+var lastAddedItem = ""
+
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
@@ -184,7 +186,8 @@ class EventViewController: UIViewController,
                     let row = self.appDelegate.items.count
                     let indexPath = IndexPath.init(row: row, section: 0)
                     self.ItemTableView.beginUpdates()
-                    self.appDelegate.items.append(item["description"] as! String)
+                    lastAddedItem = item["description"] as! String
+                    self.appDelegate.items.append(lastAddedItem)
                     // Note that indexPath is wrapped in an array:  [indexPath]
                     self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
                     self.ItemTableView.endUpdates()
@@ -331,6 +334,15 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.ItemName.text = "added"
                 cell.ItemPrice.isHidden = false
                 cell.ItemPrice.text = "added"
+                return cell
+            } else if (self.appDelegate.items[indexPath.row] == lastAddedItem) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
+                cell.delegate = self
+                cell.AddButton.isHidden = true
+                cell.ItemName.isHidden = false
+                cell.ItemName.text = lastAddedItem
+                cell.ItemPrice.isHidden = false
+                cell.ItemPrice.text = lastAddedItem
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell

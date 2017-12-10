@@ -16,7 +16,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var PaymentCenterTableView: UITableView!
     let paymentCellIdentifier = "PaymentCell"
     
-    let data:[String] = ["Item 1", "Item 2", "Item 3"]
+    let data:[String] = ["Name 1", "Name 2", "Name 3"]
     
     /**
         Called after the controller's view is loaded into memory.
@@ -73,11 +73,12 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "PaymentCenterToDetail", sender: nil)
+        performSegue(withIdentifier: "PaymentCenterToDetail", sender: data[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let detailView = segue.destination as! PaymentDetailViewController
+        detailView.person = sender as! String
     }
     
     /**

@@ -13,6 +13,7 @@ import Firebase
  */
 class PaymentViewController: UIViewController {
     
+    @IBOutlet weak var PaymentCenterTableView: UITableView!
     let paymentCellIdentifier = "PaymentCell"
     
     let data:[String] = ["Item 1", "Item 2", "Item 3"]
@@ -22,6 +23,9 @@ class PaymentViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.PaymentCenterTableView.delegate = self
+        self.PaymentCenterTableView.dataSource = self
     }
 
     /**
@@ -66,6 +70,14 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
         //cell.detailTextLabel?.textColor = UIColor.init(red: 0.1924, green: 0.8, blue: 0.056, alpha: 1)
         cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "PaymentCenterToDetail", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
     }
     
     /**

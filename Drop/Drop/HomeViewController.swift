@@ -17,6 +17,12 @@ class HomeViewController: UIViewController {
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
+    private var searchResults = [Transaction]()
+    
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
+    
     /**
      Returns a newly initialized view controller with the nib file in the specified bundle.
      
@@ -43,8 +49,12 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "张楚越")
+        self.multipeer.setPeerDisplayName(name: "Minghong Zhou")
         self.multipeer.startAdvertising()
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
+        findAllRelatedTransactions()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +62,39 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func findAllRelatedTransactions() {
+        let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: "MINGHONG ZHOU")
+        
+        let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: "MINGHONG ZHOU")
+        
+        queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
+                    print(transaction)
+                    print("amount = \(transaction.amount)")
+                    print("borrower = \(transaction.borrower)")
+                    print("lender = \(transaction.lender)")
+                    print("timestamp = \(transaction.timestamp)")
+                    self.searchResults.append(transaction)
+                }
+            }
+        })
+        
+        queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
+                    print(transaction)
+                    print("amount = \(transaction.amount)")
+                    print("borrower = \(transaction.borrower)")
+                    print("lender = \(transaction.lender)")
+                    print("timestamp = \(transaction.timestamp)")
+                    self.searchResults.append(transaction)
+                }
+            }
+        })
+    }
     /**
      Logs out user when logout button is pressed.
      

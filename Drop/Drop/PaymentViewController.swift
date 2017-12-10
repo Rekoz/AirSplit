@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 /**
     View controller that handles payment processing.
  */
@@ -28,7 +29,6 @@ class PaymentViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 }
 
 //related to payment Tableview

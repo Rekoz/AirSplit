@@ -53,7 +53,6 @@ class HomeViewController: UIViewController {
         let email = Auth.auth().currentUser?.email
         findMyAccountName(email: email!)
         findAllRelatedTransactions()
-        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
     }
     
     func findMyAccountName(email: String) {
@@ -79,9 +78,12 @@ class HomeViewController: UIViewController {
     }
     
     func findAllRelatedTransactions() {
-        let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: "MINGHONG ZHOU")
+        let myName = self.appDelegate.myOwnName
+        print("my peer name: \(myName)")
         
-        let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: "MINGHONG ZHOU")
+        let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myName)
+        
+        let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: myName)
         
         queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {

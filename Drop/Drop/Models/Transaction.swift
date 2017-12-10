@@ -9,20 +9,20 @@
 import UIKit
 
 class Transaction: NSObject {
-    var transactionId: String
+    var amount: Double
     var borrower: String
     var lender: String
-    var transactionDate: String
+    var timestamp: Int
     
-    init(transactionId: String, borrower: String, lender: String, transactionDate: String) {
-        self.transactionId = transactionId
+    init(amount: Double, borrower: String, lender: String, timestamp: Int) {
+        self.amount = amount
         self.borrower = borrower
         self.lender = lender
-        self.transactionDate = transactionDate
+        self.timestamp = timestamp
     }
     
     convenience override init() {
-        self.init(transactionId: "", borrower: "", lender: "", transactionDate: "")
+        self.init(amount: 0.00, borrower: "", lender: "", timestamp: 0)
     }
 }
 

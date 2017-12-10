@@ -52,7 +52,6 @@ class HomeViewController: UIViewController {
         ref = Database.database().reference()
         let email = Auth.auth().currentUser?.email
         findMyAccountName(email: email!)
-        findAllRelatedTransactions()
     }
     
     func findMyAccountName(email: String) {
@@ -66,6 +65,7 @@ class HomeViewController: UIViewController {
                         print("display name: " + self.appDelegate.myOwnName)
                         self.appDelegate.multipeer.setPeerDisplayName(name: self.appDelegate.myOwnName)
                         self.appDelegate.multipeer.startAdvertising()
+                        self.findAllRelatedTransactions()
                     }
                 }
             }

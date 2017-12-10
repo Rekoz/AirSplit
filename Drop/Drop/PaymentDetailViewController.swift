@@ -10,10 +10,27 @@ import UIKit
 
 class PaymentDetailViewController: UIViewController {
 
-    @IBOutlet weak var PaymentDetail: UITableView!
     var person = ""
-    
     var data:[String] = ["Item 1", "Item 2", "Item 3"]
+    
+    @IBOutlet weak var PaymentDetail: UITableView!
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        PaymentDetail.setEditing(editing,animated:animated)
+        if (PaymentDetail.isEditing) {
+            print("editing")
+            self.navigationItem.rightBarButtonItem!.title = "Done"
+        }
+        else {
+            self.navigationItem.rightBarButtonItem!.title = "Edit"
+        }
+    }
+    
+    @IBAction func CheckItems(_ sender: UIBarButtonItem) {
+        self.setEditing(true, animated: true)
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

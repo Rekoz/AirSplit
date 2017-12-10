@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "张楚越")
+        self.multipeer.setPeerDisplayName(name: "zcy")
         self.multipeer.startAdvertising()
     }
 

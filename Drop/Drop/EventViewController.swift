@@ -11,6 +11,23 @@ import Firebase
 
 var lastAddedItem = ""
 
+extension String {
+    
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return String(self[Range(start ..< end)])
+    }
+}
+
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
@@ -433,15 +450,22 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
+            
             cell.accountName.text = self.appDelegate.people[indexPath.row]
             let lblNameInitialize = UILabel()
-            lblNameInitialize.frame.size = CGSize(width: 50, height: 50)
+            lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
-            lblNameInitialize.text = String(cell.accountName.text!.characters.first!) + String(cell.accountName.text!.characters.first!)
+            var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
+            print("the current user is", nameStringArr)
+            var firstName: String = nameStringArr![0].uppercased()
+            var firstLetter: Character = firstName[0]
+            let lastName: String = (nameStringArr?[1])!.uppercased()
+            var secondLetter: Character = lastName[0]
+            lblNameInitialize.text = String(firstLetter) + String(secondLetter)
             lblNameInitialize.textAlignment = NSTextAlignment.center
-            lblNameInitialize.backgroundColor = UIColor.black
-            lblNameInitialize.layer.cornerRadius = 25
-            
+            lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+            lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+//            cell.accountImageView.layer.cornerRadius = 25
             
             UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
             lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -155,25 +155,8 @@
                                     <outlet property="delegate" destination="0ha-wj-wxd" id="BTU-nG-aVO"/>
                                 </connections>
                             </searchBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="c74-lb-yRu" userLabel="Self Image Popup">
-                                <rect key="frame" x="5" y="116" width="55" height="70"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cHJ-gA-J8x" userLabel="SelfImagePopup">
-                                        <rect key="frame" x="0.0" y="0.0" width="55" height="49"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="49" id="LLn-Ey-0KI"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hl-6O-yop" userLabel="SelfName">
-                                        <rect key="frame" x="0.0" y="49" width="55" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wf6-Rf-gqp" userLabel="People Collection View">
-                                <rect key="frame" x="60" y="116" width="310" height="70"/>
+                                <rect key="frame" x="10" y="121" width="355" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="GIA-UU-0Vf"/>
@@ -227,7 +210,7 @@
                                 </connections>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Aek-rt-eXF">
-                                <rect key="frame" x="0.0" y="186" width="375" height="432"/>
+                                <rect key="frame" x="0.0" y="191" width="375" height="427"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" id="bIe-xw-TlQ" userLabel="ItemCell" customClass="ItemTableViewCell" customModule="Drop" customModuleProvider="target">
@@ -394,19 +377,15 @@
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="bottom" secondItem="Aek-rt-eXF" secondAttribute="bottom" id="3jJ-on-YdR"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="dn0-rm-uwC" secondAttribute="trailing" id="46n-Py-IQF"/>
                             <constraint firstItem="dn0-rm-uwC" firstAttribute="top" secondItem="pSc-jg-fcm" secondAttribute="top" id="9mb-O1-L0T"/>
-                            <constraint firstItem="wf6-Rf-gqp" firstAttribute="leading" secondItem="c74-lb-yRu" secondAttribute="trailing" id="Chd-2m-qBT"/>
-                            <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="wf6-Rf-gqp" secondAttribute="trailing" constant="5" id="F7q-LR-Bqq"/>
-                            <constraint firstItem="c74-lb-yRu" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="GG8-uK-Wpj"/>
+                            <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="wf6-Rf-gqp" secondAttribute="trailing" constant="10" id="F7q-LR-Bqq"/>
                             <constraint firstItem="pmd-0x-Urt" firstAttribute="top" secondItem="dn0-rm-uwC" secondAttribute="bottom" id="O3M-XD-8AA"/>
                             <constraint firstItem="hnU-Yi-Px1" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="Wot-hk-Xb8"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="pmd-0x-Urt" secondAttribute="trailing" id="ZBR-Gi-t9e"/>
-                            <constraint firstItem="Aek-rt-eXF" firstAttribute="top" secondItem="c74-lb-yRu" secondAttribute="bottom" id="cVo-NZ-bMD"/>
                             <constraint firstItem="pmd-0x-Urt" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="e1g-MV-abH"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="Aek-rt-eXF" secondAttribute="trailing" id="gck-Tl-ucq"/>
                             <constraint firstItem="Aek-rt-eXF" firstAttribute="top" secondItem="wf6-Rf-gqp" secondAttribute="bottom" id="j2Y-Zh-IlD"/>
-                            <constraint firstItem="c74-lb-yRu" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="5" id="jYg-aQ-b96"/>
-                            <constraint firstItem="wf6-Rf-gqp" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="60" id="jeR-CY-uHS"/>
-                            <constraint firstItem="wf6-Rf-gqp" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" id="kZd-Jm-vmU"/>
+                            <constraint firstItem="wf6-Rf-gqp" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" constant="10" id="jeR-CY-uHS"/>
+                            <constraint firstItem="wf6-Rf-gqp" firstAttribute="top" secondItem="pmd-0x-Urt" secondAttribute="bottom" constant="5" id="kZd-Jm-vmU"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="trailing" secondItem="hnU-Yi-Px1" secondAttribute="trailing" id="l03-Yu-DPO"/>
                             <constraint firstItem="pSc-jg-fcm" firstAttribute="bottom" secondItem="hnU-Yi-Px1" secondAttribute="bottom" id="lny-jK-bkY"/>
                             <constraint firstItem="hnU-Yi-Px1" firstAttribute="leading" secondItem="pSc-jg-fcm" secondAttribute="leading" id="qvo-dW-6nC"/>

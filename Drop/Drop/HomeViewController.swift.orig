@@ -50,7 +50,11 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "Xingyuan Ding")
+<<<<<<< HEAD
+        self.multipeer.setPeerDisplayName(name: "zcy")
+=======
+        self.multipeer.setPeerDisplayName(name: "Shirley He")
+>>>>>>> aa5d36b8bcefe669a5ec09ded7f2a7a09b6e8513
         self.multipeer.startAdvertising()
         self.transactions.append(Transaction.init())    // REMOVE--DEBUG
         // [START create_database_reference]

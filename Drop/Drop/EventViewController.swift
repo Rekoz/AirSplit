@@ -9,7 +9,22 @@
 import UIKit
 import Firebase
 
-var lastAddedItem = ""
+extension String {
+    
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return String(self[Range(start ..< end)])
+    }
+}
 
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
@@ -97,7 +112,7 @@ class EventViewController: UIViewController,
         
         
         //related to item table view
-        self.appDelegate.items.append("item")
+        self.appDelegate.items.append(["item", "price"])
         
     }
     
@@ -195,8 +210,9 @@ class EventViewController: UIViewController,
                     let row = self.appDelegate.items.count
                     let indexPath = IndexPath.init(row: row, section: 0)
                     self.ItemTableView.beginUpdates()
-                    lastAddedItem = item["description"] as! String
-                    self.appDelegate.items.append(lastAddedItem)
+                    let itemName = item["description"] as! String
+                    let itemPrice = item["data"] as! String
+                    self.appDelegate.items.append([itemName, itemPrice])
                     // Note that indexPath is wrapped in an array:  [indexPath]
                     self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
                     self.ItemTableView.endUpdates()
@@ -303,6 +319,11 @@ class EventViewController: UIViewController,
 //======================
 extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 90.0;//Choose your custom row height
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count:Int?
         
@@ -335,25 +356,28 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
         if tableView == self.ItemTableView {
-            if (self.appDelegate.items[indexPath.row] == "addedItem") {
+            if (self.appDelegate.items.count - 1 == indexPath.row) {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
                 cell.delegate = self
-                cell.AddButton.isHidden = true
-                cell.SplitButton.isHidden = false
-                cell.ItemName.isHidden = false
-                cell.ItemName.text = "added"
-                cell.ItemPrice.isHidden = false
-                cell.ItemPrice.text = "added"
+                cell.SplitButton.isHidden = true
+                cell.AddButton.isHidden = false
+                cell.ItemName.isHidden = true
+                cell.ItemName.text = ""
+                cell.ItemPrice.isHidden = true
+                cell.ItemPrice.text = ""
                 return cell
-            } else if (self.appDelegate.items[indexPath.row] == lastAddedItem) {
+            } else if (self.appDelegate.items[indexPath.row][0] == "item") {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
-                cell.delegate = self
+                cell.SplitButton.isHidden = false
                 cell.AddButton.isHidden = true
                 cell.SplitButton.isHidden = false
                 cell.ItemName.isHidden = false
-                cell.ItemName.text = lastAddedItem
+                cell.ItemPrice.text = ""
+                cell.ItemPrice.placeholder = "Item Price"
+                if (self.appDelegate.items[indexPath.row][1] != "price") {
+                    cell.ItemPrice.text = self.appDelegate.items[indexPath.row][1]
+                }
                 cell.ItemPrice.isHidden = false
-                cell.ItemPrice.text = lastAddedItem
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
@@ -364,6 +388,11 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             cell.ItemName.text = ""
             cell.ItemPrice.isHidden = true
             cell.ItemPrice.text = ""
+            cell.ItemPrice.placeholder = "Item Price"
+            if (self.appDelegate.items[indexPath.row][1] != "price") {
+                cell.ItemPrice.text = self.appDelegate.items[indexPath.row][1]
+            }
+            cell.ItemPrice.isHidden = false
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
@@ -445,15 +474,22 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
+            
             cell.accountName.text = self.appDelegate.people[indexPath.row]
             let lblNameInitialize = UILabel()
-            lblNameInitialize.frame.size = CGSize(width: 50, height: 50)
+            lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
-            lblNameInitialize.text = String(cell.accountName.text!.characters.first!) + String(cell.accountName.text!.characters.first!)
+            var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
+            print("the current user is", nameStringArr)
+            var firstName: String = nameStringArr![0].uppercased()
+            var firstLetter: Character = firstName[0]
+            let lastName: String = (nameStringArr?[1])!.uppercased()
+            var secondLetter: Character = lastName[0]
+            lblNameInitialize.text = String(firstLetter) + String(secondLetter)
             lblNameInitialize.textAlignment = NSTextAlignment.center
-            lblNameInitialize.backgroundColor = UIColor.black
-            lblNameInitialize.layer.cornerRadius = 25
-            
+            lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+            lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+//            cell.accountImageView.layer.cornerRadius = 25
             
             UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
             lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -555,13 +591,22 @@ extension EventViewController : ItemTableViewCellDelegate {
         sender.ItemPrice.placeholder = "Item Price"
         sender.ItemPrice.isHidden = false
         let row = self.appDelegate.items.count
-        self.appDelegate.items[row-1] = "addedItem"
         let indexPath = IndexPath.init(row: row, section: 0)
         self.ItemTableView.beginUpdates()
-        self.appDelegate.items.append("Item")
+        self.appDelegate.items.append(["item", "price"])
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()
+    }
+    
+    func name_cell_did_change(_ sender: ItemTableViewCell, name: String) {
+        let index = ItemTableView.indexPath(for: sender)?.row
+        self.appDelegate.items[index!][0] = name
+    }
+    
+    func price_cell_did_change(_ sender: ItemTableViewCell, price: String) {
+        let index = ItemTableView.indexPath(for: sender)?.row
+        self.appDelegate.items[index!][1] = price
     }
     
     func initializeSplitting(cell: ItemTableViewCell) {

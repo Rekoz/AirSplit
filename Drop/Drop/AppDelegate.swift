@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let multipeer = MultipeerManager()
     var people = [String]()
-    var items = [String]()
+    var items = [[String]]()
     var myOwnName = ""
     
     var window: UIWindow?

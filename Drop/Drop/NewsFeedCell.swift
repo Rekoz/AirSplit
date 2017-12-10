@@ -12,7 +12,7 @@ class NewsFeedCell: UITableViewCell {
 
     @IBOutlet weak var Icon: UIImageView!
     @IBOutlet weak var Participants: UILabel!
-    @IBOutlet weak var Price: UILabel!
-    
+    @IBOutlet weak var Amount: UILabel!
+    @IBOutlet weak var Time: UILabel!
     
 }

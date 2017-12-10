@@ -43,7 +43,6 @@ class LoginViewController: UIViewController {
      - Returns: Returns immediately if either username or password is empty.
     */
     @IBAction func loginDidTouch(_ sender: AnyObject) {
-        findMyAccountName()
         Auth.auth().signIn(withEmail: usernameInput.text!,
                            password: passwordInput.text!)
         { user, error in
@@ -75,17 +74,22 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func findMyAccountName() {
-        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: usernameInput.text!)
-        query.observeSingleEvent(of: .value, with: { (snapshot) in
-            for case let childSnapshot as DataSnapshot in snapshot.children {
-                if let data = childSnapshot.value as? [String: Any] {
-                    print("got account name " + "\(data["accountName"]!)")
-                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
-                }
-            }
-        })
-    }
+//    func findMyAccountName() {
+//        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: usernameInput.text!)
+//        query.observeSingleEvent(of: .value, with: { (snapshot) in
+//            for case let childSnapshot as DataSnapshot in snapshot.children {
+//                if let data = childSnapshot.value as? [String: Any] {
+//                    print("got account name " + "\(data["accountName"]!)")
+//                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
+//                    if (self.appDelegate.myOwnName != "") {
+//                        print("display name: " + self.appDelegate.myOwnName)
+//                        self.appDelegate.multipeer.setPeerDisplayName(name: self.appDelegate.myOwnName)
+//                        self.appDelegate.multipeer.startAdvertising()
+//                    }
+//                }
+//            }
+//        })
+//    }
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
         let alert = UIAlertController(title: "",

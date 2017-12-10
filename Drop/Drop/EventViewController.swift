@@ -52,8 +52,9 @@ class EventViewController: UIViewController,
     
     private var splitable : Bool
     private var splitAtIndex: Int
-    private var assignees = [PeopleCollectionViewCell]()
+    private var tempAssignees = [PeopleCollectionViewCell]()
     private var searchResults = [String]()
+    private var assignees = [[PeopleCollectionViewCell]]()
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
@@ -113,7 +114,8 @@ class EventViewController: UIViewController,
         
         //related to item table view
         self.appDelegate.items.append(["item", "price"])
-        
+        self.assignees.append([PeopleCollectionViewCell]())
+//        print ("count: \(self.assignees.count)")
     }
     
     /// clear the detected devices array and start browsing when we get to the event creating page every time
@@ -121,6 +123,7 @@ class EventViewController: UIViewController,
     /// - Parameter animated: boolean
     override func viewWillAppear(_ animated: Bool) {
         self.appDelegate.people.removeAll()
+        self.appDelegate.people.append(self.appDelegate.myOwnName)
 //        self.appDelegate.items.removeAll()
         self.ItemTableView.reloadData()
 //        self.appDelegate.items.append("item")
@@ -367,6 +370,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.ItemPrice.isHidden = true
                 cell.ItemPrice.placeholder = "Item Price"
                 cell.ItemPrice.text = ""
+                cell.assignees = self.assignees[indexPath.row]
                 return cell
             } else if (self.appDelegate.items[indexPath.row][0] == "item") {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
@@ -382,6 +386,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 if (self.appDelegate.items[indexPath.row][1] != "price") {
                     cell.ItemPrice.text = self.appDelegate.items[indexPath.row][1]
                 }
+                cell.assignees = self.assignees[indexPath.row]
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
@@ -398,6 +403,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.ItemPrice.text = self.appDelegate.items[indexPath.row][1]
             }
             cell.ItemPrice.isHidden = false
+            cell.assignees = self.assignees[indexPath.row]
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
@@ -444,6 +450,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         if let indexPath = deleteItemIndexPath {
             self.ItemTableView.beginUpdates()
             self.appDelegate.items.remove(at: indexPath.row)
+            self.assignees.remove(at: indexPath.row)
             // Note that indexPath is wrapped in an array:  [indexPath]
             self.ItemTableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
             deleteItemIndexPath = nil
@@ -530,19 +537,19 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         person.accountImageView.alpha = (person.accountImageView.alpha == 1) ? 0.5 : 1
         
         // de-select
-        if (assignees.contains(person)) {
+        if (self.tempAssignees.contains(person)) {
             print(person.accountName.text! + " is de-selected")
-            assignees = assignees.filter({ $0.accountName != person.accountName })
+            self.tempAssignees = self.tempAssignees.filter({ $0.accountName != person.accountName })
         }
             // select
         else {
             print(person.accountName.text! + " is selected")
-            assignees.append(person)
+            self.tempAssignees.append(person)
         }
         
         // DEBUG
         print("Assignees: ")
-        for assignee in assignees as [PeopleCollectionViewCell] {
+        for assignee in self.tempAssignees as [PeopleCollectionViewCell] {
             print(assignee.accountName.text! + " ")
         }
     }
@@ -601,6 +608,7 @@ extension EventViewController : ItemTableViewCellDelegate {
         let indexPath = IndexPath.init(row: row, section: 0)
         self.ItemTableView.beginUpdates()
         self.appDelegate.items.append(["item", "price"])
+        self.assignees.append([PeopleCollectionViewCell]())
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()
@@ -620,7 +628,7 @@ extension EventViewController : ItemTableViewCellDelegate {
         print("Start splitting")
         self.splitAtIndex = (ItemTableView.indexPath(for: cell)?.row)!
         self.splitable = true;
-        self.assignees.removeAll()
+        self.tempAssignees.removeAll()
         for person in self.PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
             let icon = person.accountImageView
             icon?.alpha = 0.5
@@ -629,21 +637,23 @@ extension EventViewController : ItemTableViewCellDelegate {
         
         // DEBUG
         print("Assignees: ")
-        for assignee in assignees as [PeopleCollectionViewCell] {
+        for assignee in tempAssignees as [PeopleCollectionViewCell] {
             print(assignee.accountName.text! + " ")
         }
     }
     
     func endSplitting(cell: ItemTableViewCell) {
+        let index = ItemTableView.indexPath(for: cell)?.row
         print("End splitting")
         self.splitAtIndex = -1
         self.splitable = false
         
         cell.assignees.removeAll()
-        cell.assignees.append(contentsOf: self.assignees)
+        cell.assignees.append(contentsOf: self.tempAssignees)
         cell.AssigneeCollection.reloadData()
-        
-        self.assignees.removeAll()
+        self.assignees[index!].removeAll()
+        self.assignees[index!].append(contentsOf: self.tempAssignees)
+        self.tempAssignees.removeAll()
         for person in PeopleCollectionView.visibleCells as! [PeopleCollectionViewCell] {
             let icon = person.accountImageView
             icon?.alpha = 1
@@ -652,7 +662,7 @@ extension EventViewController : ItemTableViewCellDelegate {
         
         // DEBUG
         print("Assignees: ")
-        for assignee in assignees as [PeopleCollectionViewCell] {
+        for assignee in tempAssignees as [PeopleCollectionViewCell] {
             print(assignee.accountName.text! + " ")
         }
         let i = self.ItemTableView.indexPath(for: cell)?.row

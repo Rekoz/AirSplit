@@ -64,6 +64,7 @@ class EventViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didLoad")
+        print("my name is " + self.appDelegate.myOwnName)
         
         SearchButton.delegate = self
         // [START create_database_reference]

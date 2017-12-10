@@ -276,11 +276,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-0v-ZYc">
-<<<<<<< HEAD
-                                                    <rect key="frame" x="324" y="7.5" width="30" height="30"/>
-=======
                                                     <rect key="frame" x="325" y="19.5" width="30" height="30"/>
->>>>>>> e3ab0183f9e71fe351765e6afb50cd940c58acf4
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Duq-5T-5Od"/>
                                                         <constraint firstAttribute="width" constant="30" id="qHi-8S-dNs"/>

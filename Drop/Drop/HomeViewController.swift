@@ -17,6 +17,13 @@ class HomeViewController: UIViewController {
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
+    private var transactions = [Transaction]()
+    @IBOutlet weak var NewsFeedTable: UITableView!
+    
+    // [START define_database_reference]
+    var ref: DatabaseReference!
+    // [END define_database_reference]
+    
     /**
      Returns a newly initialized view controller with the nib file in the specified bundle.
      
@@ -45,6 +52,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.multipeer.setPeerDisplayName(name: "zcy")
         self.multipeer.startAdvertising()
+        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
+        // [START create_database_reference]
+        ref = Database.database().reference()
+        // [END create_database_reference]
+        findAllRelatedTransactions()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,15 +64,64 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func findAllRelatedTransactions() {
+        let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: "MINGHONG ZHOU")
+        
+        let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: "MINGHONG ZHOU")
+        
+        queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
+                    print(transaction)
+                    print("amount = \(transaction.amount)")
+                    print("borrower = \(transaction.borrower)")
+                    print("lender = \(transaction.lender)")
+                    print("timestamp = \(transaction.timestamp)")
+                    self.transactions.append(transaction)
+                }
+            }
+        })
+        
+        queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
+                    print(transaction)
+                    print("amount = \(transaction.amount)")
+                    print("borrower = \(transaction.borrower)")
+                    print("lender = \(transaction.lender)")
+                    print("timestamp = \(transaction.timestamp)")
+                    self.transactions.append(transaction)
+                }
+            }
+        })
+    }
     /**
      Logs out user when logout button is pressed.
      
      - Parameter sender: Client's action to press logout button.
     */
     @IBAction func logout(_ sender:AnyObject) {
-//        user?.signOut()
-//        self.fetchUserAttributes()
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
+    }
+}
+
+//======================
+//related to table view
+//======================
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.transactions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
+        cell.Participants.text = "You paid Camille"
+        cell.Price.text = "$10.00"
+        cell.Icon.image = #imageLiteral(resourceName: "icons8-User Male-48")
+        return cell
     }
 }

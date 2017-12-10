@@ -23,7 +23,18 @@ class LoginViewController: UIViewController {
     // [START define_database_reference]
     var ref: DatabaseReference!
     // [END define_database_reference]
-
+    
+    private var appDelegate : AppDelegate
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        super.init(coder: aDecoder)
+    }
     /**
      Authenticates user when login button is pressed.
      
@@ -32,6 +43,7 @@ class LoginViewController: UIViewController {
      - Returns: Returns immediately if either username or password is empty.
     */
     @IBAction func loginDidTouch(_ sender: AnyObject) {
+        findMyAccountName()
         Auth.auth().signIn(withEmail: usernameInput.text!,
                            password: passwordInput.text!)
         { user, error in
@@ -63,6 +75,18 @@ class LoginViewController: UIViewController {
         }
     }
     
+    func findMyAccountName() {
+        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: usernameInput.text!)
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    print("got account name " + "\(data["accountName"]!)")
+                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
+                }
+            }
+        })
+    }
+    
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
         let alert = UIAlertController(title: "",
                                       message: "Please enter your information",
@@ -85,7 +109,8 @@ class LoginViewController: UIViewController {
                     if let user = user {
                         self.clearTextField()
                         print("We have new user! \(user.email!)")
-                        self.ref.child("users").child(firstNameField.text! + "_" + lastNameField.text!).setValue(["accountName": firstNameField.text!.uppercased() + " " + lastNameField.text!.uppercased(), "firstName":firstNameField.text!, "lastName": lastNameField.text!])
+                        self.ref.child("users").child(firstNameField.text! + "_" + lastNameField.text!).setValue(["accountName": firstNameField.text!.uppercased() + " " + lastNameField.text!.uppercased(), "firstName": firstNameField.text!, "lastName": lastNameField.text!, "email": emailField.text!])
+                        
                     }
                     Auth.auth().signIn(withEmail: self.usernameInput.text!,
                                        password: self.passwordInput.text!)

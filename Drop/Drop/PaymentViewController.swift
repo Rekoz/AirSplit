@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Firebase
 /**
     View controller that handles payment processing.
  */
 class PaymentViewController: UIViewController {
     
     let paymentCellIdentifier = "PaymentCell"
+    
+    let data:[String] = ["Item 1", "Item 2", "Item 3"]
     
     /**
         Called after the controller's view is loaded into memory.
@@ -28,7 +31,6 @@ class PaymentViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 }
 
 //related to payment Tableview
@@ -44,7 +46,7 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
      - Returns: The number of rows in section.
     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return data.count
     }
     
     /**
@@ -59,6 +61,10 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
+        cell.textLabel?.text = data[indexPath.row]
+        cell.detailTextLabel?.text = "price"
+        //cell.detailTextLabel?.textColor = UIColor.init(red: 0.1924, green: 0.8, blue: 0.056, alpha: 1)
+        cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
         return cell
     }
     

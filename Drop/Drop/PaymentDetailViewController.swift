@@ -25,12 +25,23 @@ class PaymentDetailViewController: UIViewController {
     }
     
     @IBAction func CheckItems(_ sender: UIBarButtonItem) {
-        print("invoked")
         if (sender.title! == "Edit") {
             self.setEditing(true, animated: true)
+            self.navigationItem.rightBarButtonItems![1].isEnabled = true
         } else {
             self.setEditing(false, animated: true)
+            self.navigationItem.rightBarButtonItems![1].isEnabled = false
         }
+    }
+    
+    @IBAction func SubmitItems(_ sender: UIBarButtonItem) {
+        var items : [String] = []
+        let selectedIndexPaths = PaymentDetail.indexPathsForSelectedRows
+        for indexPath in selectedIndexPaths! {
+            let cell = PaymentDetail.cellForRow(at: indexPath)
+            items.append((cell?.textLabel?.text)!)
+        }
+        print(items)
     }
     
     override func viewDidLoad() {

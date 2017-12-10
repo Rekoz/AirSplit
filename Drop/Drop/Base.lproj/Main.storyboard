@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -696,11 +697,18 @@
                         <viewLayoutGuide key="safeArea" id="UtX-E6-TR9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="y3J-rm-Fvk">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="8Dc-s6-lpw">
-                            <connections>
-                                <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="rw3-Pn-9Kc"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Edit" id="8Dc-s6-lpw">
+                                <connections>
+                                    <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="rw3-Pn-9Kc"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="Submit" id="Zkf-69-T0w">
+                                <connections>
+                                    <action selector="SubmitItems:" destination="9Z0-xM-GaQ" id="sTE-u9-lbS"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="PaymentDetail" destination="eUJ-tN-fSv" id="0eZ-YX-hll"/>
@@ -817,4 +825,5 @@
         <image name="icons8-Money Bag Filled-52" width="35" height="35"/>
         <image name="setting_gray" width="116" height="118"/>
     </resources>
+    <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

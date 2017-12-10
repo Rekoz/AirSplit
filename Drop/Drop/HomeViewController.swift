@@ -17,6 +17,9 @@ class HomeViewController: UIViewController {
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
+    private var transactions = [Transaction]()
+    @IBOutlet weak var NewsFeedTable: UITableView!
+    
     /**
      Returns a newly initialized view controller with the nib file in the specified bundle.
      
@@ -43,8 +46,9 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "张楚越")
+        self.multipeer.setPeerDisplayName(name: "Shirley He")
         self.multipeer.startAdvertising()
+        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,9 +62,29 @@ class HomeViewController: UIViewController {
      - Parameter sender: Client's action to press logout button.
     */
     @IBAction func logout(_ sender:AnyObject) {
-//        user?.signOut()
-//        self.fetchUserAttributes()
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
+    }
+}
+
+//======================
+//related to table view
+//======================
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.transactions.count
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
+        cell.Participants.text = "You paid Camille"
+        cell.Price.text = "$10.00"
+        cell.Icon.image = #imageLiteral(resourceName: "icons8-User Male-48")
+        return cell
     }
 }

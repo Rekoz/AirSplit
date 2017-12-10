@@ -29,6 +29,7 @@
 		D83D44E61FB2B61400BB4615 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D44E11FB2B61300BB4615 /* LoginViewController.swift */; };
 		D849718A1FBD639F0017D841 /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84971871FBD5E150017D841 /* SignupTests.swift */; };
 		D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */; };
+		D8A1785A1FDCAF3C0053A353 /* NewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A178591FDCAF3C0053A353 /* NewsFeedCell.swift */; };
 		D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B9F6591FBE5E8E008786BB /* LoginTests.swift */; };
 		EE0278CD1FD52D08002A2D51 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0278CC1FD52D08002A2D51 /* User.swift */; };
 		EE0278CF1FD52D18002A2D51 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0278CE1FD52D18002A2D51 /* Transaction.swift */; };
@@ -72,6 +73,7 @@
 		D83141781FB9882600C6FE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D83D44E11FB2B61300BB4615 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D84971871FBD5E150017D841 /* SignupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
+		D8A178591FDCAF3C0053A353 /* NewsFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCell.swift; sourceTree = "<group>"; };
 		D8B9F6591FBE5E8E008786BB /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		EE0278CC1FD52D08002A2D51 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE0278CE1FD52D18002A2D51 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -155,11 +157,11 @@
 				D83141741FB976B100C6FE10 /* Main.storyboard */,
 				6945C4941FD1511700EE1D51 /* ItemTableViewCell.swift */,
 				EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */,
-				D83141701FB93F9A00C6FE10 /* CognitoConfig.plist */,
 				697E9ACD1F9827D4004F9235 /* Assets.xcassets */,
 				3BC68FAB1FAD724500B3089D /* Multipeer.swift */,
 				3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */,
 				D809D36B1FD66AFE0041A682 /* TinyPeopleCollectionViewCell.swift */,
+				D8A178591FDCAF3C0053A353 /* NewsFeedCell.swift */,
 			);
 			path = Drop;
 			sourceTree = "<group>";
@@ -428,9 +430,9 @@
 				697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */,
 				EE0278CD1FD52D08002A2D51 /* User.swift in Sources */,
 				EE0278CF1FD52D18002A2D51 /* Transaction.swift in Sources */,
+				D8A1785A1FDCAF3C0053A353 /* NewsFeedCell.swift in Sources */,
 				697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */,
 				697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */,
-				D831416D1FB93E2200C6FE10 /* CognitoConfig.swift in Sources */,
 				EE0278D51FD669C9002A2D51 /* SearchTableCell.swift in Sources */,
 				697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */,
 				3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */,

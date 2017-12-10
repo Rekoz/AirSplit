@@ -478,6 +478,59 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6vO-AF-7ff">
                                 <rect key="frame" x="0.0" y="140" width="375" height="478"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsFeedCell" id="Q79-es-c6R" customClass="NewsFeedCell" customModule="Drop" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q79-es-c6R" id="XVm-Zc-sIl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jEx-SJ-sdr">
+                                                    <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="WIM-yX-Ipk"/>
+                                                        <constraint firstAttribute="height" constant="30" id="a1i-W1-hIr"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7W-hC-1Uj">
+                                                    <rect key="frame" x="40" y="5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTr-sP-4Wc">
+                                                    <rect key="frame" x="313" y="5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jEx-SJ-sdr" firstAttribute="top" secondItem="XVm-Zc-sIl" secondAttribute="topMargin" constant="5" id="2Bu-vb-gaG"/>
+                                                <constraint firstItem="jEx-SJ-sdr" firstAttribute="leading" secondItem="XVm-Zc-sIl" secondAttribute="leading" constant="5" id="G8j-Rw-eDS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="RTr-sP-4Wc" secondAttribute="trailing" constant="5" id="HeU-9f-d9R"/>
+                                                <constraint firstItem="k7W-hC-1Uj" firstAttribute="leading" secondItem="jEx-SJ-sdr" secondAttribute="trailing" constant="8" symbolic="YES" id="UU4-co-fMx"/>
+                                                <constraint firstItem="k7W-hC-1Uj" firstAttribute="leading" secondItem="jEx-SJ-sdr" secondAttribute="trailing" constant="5" id="WZE-ON-GsI"/>
+                                                <constraint firstItem="k7W-hC-1Uj" firstAttribute="leading" secondItem="jEx-SJ-sdr" secondAttribute="trailing" constant="8" symbolic="YES" id="Zv9-Wu-tDL"/>
+                                                <constraint firstItem="jEx-SJ-sdr" firstAttribute="top" secondItem="XVm-Zc-sIl" secondAttribute="topMargin" constant="5" id="hVe-n6-Sp4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jEx-SJ-sdr" secondAttribute="bottom" id="qFR-6f-Gme"/>
+                                                <constraint firstItem="RTr-sP-4Wc" firstAttribute="top" secondItem="XVm-Zc-sIl" secondAttribute="topMargin" constant="5" id="szR-tM-Gxv"/>
+                                                <constraint firstItem="k7W-hC-1Uj" firstAttribute="top" secondItem="XVm-Zc-sIl" secondAttribute="topMargin" constant="5" id="xRE-1P-y1z"/>
+                                                <constraint firstItem="jEx-SJ-sdr" firstAttribute="leading" secondItem="XVm-Zc-sIl" secondAttribute="leadingMargin" constant="5" id="xmN-88-v8D"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="Icon" destination="jEx-SJ-sdr" id="YM3-w1-CUG"/>
+                                            <outlet property="Participants" destination="k7W-hC-1Uj" id="U9p-AB-owc"/>
+                                            <outlet property="Price" destination="RTr-sP-4Wc" id="Fgp-UN-fgi"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="dxD-u0-Nyx" id="uh6-tB-Hnt"/>
+                                    <outlet property="delegate" destination="dxD-u0-Nyx" id="UAZ-jP-BxU"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCv-70-hfc">
                                 <rect key="frame" x="0.0" y="120" width="375" height="18"/>
@@ -509,6 +562,9 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="fJf-0z-p2i"/>
+                    <connections>
+                        <outlet property="NewsFeedTable" destination="6vO-AF-7ff" id="btg-wb-uIa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WS1-s3-2OC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -94,6 +94,8 @@ class EventViewController: UIViewController,
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
         }))
         
+        
+        
         //related to item table view
         self.appDelegate.items.append("item")
         
@@ -132,6 +134,12 @@ class EventViewController: UIViewController,
     /// - Parameter sender: The object that initiates the action
     @IBAction func addImage(_ sender: Any) {
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func storeTransactions(_ sender: Any) {
+       print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
+       self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970))).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": "M", "lender": "Z", "amount": 11])
     }
     
     /// Fetches the picked image and uploads it to the server for processing

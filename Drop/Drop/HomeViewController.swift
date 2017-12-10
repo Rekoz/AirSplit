@@ -20,9 +20,7 @@ class HomeViewController: UIViewController {
     private var transactions = [Transaction]()
     @IBOutlet weak var NewsFeedTable: UITableView!
     
-    // [START define_database_reference]
     var ref: DatabaseReference!
-    // [END define_database_reference]
     
     /**
      Returns a newly initialized view controller with the nib file in the specified bundle.
@@ -52,11 +50,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.multipeer.setPeerDisplayName(name: "Shirley He")
         self.multipeer.startAdvertising()
-        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
-        // [START create_database_reference]
+        
         ref = Database.database().reference()
-        // [END create_database_reference]
-        findAllRelatedTransactions()
+        self.findAllRelatedTransactions()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +75,10 @@ class HomeViewController: UIViewController {
                     print("lender = \(transaction.lender)")
                     print("timestamp = \(transaction.timestamp)")
                     self.transactions.append(transaction)
+                    print(self.transactions.count)
+                    DispatchQueue.main.async {
+                        self.NewsFeedTable.reloadData()
+                    }
                 }
             }
         })
@@ -93,6 +93,10 @@ class HomeViewController: UIViewController {
                     print("lender = \(transaction.lender)")
                     print("timestamp = \(transaction.timestamp)")
                     self.transactions.append(transaction)
+                    print(self.transactions.count)
+                    DispatchQueue.main.async {
+                        self.NewsFeedTable.reloadData()
+                    }
                 }
             }
         })
@@ -119,9 +123,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
-        cell.Participants.text = "You paid Camille"
-        cell.Price.text = "$10.00"
+        let transaction = self.transactions[indexPath.row]
+        let payer = transaction.borrower
+        let payee = transaction.lender
+        let epochSec = transaction.timestamp
+        let time = convertToDateTime(epochSec: epochSec)
+        let amount = transaction.amount
+        print("payer: \(payer) payee: \(payee) time: \(time) amount:\(amount)")
+        cell.Participants.text = "\(payer) paid \(payee)"
+        cell.Amount.text = "$\(amount)"
+        cell.Time.text = "\(time)"
         cell.Icon.image = #imageLiteral(resourceName: "icons8-User Male-48")
         return cell
+    }
+    
+    func convertToDateTime(epochSec: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(epochSec))
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return dateFormatter.string(from: date)
     }
 }

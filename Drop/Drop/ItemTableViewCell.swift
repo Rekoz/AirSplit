@@ -12,11 +12,21 @@ import UIKit
 protocol ItemTableViewCellDelegate: class {
     func cell_did_add_item(_ sender: ItemTableViewCell)
     func cell_did_add_people(_ sender: ItemTableViewCell)
+    func name_cell_did_change(_ sender: ItemTableViewCell, name: String)
+    func price_cell_did_change(_ sender: ItemTableViewCell, price: String)
 }
 
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemName: UITextField!
+    @IBAction func itemNameChanged(_ sender: Any) {
+        //print (ItemName.text!)
+        delegate?.name_cell_did_change(self, name: ItemName.text!)
+    }
     @IBOutlet weak var ItemPrice: UITextField!
+    @IBAction func itemPriceChanged(_ sender: Any) {
+        //print (ItemPrice.text!)
+        delegate?.price_cell_did_change(self, price: ItemPrice.text!)
+    }
     @IBOutlet weak var AddButton: UIButton!
     @IBOutlet weak var SplitButton: UIButton!
     @IBOutlet weak var AssigneeCollection: UICollectionView!
@@ -36,11 +46,21 @@ class ItemTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //ItemName.addTarget(self, action: Selector(("itemNameFieldDidChange")), for: UIControlEvents.editingChanged)
+        //ItemPrice.addTarget(self, action: Selector(("itemPriceFieldDidChange")), for: UIControlEvents.editingChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+//    func itemNameFieldDidChange(textField: UITextField) {
+//        print (textField.text!)
+//    }
+//    
+//    func itemPriceFieldDidChange(textField: UITextField) {
+//        print (textField.text!)
+//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

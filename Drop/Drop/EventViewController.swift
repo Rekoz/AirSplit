@@ -9,6 +9,23 @@
 import UIKit
 import Firebase
 
+extension String {
+    
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return String(self[Range(start ..< end)])
+    }
+}
+
 /// controller that handles user's actions on event creating page
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
@@ -62,6 +79,7 @@ class EventViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didLoad")
+        print("my name is " + self.appDelegate.myOwnName)
         
         SearchButton.delegate = self
         // [START create_database_reference]
@@ -339,8 +357,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
                 cell.SplitButton.isHidden = false
                 cell.AddButton.isHidden = true
-                cell.ItemName.text = ""
-                cell.ItemName.placeholder = "Item Name"
+                cell.SplitButton.isHidden = false
                 cell.ItemName.isHidden = false
                 cell.ItemPrice.text = ""
                 cell.ItemPrice.placeholder = "Item Price"
@@ -352,10 +369,11 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
             cell.delegate = self
-            cell.SplitButton.isHidden = false
-            cell.AddButton.isHidden = true
-            cell.ItemName.isHidden = false
-            cell.ItemName.text = appDelegate.items[indexPath.row][0]
+            cell.AddButton.isHidden = false
+            cell.SplitButton.isHidden = true
+            cell.ItemName.isHidden = true
+            cell.ItemName.text = ""
+            cell.ItemPrice.isHidden = true
             cell.ItemPrice.text = ""
             cell.ItemPrice.placeholder = "Item Price"
             if (self.appDelegate.items[indexPath.row][1] != "price") {
@@ -443,15 +461,22 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
+            
             cell.accountName.text = self.appDelegate.people[indexPath.row]
             let lblNameInitialize = UILabel()
-            lblNameInitialize.frame.size = CGSize(width: 50, height: 50)
+            lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
-            lblNameInitialize.text = String(cell.accountName.text!.characters.first!) + String(cell.accountName.text!.characters.first!)
+            var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
+            print("the current user is", nameStringArr)
+            var firstName: String = nameStringArr![0].uppercased()
+            var firstLetter: Character = firstName[0]
+            let lastName: String = (nameStringArr?[1])!.uppercased()
+            var secondLetter: Character = lastName[0]
+            lblNameInitialize.text = String(firstLetter) + String(secondLetter)
             lblNameInitialize.textAlignment = NSTextAlignment.center
-            lblNameInitialize.backgroundColor = UIColor.black
-            lblNameInitialize.layer.cornerRadius = 25
-            
+            lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+            lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+//            cell.accountImageView.layer.cornerRadius = 25
             
             UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
             lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)

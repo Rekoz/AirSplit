@@ -137,6 +137,9 @@
                                                 <color key="titleColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="titleShadowColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="storeTransactions:" destination="Epx-l8-6Wq" eventType="touchUpInside" id="XtX-lk-vpR"/>
+                                            </connections>
                                         </button>
                                         <barButtonItem key="rightBarButtonItem" title="Camera" id="F2u-pV-xQc">
                                             <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="5"/>

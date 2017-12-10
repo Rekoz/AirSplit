@@ -480,7 +480,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTr-sP-4Wc">
-                                                    <rect key="frame" x="43" y="5" width="42" height="21"/>
+                                                    <rect key="frame" x="313" y="5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -696,7 +696,11 @@
                         <viewLayoutGuide key="safeArea" id="UtX-E6-TR9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="y3J-rm-Fvk">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="4Fc-wg-rBQ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="4Fc-wg-rBQ">
+                            <connections>
+                                <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="eIA-sO-kqZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="PaymentDetail" destination="eUJ-tN-fSv" id="0eZ-YX-hll"/>

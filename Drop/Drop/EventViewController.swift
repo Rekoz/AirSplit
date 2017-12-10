@@ -121,6 +121,7 @@ class EventViewController: UIViewController,
     /// - Parameter animated: boolean
     override func viewWillAppear(_ animated: Bool) {
         self.appDelegate.people.removeAll()
+        self.appDelegate.people.append(self.appDelegate.myOwnName)
 //        self.appDelegate.items.removeAll()
         self.ItemTableView.reloadData()
 //        self.appDelegate.items.append("item")

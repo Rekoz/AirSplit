@@ -50,13 +50,29 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "Xingyuan Ding")
-        self.multipeer.startAdvertising()
-        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
         // [START create_database_reference]
         ref = Database.database().reference()
-        // [END create_database_reference]
+        let email = Auth.auth().currentUser?.email
+        findMyAccountName(email: email!)
         findAllRelatedTransactions()
+        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
+    }
+    
+    func findMyAccountName(email: String) {
+        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: email)
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            for case let childSnapshot as DataSnapshot in snapshot.children {
+                if let data = childSnapshot.value as? [String: Any] {
+                    print("got account name " + "\(data["accountName"]!)")
+                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
+                    if (self.appDelegate.myOwnName != "") {
+                        print("display name: " + self.appDelegate.myOwnName)
+                        self.appDelegate.multipeer.setPeerDisplayName(name: self.appDelegate.myOwnName)
+                        self.appDelegate.multipeer.startAdvertising()
+                    }
+                }
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {

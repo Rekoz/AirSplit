@@ -696,9 +696,9 @@
                         <viewLayoutGuide key="safeArea" id="UtX-E6-TR9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="y3J-rm-Fvk">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="4Fc-wg-rBQ">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="8Dc-s6-lpw">
                             <connections>
-                                <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="eIA-sO-kqZ"/>
+                                <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="rw3-Pn-9Kc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

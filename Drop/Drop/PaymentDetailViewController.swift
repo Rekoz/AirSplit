@@ -17,20 +17,21 @@ class PaymentDetailViewController: UIViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         PaymentDetail.setEditing(editing,animated:animated)
-        if (PaymentDetail.isEditing) {
-            print("editing")
+        if (editing) {
             self.navigationItem.rightBarButtonItem!.title = "Done"
-        }
-        else {
+        } else {
             self.navigationItem.rightBarButtonItem!.title = "Edit"
         }
     }
     
     @IBAction func CheckItems(_ sender: UIBarButtonItem) {
-        self.setEditing(true, animated: true)
+        print("invoked")
+        if (sender.title! == "Edit") {
+            self.setEditing(true, animated: true)
+        } else {
+            self.setEditing(false, animated: true)
+        }
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class PaymentDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.PaymentDetail.delegate = self
         self.PaymentDetail.dataSource = self
+        
         print(person)
     }
 

@@ -354,8 +354,10 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.SplitButton.isHidden = true
                 cell.AddButton.isHidden = false
                 cell.ItemName.isHidden = true
+                cell.ItemPrice.placeholder = "Item Name"
                 cell.ItemName.text = ""
                 cell.ItemPrice.isHidden = true
+                cell.ItemPrice.placeholder = "Item Price"
                 cell.ItemPrice.text = ""
                 return cell
             } else if (self.appDelegate.items[indexPath.row][0] == "item") {
@@ -364,21 +366,24 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.AddButton.isHidden = true
                 cell.SplitButton.isHidden = false
                 cell.ItemName.isHidden = false
+                cell.ItemName.text = ""
+                cell.ItemName.placeholder = "Item Name"
+                cell.ItemPrice.isHidden = false
                 cell.ItemPrice.text = ""
                 cell.ItemPrice.placeholder = "Item Price"
                 if (self.appDelegate.items[indexPath.row][1] != "price") {
                     cell.ItemPrice.text = self.appDelegate.items[indexPath.row][1]
                 }
-                cell.ItemPrice.isHidden = false
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: itemCellIdentifier, for: indexPath) as! ItemTableViewCell
             cell.delegate = self
-            cell.AddButton.isHidden = false
-            cell.SplitButton.isHidden = true
-            cell.ItemName.isHidden = true
-            cell.ItemName.text = ""
-            cell.ItemPrice.isHidden = true
+            cell.AddButton.isHidden = true
+            cell.SplitButton.isHidden = false
+            cell.ItemName.isHidden = false
+            cell.ItemName.placeholder = "Item Name"
+            cell.ItemName.text = self.appDelegate.items[indexPath.row][0]
+            cell.ItemPrice.isHidden = false
             cell.ItemPrice.text = ""
             cell.ItemPrice.placeholder = "Item Price"
             if (self.appDelegate.items[indexPath.row][1] != "price") {
@@ -579,8 +584,10 @@ extension EventViewController : ItemTableViewCellDelegate {
         sender.AddButton.isHidden = true
         sender.SplitButton.isHidden = false
         sender.ItemName.placeholder = "Item Name"
+        sender.ItemName.text = ""
         sender.ItemName.isHidden = false
         sender.ItemPrice.placeholder = "Item Price"
+        sender.ItemPrice.text = ""
         sender.ItemPrice.isHidden = false
         let row = self.appDelegate.items.count
         let indexPath = IndexPath.init(row: row, section: 0)

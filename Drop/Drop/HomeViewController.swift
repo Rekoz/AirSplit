@@ -17,7 +17,8 @@ class HomeViewController: UIViewController {
     private var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
-    private var searchResults = [Transaction]()
+    private var transactions = [Transaction]()
+    @IBOutlet weak var NewsFeedTable: UITableView!
     
     // [START define_database_reference]
     var ref: DatabaseReference!
@@ -49,8 +50,9 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.multipeer.setPeerDisplayName(name: "Minghong Zhou")
+        self.multipeer.setPeerDisplayName(name: "Shirley He")
         self.multipeer.startAdvertising()
+        self.transactions.append(Transaction.init())    // REMOVE--DEBUG
         // [START create_database_reference]
         ref = Database.database().reference()
         // [END create_database_reference]
@@ -76,7 +78,7 @@ class HomeViewController: UIViewController {
                     print("borrower = \(transaction.borrower)")
                     print("lender = \(transaction.lender)")
                     print("timestamp = \(transaction.timestamp)")
-                    self.searchResults.append(transaction)
+                    self.transactions.append(transaction)
                 }
             }
         })
@@ -90,7 +92,7 @@ class HomeViewController: UIViewController {
                     print("borrower = \(transaction.borrower)")
                     print("lender = \(transaction.lender)")
                     print("timestamp = \(transaction.timestamp)")
-                    self.searchResults.append(transaction)
+                    self.transactions.append(transaction)
                 }
             }
         })
@@ -101,9 +103,25 @@ class HomeViewController: UIViewController {
      - Parameter sender: Client's action to press logout button.
     */
     @IBAction func logout(_ sender:AnyObject) {
-//        user?.signOut()
-//        self.fetchUserAttributes()
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
+    }
+}
+
+//======================
+//related to table view
+//======================
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.transactions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
+        cell.Participants.text = "You paid Camille"
+        cell.Price.text = "$10.00"
+        cell.Icon.image = #imageLiteral(resourceName: "icons8-User Male-48")
+        return cell
     }
 }

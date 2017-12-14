@@ -11,7 +11,6 @@ import UIKit
 class PaymentDetailViewController: UIViewController {
 
     var person = ""
-    var data:[String] = ["Item 1", "Item 2", "Item 3"]
     var transactions:[Transaction] = []
     
     private var appDelegate : AppDelegate
@@ -31,14 +30,14 @@ class PaymentDetailViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         PaymentDetail.setEditing(editing,animated:animated)
         if (editing) {
-            self.navigationItem.rightBarButtonItem!.title = "Done"
+            self.navigationItem.rightBarButtonItem!.title = "Cancel"
         } else {
-            self.navigationItem.rightBarButtonItem!.title = "Edit"
+            self.navigationItem.rightBarButtonItem!.title = "Pay"
         }
     }
     
     @IBAction func CheckItems(_ sender: UIBarButtonItem) {
-        if (sender.title! == "Edit") {
+        if (sender.title! == "Pay") {
             self.setEditing(true, animated: true)
             self.navigationItem.rightBarButtonItems![1].isEnabled = true
         } else {
@@ -50,11 +49,16 @@ class PaymentDetailViewController: UIViewController {
     @IBAction func SubmitItems(_ sender: UIBarButtonItem) {
         var items : [String] = []
         let selectedIndexPaths = PaymentDetail.indexPathsForSelectedRows
-        for indexPath in selectedIndexPaths! {
-            let cell = PaymentDetail.cellForRow(at: indexPath)
-            items.append((cell?.textLabel?.text)!)
+        if selectedIndexPaths != nil {
+            for indexPath in selectedIndexPaths! {
+                let cell = PaymentDetail.cellForRow(at: indexPath)
+                items.append((cell?.textLabel?.text)!)
+                self.transactions = self.transactions.filter{ $0.itemName != (cell?.textLabel?.text)! }
+            }
         }
         print(items)
+        print(transactions)
+        self.PaymentDetail.reloadData()
     }
     
     override func viewDidLoad() {
@@ -84,9 +88,13 @@ extension PaymentDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
         cell.textLabel?.text = self.transactions[indexPath.row].itemName
-        cell.detailTextLabel?.text = String(self.transactions[indexPath.row].amount)
-        //cell.detailTextLabel?.textColor = UIColor.init(red: 0.1924, green: 0.8, blue: 0.056, alpha: 1)
-        cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
+        cell.detailTextLabel?.text = "$" + String(self.transactions[indexPath.row].amount)
+    
+        if self.transactions[indexPath.row].borrower == person{
+            cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
+        } else {
+            cell.detailTextLabel?.textColor = UIColor.init(red: 0.056, green: 0.8, blue: 0.056, alpha: 1)
+        }
         return cell
     }
 }

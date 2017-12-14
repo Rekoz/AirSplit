@@ -130,7 +130,7 @@
                                                 <action selector="cancelButtonTapped:" destination="Epx-l8-6Wq" id="Fwg-SR-8px"/>
                                             </connections>
                                         </barButtonItem>
-                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eO-tY-8tA">
+                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eO-tY-8tA">
                                             <rect key="frame" x="166" y="5" width="43" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -701,12 +701,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="y3J-rm-Fvk">
                         <rightBarButtonItems>
-                            <barButtonItem title="Edit" id="8Dc-s6-lpw">
+                            <barButtonItem title="Pay" id="8Dc-s6-lpw">
                                 <connections>
                                     <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="rw3-Pn-9Kc"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem enabled="NO" title="Submit" id="Zkf-69-T0w">
+                            <barButtonItem enabled="NO" title="Confirm" id="Zkf-69-T0w">
                                 <connections>
                                     <action selector="SubmitItems:" destination="9Z0-xM-GaQ" id="sTE-u9-lbS"/>
                                 </connections>

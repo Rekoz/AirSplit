@@ -168,7 +168,7 @@ class EventViewController: UIViewController,
     @IBAction func storeTransactions(_ sender: Any) {
         print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
         for i in 0..<self.appDelegate.items.count-1 {
-            if (self.appDelegate.items[i][0] == "item") {
+            if (self.appDelegate.items[i][0] == "item" || self.appDelegate.items[i][0] == "") {
                 let errorMessage = "Item Name Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -176,7 +176,7 @@ class EventViewController: UIViewController,
                 self.present(errorAlertController, animated: true, completion: nil)
                 return
             }
-            if (self.appDelegate.items[i][1] == "price") {
+            if (self.appDelegate.items[i][1] == "price" || self.appDelegate.items[i][1] == "") {
                 let errorMessage = "Item Price Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -204,6 +204,11 @@ class EventViewController: UIViewController,
                 }
             }
         }
+        self.appDelegate.items.removeAll()
+        self.appDelegate.items.append(["item", "price"])
+        self.assignees.removeAll()
+        self.assignees.append([PeopleCollectionViewCell]())
+        self.ItemTableView.reloadData()
     }
     
     /// Fetches the picked image and uploads it to the server for processing
@@ -256,16 +261,16 @@ class EventViewController: UIViewController,
                 print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
-                    let row = self.appDelegate.items.count
-                    let indexPath = IndexPath.init(row: row, section: 0)
-                    self.ItemTableView.beginUpdates()
+                    let row = self.appDelegate.items.count - 1
                     let itemName = item["description"] as! String
                     let itemPrice = String(format: "%@", item["data"] as! NSNumber)
-                    self.appDelegate.items.append([itemName, itemPrice])
+                    print(itemName + " " + itemPrice)
+                    self.appDelegate.items[row][0] = itemName
+                    self.appDelegate.items[row][1] = itemPrice
+                    self.appDelegate.items.append(["item", "price"])
+                    print("items count: \(self.appDelegate.items.count)")
                     self.assignees.append([PeopleCollectionViewCell]())
-                    // Note that indexPath is wrapped in an array:  [indexPath]
-                    self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
-                    self.ItemTableView.endUpdates()
+                    self.ItemTableView.reloadData()
                 })
             }
         }
@@ -384,6 +389,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.SearchTable {
             count = self.searchResults.count
         }
+        print ("count updated: \(count)")
         return count!
     }
     

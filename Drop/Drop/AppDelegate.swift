@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var people = [String]()
     var items = [[String]]()
     var myOwnName = ""
+    var transactionDictionary = [String: [Transaction]]()
     
     var window: UIWindow?
     
@@ -31,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("home clicked")
         self.people.removeAll()
         multipeer.delegate?.loseDevice(manager: multipeer, removedDevice: "anything")
+        self.people.append(myOwnName)
     }
     
     /**

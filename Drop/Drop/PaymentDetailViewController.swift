@@ -12,6 +12,19 @@ class PaymentDetailViewController: UIViewController {
 
     var person = ""
     var data:[String] = ["Item 1", "Item 2", "Item 3"]
+    var transactions:[Transaction] = []
+    
+    private var appDelegate : AppDelegate
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        super.init(coder: aDecoder)
+    }
     
     @IBOutlet weak var PaymentDetail: UITableView!
     
@@ -52,6 +65,9 @@ class PaymentDetailViewController: UIViewController {
         self.PaymentDetail.dataSource = self
         
         print(person)
+        for transaction in self.appDelegate.transactionDictionary[person]! {
+            self.transactions.append(transaction)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,13 +78,13 @@ class PaymentDetailViewController: UIViewController {
 
 extension PaymentDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return transactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
-        cell.detailTextLabel?.text = "price"
+        cell.textLabel?.text = self.transactions[indexPath.row].itemName
+        cell.detailTextLabel?.text = String(self.transactions[indexPath.row].amount)
         //cell.detailTextLabel?.textColor = UIColor.init(red: 0.1924, green: 0.8, blue: 0.056, alpha: 1)
         cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
         return cell

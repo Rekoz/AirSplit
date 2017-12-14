@@ -65,7 +65,7 @@ class HomeViewController: UIViewController {
         findMyAccountName(email: email!)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         transactions = [Transaction]()
         ref = Database.database().reference()
         self.findAllRelatedTransactions()

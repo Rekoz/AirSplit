@@ -13,16 +13,18 @@ class Transaction: NSObject {
     var borrower: String
     var lender: String
     var timestamp: Int
+    var peer_icon: UIImage
     
-    init(amount: Double, borrower: String, lender: String, timestamp: Int) {
+    init(amount: Double, borrower: String, lender: String, timestamp: Int, icon: UIImage) {
         self.amount = amount
         self.borrower = borrower
         self.lender = lender
         self.timestamp = timestamp
+        self.peer_icon = icon
     }
     
     convenience override init() {
-        self.init(amount: 0.00, borrower: "", lender: "", timestamp: 0)
+        self.init(amount: 0.00, borrower: "", lender: "", timestamp: 0, icon: #imageLiteral(resourceName: "icons8-User Male-48"))
     }
 }
 

@@ -48,7 +48,6 @@ class HomeViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // [START create_database_reference]
         ref = Database.database().reference()
         let email = Auth.auth().currentUser?.email
         findMyAccountName(email: email!)
@@ -88,7 +87,8 @@ class HomeViewController: UIViewController {
         queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "You", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
+                    let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "You", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, icon: peerIcon)
                     print(transaction)
                     print("amount = \(transaction.amount)")
                     print("borrower = \(transaction.borrower)")
@@ -107,7 +107,8 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int)
+                    let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
+                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int, icon: peerIcon)
                     print(transaction)
                     print("amount = \(transaction.amount)")
                     print("borrower = \(transaction.borrower)")
@@ -132,6 +133,28 @@ class HomeViewController: UIViewController {
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
     }
+    
+    func getAccountIconFromName(name: String) -> UIImage {
+        let lblNameInitialize = UILabel()
+        lblNameInitialize.frame.size = CGSize(width: 30.0, height: 30.0)
+        lblNameInitialize.textColor = UIColor.white
+        var nameStringArr = name.components(separatedBy: " ")
+        let firstName: String = nameStringArr[0].uppercased()
+        let firstLetter: Character = firstName[0]
+        let lastName: String = nameStringArr[1].uppercased()
+        let secondLetter: Character = lastName[0]
+        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
+        lblNameInitialize.textAlignment = NSTextAlignment.center
+        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+        
+        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
+        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
 }
 
 //======================
@@ -151,11 +174,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let epochSec = transaction.timestamp
         let time = convertToDateTime(epochSec: epochSec)
         let amount = transaction.amount
+        let icon = transaction.peer_icon
         print("payer: \(payer) payee: \(payee) time: \(time) amount:\(amount)")
         cell.Participants.text = "\(payer) paid \(payee)"
         cell.Amount.text = "$\(amount)"
         cell.Time.text = "\(time)"
-        cell.Icon.image = #imageLiteral(resourceName: "icons8-User Male-48")
+        cell.Icon.image = icon
         return cell
     }
     

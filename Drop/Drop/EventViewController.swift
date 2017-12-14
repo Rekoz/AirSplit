@@ -276,13 +276,33 @@ class EventViewController: UIViewController,
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error!)")
+                let errorMessage = "Network Error"
+                let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                errorAlertController.addAction(dismissAction)
+                self.present(errorAlertController, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.LoadingIndicator.stopAnimating()
+                })
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response!)")
+                var errorMessage = ""
+                if (httpStatus.statusCode == 418) {
+                    errorMessage = "The image is not a valid receipt or is not legible"
+                } else {
+                    print(self.convertToDictionary(text: data))
+                    errorMessage = "An error occurred"
+                }
+                let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                errorAlertController.addAction(dismissAction)
+                self.present(errorAlertController, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.LoadingIndicator.stopAnimating()
+                })
+                return
             }
             
             let result = self.convertToDictionary(text: data)

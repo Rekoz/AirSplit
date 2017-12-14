@@ -246,16 +246,16 @@ class EventViewController: UIViewController,
                 print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
-                    let row = self.appDelegate.items.count
-                    let indexPath = IndexPath.init(row: row, section: 0)
-                    self.ItemTableView.beginUpdates()
+                    let row = self.appDelegate.items.count - 1
                     let itemName = item["description"] as! String
                     let itemPrice = String(format: "%@", item["data"] as! NSNumber)
-                    self.appDelegate.items.append([itemName, itemPrice])
+                    print(itemName + " " + itemPrice)
+                    self.appDelegate.items[row][0] = itemName
+                    self.appDelegate.items[row][1] = itemPrice
+                    self.appDelegate.items.append(["item", "price"])
+                    print("items count: \(self.appDelegate.items.count)")
                     self.assignees.append([PeopleCollectionViewCell]())
-                    // Note that indexPath is wrapped in an array:  [indexPath]
-                    self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
-                    self.ItemTableView.endUpdates()
+                    self.ItemTableView.reloadData()
                 })
             }
         }
@@ -374,6 +374,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.SearchTable {
             count = self.searchResults.count
         }
+        print ("count updated: \(count)")
         return count!
     }
     

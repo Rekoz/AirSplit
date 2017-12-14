@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 print("snapshot name: " + childSnapshot.key)
                 if let data = childSnapshot.value as? [String: Any] {
-                    if (data["status"] as! String == "complete") {
+                    if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
@@ -131,9 +131,9 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    if (data["status"] as! String == "complete") {
+                    if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")

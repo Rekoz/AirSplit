@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -130,7 +130,7 @@
                                                 <action selector="cancelButtonTapped:" destination="Epx-l8-6Wq" id="Fwg-SR-8px"/>
                                             </connections>
                                         </barButtonItem>
-                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eO-tY-8tA">
+                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eO-tY-8tA">
                                             <rect key="frame" x="166" y="5" width="43" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -568,7 +568,7 @@
         <!--TabBarController-->
         <scene sceneID="HAC-oa-NwX">
             <objects>
-                <tabBarController title="TabBarController" id="uT6-dE-73G" colorLabel="IBBuiltInLabel-Green" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="home" title="TabBarController" id="uT6-dE-73G" colorLabel="IBBuiltInLabel-Green" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="sNh-On-iLi"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GPP-WI-5mk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -701,7 +701,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="y3J-rm-Fvk">
                         <rightBarButtonItems>
-                            <barButtonItem title="Pay" id="8Dc-s6-lpw">
+                            <barButtonItem title="Select" id="8Dc-s6-lpw">
                                 <connections>
                                     <action selector="CheckItems:" destination="9Z0-xM-GaQ" id="rw3-Pn-9Kc"/>
                                 </connections>

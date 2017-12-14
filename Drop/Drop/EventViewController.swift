@@ -34,6 +34,18 @@ extension String {
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    func capitalizeSentence(clause:String) -> String {
+        var strArray = clause.components(separatedBy: " ")
+        var result = ""
+        for str in strArray {
+            var newStr = str.lowercased()
+            newStr.capitalizeFirstLetter()
+            result += newStr
+            result += " "
+        }
+        return result
+    }
 }
 
 /// controller that handles user's actions on event creating page
@@ -154,7 +166,10 @@ class EventViewController: UIViewController,
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.appDelegate.people.removeAll()
         self.appDelegate.items.removeAll()
-        self.performSegue(withIdentifier: "unwindToHome", sender: self)
+        self.assignees.removeAll()
+        print ("perform segue")
+        let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "home") as UIViewController
+        self.present(vc, animated: true, completion: nil)
     }
     
     /// The callback function for when the Camera button is clicked

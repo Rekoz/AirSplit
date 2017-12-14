@@ -34,12 +34,12 @@ class PaymentDetailViewController: UIViewController {
         if (editing) {
             self.navigationItem.rightBarButtonItem!.title = "Cancel"
         } else {
-            self.navigationItem.rightBarButtonItem!.title = "Pay"
+            self.navigationItem.rightBarButtonItem!.title = "Select"
         }
     }
     
     @IBAction func CheckItems(_ sender: UIBarButtonItem) {
-        if (sender.title! == "Pay") {
+        if (sender.title! == "Select") {
             self.setEditing(true, animated: true)
             self.navigationItem.rightBarButtonItems![1].isEnabled = true
         } else {

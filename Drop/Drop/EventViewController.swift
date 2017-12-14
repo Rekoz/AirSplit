@@ -138,8 +138,6 @@ class EventViewController: UIViewController,
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction) in
         }))
         
-        
-        
         //related to item table view
         self.appDelegate.items.append(["item", "price"])
         self.assignees.append([PeopleCollectionViewCell]())
@@ -645,7 +643,6 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let item = ItemTableView.cellForRow(at: buttonIndexPath) as! ItemTableViewCell
         if (self.tempAssignees.count > 0) {
             item.SplitButton.setImage(UIImage(named: "correct_people"), for: UIControlState.normal)
-//            ItemTableView.reloadData()
         } else {
             item.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
         }

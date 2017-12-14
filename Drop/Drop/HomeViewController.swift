@@ -100,7 +100,9 @@ class HomeViewController: UIViewController {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let lender = data["lender"] as! String
+                        let capitalizedLender = lender.capitalizeSentence(clause: lender)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(capitalizedLender)", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -124,7 +126,9 @@ class HomeViewController: UIViewController {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
+                        let borrower = data["borrower"] as! String
+                        let capitalizedBorrower = borrower.capitalizeSentence(clause: borrower)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -188,10 +192,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
         let transaction = self.transactions[indexPath.row]
-        var payer = transaction.borrower
-        payer = payer.capitalizeSentence(clause: payer)
-        var payee = transaction.lender
-        payee = payee.capitalizeSentence(clause: payee)
+        let payer = transaction.borrower
+        let payee = transaction.lender
         let epochSec = transaction.timestamp
         let time = convertToDateTime(epochSec: epochSec)
         let amount = transaction.amount

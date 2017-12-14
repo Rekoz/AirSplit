@@ -190,6 +190,14 @@ class EventViewController: UIViewController,
     
     @IBAction func storeTransactions(_ sender: Any) {
         print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
+        if (self.appDelegate.items.count == 1) {
+            let errorMessage = "No Item Found"
+            let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            errorAlertController.addAction(retryAction)
+            self.present(errorAlertController, animated: true, completion: nil)
+            return
+        }
         for i in 0..<self.appDelegate.items.count-1 {
             if (self.appDelegate.items[i][0] == "item" || self.appDelegate.items[i][0] == "") {
                 let errorMessage = "Item Name Cannot Be Empty"

@@ -216,7 +216,7 @@ class EventViewController: UIViewController,
             let splitCount = self.assignees[i].count
             let item = self.appDelegate.items[i][0]
             let price = Double(self.appDelegate.items[i][1])
-            let splitAmount = price! / Double(splitCount)
+            let splitAmount = round(price! / Double(splitCount) * 100) / 100
             for j in 0..<self.assignees[i].count {
                 if (self.assignees[i][j].accountName.text! != self.appDelegate.myOwnName) {
                     self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970)) + item).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": self.assignees[i][j].accountName.text!, "lender": self.appDelegate.myOwnName, "amount": splitAmount, "status": "incomplete", "itemName": item])

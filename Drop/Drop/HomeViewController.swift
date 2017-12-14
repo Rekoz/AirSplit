@@ -13,17 +13,6 @@ import Firebase
     View controller that displays recent user activities.
  */
 
-//extension String {
-//    func capitalizingFirstLetter() -> String {
-//        let first = String(characters.prefix(1)).capitalized
-//        let other = String(characters.dropFirst())
-//        return first + other
-//    }
-//
-//    mutating func capitalizeFirstLetter() {
-//        self = self.capitalizingFirstLetter()
-//    }
-//}
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
@@ -63,12 +52,14 @@ class HomeViewController: UIViewController {
         ref = Database.database().reference()
         let email = Auth.auth().currentUser?.email
         findMyAccountName(email: email!)
+        //NewsFeedTable.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         transactions = [Transaction]()
         ref = Database.database().reference()
         self.findAllRelatedTransactions()
+        //NewsFeedTable.reloadData()
     }
     
     func findMyAccountName(email: String) {
@@ -107,11 +98,11 @@ class HomeViewController: UIViewController {
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 print("snapshot name: " + childSnapshot.key)
                 if let data = childSnapshot.value as? [String: Any] {
-                    if (data["status"] as! String == "complete") {
+                    if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
                         let lender = data["lender"] as! String
                         let capitalizedLender = lender.capitalizeSentence(clause: lender)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(capitalizedLender)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(capitalizedLender)", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -133,11 +124,11 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    if (data["status"] as! String == "complete") {
+                    if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
                         let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
                         let borrower = data["borrower"] as! String
                         let capitalizedBorrower = borrower.capitalizeSentence(clause: borrower)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: "you", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -207,8 +198,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let time = convertToDateTime(epochSec: epochSec)
         let amount = transaction.amount
         let icon = transaction.peer_icon
+        let status = transaction.status
         print("payer: \(payer) payee: \(payee) time: \(time) amount:\(amount)")
-        cell.Participants.text = "\(payer) paid \(payee)"
+        if status == "declined" {
+            cell.Participants.text = "\(payee) declined transaction"
+        } else {
+            cell.Participants.text = "\(payer) paid \(payee)"
+        }
         cell.Amount.text = "$\(amount)"
         cell.Time.text = "\(time)"
         cell.Icon.image = icon

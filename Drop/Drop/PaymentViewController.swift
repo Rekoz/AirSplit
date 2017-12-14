@@ -38,20 +38,20 @@ class PaymentViewController: UIViewController {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // [START create_database_reference]
-        ref = Database.database().reference()
-        // [END create_database_reference]
-        findAllRelatedTransactions()
+       // ref = Database.database().reference()
+       // findAllRelatedTransactions()
         
         self.PaymentCenterTableView.delegate = self
         self.PaymentCenterTableView.dataSource = self
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        findAllRelatedTransactions()
-//    }
-
+   override func viewWillAppear(_ animated: Bool) {
+        ref = Database.database().reference()
+        findAllRelatedTransactions()
+        PaymentCenterTableView.reloadData()
+    }
+    
     /**
         Sent to the view controller when the app receives a memory warning.
     */
@@ -131,6 +131,8 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func findAllRelatedTransactions() {
+        people = []
+        transactionDictionary = [String: [Transaction]]()
         let myName = self.appDelegate.myOwnName
         print("my peer name: \(myName)")
         
@@ -173,7 +175,7 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    if (true) {
+                    if (data["status"] as! String == "incomplete") {
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "incomplete", itemName: data["itemName"] as! String)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)

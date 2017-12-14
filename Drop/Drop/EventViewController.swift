@@ -64,6 +64,7 @@ class EventViewController: UIViewController,
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var SearchButton: UISearchBar!
     @IBOutlet weak var SearchTable: UITableView!
+    @IBOutlet weak var LoadingIndicator: UIActivityIndicatorView!
     
     // [START define_database_reference]
     var ref: DatabaseReference!
@@ -303,7 +304,11 @@ class EventViewController: UIViewController,
                     self.ItemTableView.reloadData()
                 })
             }
+            DispatchQueue.main.async(execute: {
+                self.LoadingIndicator.stopAnimating()
+            })
         }
+        LoadingIndicator.startAnimating()
         task.resume()
         picker.dismiss(animated: true, completion: nil)
     }

@@ -22,6 +22,7 @@ class PaymentDetailViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
@@ -29,6 +30,13 @@ class PaymentDetailViewController: UIViewController {
     
     @IBOutlet weak var PaymentDetail: UITableView!
     
+    /**
+     This function takes care of toggling Cancel/Select function
+     
+     - Parameters:
+     - editing: A table-view object requesting the cell.
+     - animated: An index path locating a row in tableView.
+     */
     override func setEditing(_ editing: Bool, animated: Bool) {
         PaymentDetail.setEditing(editing,animated:animated)
         if (editing) {
@@ -48,6 +56,13 @@ class PaymentDetailViewController: UIViewController {
         }
     }
     
+    /**
+     This function find out which transactions to delete and update the payment detail
+     table view with the updated transactions
+     
+     - Parameters:
+     - sender: A UIBarButtonItem that triggers the function
+     */
     @IBAction func SubmitItems(_ sender: UIBarButtonItem) {
         var items : [String] = []
         let selectedIndexPaths = PaymentDetail.indexPathsForSelectedRows
@@ -87,6 +102,15 @@ class PaymentDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     This function takes in the original transaction and update the database with new
+     transaction by changing the status of the original transaction to either declined or
+     complete depending on whether the user is the lender or the borrower
+     
+     - Parameters:
+     - transactionToBeDeleted: the transactionName of the transaction to be updated to complete/ decline
+     - transaction: original transaction
+     */
     func deleteTransaction(transactionToBeDeleted: String, transaction: Transaction) {
         var status: String = "complete"
         if transaction.lender == self.appDelegate.myOwnName {

@@ -12,6 +12,18 @@ import Firebase
 /**
     View controller that displays recent user activities.
  */
+
+//extension String {
+//    func capitalizingFirstLetter() -> String {
+//        let first = String(characters.prefix(1)).capitalized
+//        let other = String(characters.dropFirst())
+//        return first + other
+//    }
+//
+//    mutating func capitalizeFirstLetter() {
+//        self = self.capitalizingFirstLetter()
+//    }
+//}
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
@@ -185,8 +197,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
         let transaction = self.transactions[indexPath.row]
-        let payer = transaction.borrower
-        let payee = transaction.lender
+        var payer = transaction.borrower.lowercased()
+        payer.capitalizeFirstLetter()
+        var payee = transaction.lender.lowercased()
+        payee.capitalizeFirstLetter()
         let epochSec = transaction.timestamp
         let time = convertToDateTime(epochSec: epochSec)
         let amount = transaction.amount

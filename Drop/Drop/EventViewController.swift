@@ -112,8 +112,6 @@ class EventViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("didLoad")
-        print("my name is " + self.appDelegate.myOwnName)
         
         SearchButton.delegate = self
         // [START create_database_reference]
@@ -155,13 +153,9 @@ class EventViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         self.appDelegate.people.removeAll()
         self.appDelegate.people.append(self.appDelegate.myOwnName)
-//        self.appDelegate.items.removeAll()
         self.ItemTableView.reloadData()
-//        self.appDelegate.items.append("item")
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
-        print("will load")
-        print("item array has" + String(appDelegate.items.count) + "elements at view will appear")
     }
 
     override func didReceiveMemoryWarning() {
@@ -176,7 +170,6 @@ class EventViewController: UIViewController,
         self.appDelegate.people.removeAll()
         self.appDelegate.items.removeAll()
         self.assignees.removeAll()
-        print ("perform segue")
         let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "home") as UIViewController
         self.present(vc, animated: false, completion: nil)
     }
@@ -190,7 +183,7 @@ class EventViewController: UIViewController,
     
     
     @IBAction func storeTransactions(_ sender: Any) {
-        print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
+        // print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
         if (self.appDelegate.items.count == 1) {
             let errorMessage = "No Item Found"
             let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
@@ -231,7 +224,7 @@ class EventViewController: UIViewController,
             let price = Double(self.appDelegate.items[i][1])
             let splitAmount = round(price! / Double(splitCount) * 100) / 100
             for j in 0..<self.assignees[i].count {
-                print (self.assignees[i][j] + " " + self.appDelegate.myOwnName)
+                // print (self.assignees[i][j] + " " + self.appDelegate.myOwnName)
                 if (self.assignees[i][j] != self.appDelegate.myOwnName) {
                     self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970)) + item).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": self.assignees[i][j], "lender": self.appDelegate.myOwnName, "amount": splitAmount, "status": "incomplete", "itemName": item])
                 }
@@ -299,19 +292,16 @@ class EventViewController: UIViewController,
             self.taxPercentage = self.taxAmount / (totalAmount - self.taxAmount)
             for item in lineAmounts {
                 // Append items to cells
-                //print(item["description"] as! String)
-                // self.appDelegate.items.append(item["description"] as! String)
-                print(self.appDelegate.items.count)
+                // print(item["description"] as! String)
+                // print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
                     let row = self.appDelegate.items.count - 1
                     let itemName = item["description"] as! String
                     let itemPrice = String(format: "%@", item["data"] as! NSNumber)
-                    print(itemName + " " + itemPrice)
                     self.appDelegate.items[row][0] = itemName
                     self.appDelegate.items[row][1] = itemPrice
                     self.appDelegate.items.append(["item", "price"])
-                    print("items count: \(self.appDelegate.items.count)")
                     self.assignees.append([String]())
                     self.ItemTableView.reloadData()
                 })
@@ -352,7 +342,6 @@ class EventViewController: UIViewController,
         body.appendString(boundaryPrefix)
         body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
-        print(NSString(data: body as Data, encoding: String.Encoding.utf8.rawValue)!)
         body.append(data)
         body.appendString("\r\n")
         
@@ -373,7 +362,6 @@ class EventViewController: UIViewController,
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("searchText \(searchText)")
         self.searchResults = []
         if searchText != "" {
             let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
@@ -382,7 +370,6 @@ class EventViewController: UIViewController,
                 
                 for case let childSnapshot as DataSnapshot in snapshot.children {
                     if let data = childSnapshot.value as? [String: Any] {
-                        print(" accountName = \(data["accountName"]!)")
                         if self.searchResults.contains("\(data["accountName"]!)") {
                             continue
                         }
@@ -404,7 +391,6 @@ class EventViewController: UIViewController,
                 self.SearchTable.isHidden = true
             }
             self.SearchTable.reloadData()
-            print(self.searchResults)
             return
         }
         
@@ -746,7 +732,7 @@ extension EventViewController : ItemTableViewCellDelegate {
     }
     
     func initializeSplitting(cell: ItemTableViewCell) {
-        print("Start splitting")
+//        print("Start splitting")
         
         // Revert the split button for previous splitting item
         if (splitAtIndex != -1) {
@@ -766,15 +752,15 @@ extension EventViewController : ItemTableViewCellDelegate {
         self.PeopleCollectionView.allowsMultipleSelection = false
         
         // DEBUG
-        print("Assignees: ")
-        for assignee in tempAssignees {
-            print(assignee + " ")
-        }
+//        print("Assignees: ")
+//        for assignee in tempAssignees {
+//            print(assignee + " ")
+//        }
     }
     
     func endSplitting(cell: ItemTableViewCell) {
         let index = ItemTableView.indexPath(for: cell)?.row
-        print("End splitting")
+//        print("End splitting")
         self.splitAtIndex = -1
         self.splitable = false
         
@@ -793,15 +779,15 @@ extension EventViewController : ItemTableViewCellDelegate {
         //self.PeopleCollectionView.allowsMultipleSelection = false
         
         // DEBUG
-        print("Assignees: ")
-        for assignee in tempAssignees {
-            print(assignee + " ")
-        }
-        let i = self.ItemTableView.indexPath(for: cell)?.row
-        print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")
-        for person in cell.AssigneeCollection.visibleCells as! [TinyPeopleCollectionViewCell] {
-            print("\(person.accountName)")
-        }
+//        print("Assignees: ")
+//        for assignee in tempAssignees {
+//            print(assignee + " ")
+//        }
+//        let i = self.ItemTableView.indexPath(for: cell)?.row
+//        print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")
+//        for person in cell.AssigneeCollection.visibleCells as! [TinyPeopleCollectionViewCell] {
+//            print("\(person.accountName)")
+//        }
     }
 }
 

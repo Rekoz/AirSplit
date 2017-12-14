@@ -484,8 +484,8 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
             if indexPath.row < self.searchResults.count {
-                cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.SearchName.text = self.searchResults[indexPath.row]
+                cell.SearchName.text = self.searchResults[indexPath.row].capitalizeSentence(clause: self.searchResults[indexPath.row])
+                cell.SearchImage.image = self.appDelegate.getAccountIconFromName(name: cell.SearchName.text!)
             }
             return cell
         }

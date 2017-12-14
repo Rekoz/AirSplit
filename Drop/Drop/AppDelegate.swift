@@ -55,6 +55,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func getAccountIconFromName(name: String) -> UIImage {
+        let lblNameInitialize = UILabel()
+        lblNameInitialize.frame.size = CGSize(width: 45.0, height: 45.0)
+        lblNameInitialize.textColor = UIColor.white
+        var nameStringArr = name.components(separatedBy: " ")
+        let firstName: String = nameStringArr[0].uppercased()
+        let firstLetter: Character = firstName[0]
+        let lastName: String = nameStringArr[1].uppercased()
+        let secondLetter: Character = lastName[0]
+        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
+        lblNameInitialize.textAlignment = NSTextAlignment.center
+        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+        
+        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
+        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
+    
     func findAllRelatedTransactions() {
         transactionDictionary = [String: [Transaction]]()
         

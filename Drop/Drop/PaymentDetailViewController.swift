@@ -69,6 +69,7 @@ class PaymentDetailViewController: UIViewController {
         self.PaymentDetail.dataSource = self
         
         print(person)
+        print(self.appDelegate.transactionDictionary)
         for transaction in self.appDelegate.transactionDictionary[person]! {
             self.transactions.append(transaction)
         }

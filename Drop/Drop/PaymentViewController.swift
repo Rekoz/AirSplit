@@ -151,6 +151,7 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
                         }
                         DispatchQueue.main.async {
                             self.PaymentCenterTableView.reloadData()
+                            self.appDelegate.transactionDictionary = self.transactionDictionary
                         }
                     }
                 }

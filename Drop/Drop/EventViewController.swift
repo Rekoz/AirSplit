@@ -24,6 +24,16 @@ extension String {
         let end = index(startIndex, offsetBy: r.upperBound)
         return String(self[Range(start ..< end)])
     }
+    
+    func capitalizingFirstLetter() -> String {
+        let first = String(characters.prefix(1)).capitalized
+        let other = String(characters.dropFirst())
+        return first + other
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }
 
 /// controller that handles user's actions on event creating page
@@ -524,18 +534,19 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
             
-            cell.accountName.text = self.appDelegate.people[indexPath.row]
+            var account_name = self.appDelegate.people[indexPath.row].lowercased()
+//            account_name.capitalizeFirstLetter()
+//            cell.accountName.text = account_name
+            
             let lblNameInitialize = UILabel()
             lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
-            var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
-//            if (nameStringArr?.isEmpty)! {
-//                return
-//            }
+            var nameStringArr = account_name.components(separatedBy: " ")
+
             print("the current user is", nameStringArr)
-            var firstName: String = nameStringArr![0].uppercased()
+            var firstName: String = nameStringArr[0].uppercased()
             var firstLetter: Character = firstName[0]
-            let lastName: String = (nameStringArr?[1])!.uppercased()
+            let lastName: String = (nameStringArr[1]).uppercased()
             var secondLetter: Character = lastName[0]
             lblNameInitialize.text = String(firstLetter) + String(secondLetter)
             lblNameInitialize.textAlignment = NSTextAlignment.center
@@ -547,6 +558,12 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
             cell.accountImageView.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+            
+//            firstName.lowercased().capitalizeFirstLetter()
+            cell.accountName.text = nameStringArr[0].capitalizingFirstLetter()
+            
+            
+//            cell.accountName.text = firstName
             
             
 //            cell.accountName.text = self.appDelegate.people[indexPath.row]

@@ -797,7 +797,7 @@
         <!--Payment Center-->
         <scene sceneID="yjK-4X-nWG">
             <objects>
-                <navigationController id="rVy-tS-wGe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="paymentCenter" id="rVy-tS-wGe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Payment Center" image="icons8-Money Bag Filled-52" id="bYg-FD-fp9">
                         <color key="badgeColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>

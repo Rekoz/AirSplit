@@ -229,6 +229,13 @@ class EventViewController: UIViewController,
         self.assignees.removeAll()
         self.assignees.append([String]())
         self.ItemTableView.reloadData()
+        let confirmMessage = "Split Created"
+        let confirmAlertController = UIAlertController(title: "Success", message: confirmMessage, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        confirmAlertController.addAction(confirmAction)
+        self.present(confirmAlertController, animated: true, completion: ({
+                self.tabBarController?.selectedIndex = 2
+            }))
     }
     
     /// Fetches the picked image and uploads it to the server for processing

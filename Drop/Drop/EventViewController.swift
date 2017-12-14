@@ -583,17 +583,21 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             print(person.accountName.text! + " is selected")
             self.tempAssignees.append(person)
         }
-        
-//        if (self.tempAssignees.count > 0) {
-//            let buttonIndexPath = IndexPath(row)
-//            ItemTableView.cellForRow(at: <#T##IndexPath#>)
-//        }
-        
             
         // DEBUG
         print("Assignees: ")
         for assignee in self.tempAssignees as [PeopleCollectionViewCell] {
             print(assignee.accountName.text! + " ")
+        }
+        
+        // Update split button icon
+        let buttonIndexPath = IndexPath(row: splitAtIndex, section: 0)
+        let item = ItemTableView.cellForRow(at: buttonIndexPath) as! ItemTableViewCell
+        if (self.tempAssignees.count > 0) {
+            item.SplitButton.setImage(UIImage(named: "correct_people"), for: UIControlState.normal)
+//            ItemTableView.reloadData()
+        } else {
+            item.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
         }
     }
 }
@@ -669,6 +673,15 @@ extension EventViewController : ItemTableViewCellDelegate {
     
     func initializeSplitting(cell: ItemTableViewCell) {
         print("Start splitting")
+        
+        // Revert the split button for previous splitting item
+        if (splitAtIndex != -1) {
+            let buttonIndexPath = IndexPath(row: splitAtIndex, section: 0)
+            let item = ItemTableView.cellForRow(at: buttonIndexPath) as! ItemTableViewCell
+            item.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
+        }
+        
+        // Initiate a new splitting event
         self.splitAtIndex = (ItemTableView.indexPath(for: cell)?.row)!
         self.splitable = true;
         self.tempAssignees.removeAll()
@@ -691,6 +704,8 @@ extension EventViewController : ItemTableViewCellDelegate {
         self.splitAtIndex = -1
         self.splitable = false
         
+        // Save people assignment & revert to original state
+        cell.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
         cell.assignees.removeAll()
         cell.assignees.append(contentsOf: self.tempAssignees)
         cell.AssigneeCollection.reloadData()

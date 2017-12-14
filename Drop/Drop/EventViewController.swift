@@ -528,6 +528,9 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
             var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
+//            if (nameStringArr?.isEmpty)! {
+//                return
+//            }
             print("the current user is", nameStringArr)
             var firstName: String = nameStringArr![0].uppercased()
             var firstLetter: Character = firstName[0]

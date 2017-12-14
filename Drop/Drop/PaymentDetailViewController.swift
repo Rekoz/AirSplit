@@ -55,8 +55,8 @@ class PaymentDetailViewController: UIViewController {
             for indexPath in selectedIndexPaths! {
                 let cell = PaymentDetail.cellForRow(at: indexPath)
                 items.append((cell?.textLabel?.text)!)
-                var transactionToBeDeleted = self.transactions.filter{ $0.itemName == (cell?.textLabel?.text)! }[0]
-                self.transactions = self.transactions.filter{ $0.itemName != (cell?.textLabel?.text)! }
+                let transactionToBeDeleted = self.transactions[indexPath.row]
+                self.transactions = self.transactions.filter{ $0 != transactionToBeDeleted }
                 print("delete: " + transactionToBeDeleted.transactionName)
                 self.deleteTransaction(transactionToBeDeleted: transactionToBeDeleted.transactionName, transaction: transactionToBeDeleted)
             }

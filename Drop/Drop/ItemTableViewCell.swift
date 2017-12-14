@@ -46,9 +46,6 @@ class ItemTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        //ItemName.addTarget(self, action: Selector(("itemNameFieldDidChange")), for: UIControlEvents.editingChanged)
-        //ItemPrice.addTarget(self, action: Selector(("itemPriceFieldDidChange")), for: UIControlEvents.editingChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,14 +53,6 @@ class ItemTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-//    func itemNameFieldDidChange(textField: UITextField) {
-//        print (textField.text!)
-//    }
-//    
-//    func itemPriceFieldDidChange(textField: UITextField) {
-//        print (textField.text!)
-//    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

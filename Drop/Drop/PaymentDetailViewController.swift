@@ -88,7 +88,11 @@ class PaymentDetailViewController: UIViewController {
     }
     
     func deleteTransaction(transactionToBeDeleted: String, transaction: Transaction) {
-        let transaction = ["amount": transaction.amount, "borrower": transaction.borrower, "lender": transaction.lender, "timestamp": transaction.timestamp, "status": "complete", "itemName": transaction.itemName] as [String : Any]
+        var status: String = "complete"
+        if transaction.lender == self.appDelegate.myOwnName {
+            status = "declined"
+        }
+        let transaction = ["amount": transaction.amount, "borrower": transaction.borrower, "lender": transaction.lender, "timestamp": transaction.timestamp, "status": status, "itemName": transaction.itemName] as [String : Any]
         
         let childUpdate = ["/transactions/" + transactionToBeDeleted: transaction]
         ref.updateChildValues(childUpdate)

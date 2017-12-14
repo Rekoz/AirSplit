@@ -197,10 +197,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
         let transaction = self.transactions[indexPath.row]
-        var payer = transaction.borrower.lowercased()
-        payer.capitalizeFirstLetter()
-        var payee = transaction.lender.lowercased()
-        payee.capitalizeFirstLetter()
+        var payer = transaction.borrower
+        payer = payer.capitalizeSentence(clause: payer)
+        var payee = transaction.lender
+        payee = payee.capitalizeSentence(clause: payee)
         let epochSec = transaction.timestamp
         let time = convertToDateTime(epochSec: epochSec)
         let amount = transaction.amount

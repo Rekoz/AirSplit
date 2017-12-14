@@ -34,6 +34,18 @@ extension String {
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    func capitalizeSentence(clause:String) -> String {
+        var strArray = clause.components(separatedBy: " ")
+        var result = ""
+        for str in strArray {
+            var newStr = str.lowercased()
+            newStr.capitalizeFirstLetter()
+            result += newStr
+            result += " "
+        }
+        return result
+    }
 }
 
 /// controller that handles user's actions on event creating page

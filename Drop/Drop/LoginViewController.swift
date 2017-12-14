@@ -14,18 +14,20 @@ import Firebase
  */
 class LoginViewController: UIViewController {
     
-    let loginToSongView = "LoginToHomeView"
+    let loginToHomeView = "LoginToHomeView"
     
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var usernameInput: UITextField!
     @IBOutlet weak var loginButton: UIButton?
     
-    // [START define_database_reference]
+    // Define Firebase database reference
     var ref: DatabaseReference!
-    // [END define_database_reference]
     
     private var appDelegate : AppDelegate
     
+    /**
+     Initialize LoginViewController.
+    */
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -35,6 +37,7 @@ class LoginViewController: UIViewController {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
+    
     /**
      Authenticates user when login button is pressed.
      
@@ -74,24 +77,12 @@ class LoginViewController: UIViewController {
         }
     }
     
-//    func findMyAccountName() {
-//        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: usernameInput.text!)
-//        query.observeSingleEvent(of: .value, with: { (snapshot) in
-//            for case let childSnapshot as DataSnapshot in snapshot.children {
-//                if let data = childSnapshot.value as? [String: Any] {
-//                    print("got account name " + "\(data["accountName"]!)")
-//                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
-//                    if (self.appDelegate.myOwnName != "") {
-//                        print("display name: " + self.appDelegate.myOwnName)
-//                        self.appDelegate.multipeer.setPeerDisplayName(name: self.appDelegate.myOwnName)
-//                        self.appDelegate.multipeer.startAdvertising()
-//                    }
-//                }
-//            }
-//        })
-//    }
-    
+    /**
+     Register & authenticate user when user click "Don't have an account?"
+    */
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
+        
+        // Generate a signup view
         let alert = UIAlertController(title: "",
                                       message: "Please enter your information",
                                       preferredStyle: .alert)
@@ -99,17 +90,17 @@ class LoginViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Sign Up", style: .default)
         { action in
             
-            // 1
+            // 1. Add user registration required information fields
             let firstNameField = alert.textFields![0]
             let lastNameField = alert.textFields![1]
             let emailField = alert.textFields![2]
             let passwordField = alert.textFields![3]
             
-            // 2
+            // 2. Create user when all required info are filled in
             Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!)
             { user, error in
                 if error == nil {
-                    // 3
+                    // 3. Authenticate user when registration is successful
                     if let user = user {
                         self.clearTextField()
                         print("We have new user! \(user.email!)")
@@ -120,6 +111,7 @@ class LoginViewController: UIViewController {
                                        password: self.passwordInput.text!)
                     print("Create User Successful")
                 } else {
+                    // 4. Alert user when registration is not successful
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
                         var errorMessage = String()
                         switch errCode {
@@ -209,12 +201,10 @@ extension LoginViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        // 1
         Auth.auth().addStateDidChangeListener() { auth, user in
-            // 2
+            // Proceed to Home View when user is authenticated
             if user != nil {
-                // 3
-                self.performSegue(withIdentifier: self.loginToSongView, sender: nil)
+                self.performSegue(withIdentifier: self.loginToHomeView, sender: nil)
             }
         }
         self.addHideKeyboardOnTap()

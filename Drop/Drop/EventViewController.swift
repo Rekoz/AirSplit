@@ -44,7 +44,11 @@ extension String {
             result += newStr
             result += " "
         }
-        return result
+        if result.count > 0 {
+            return result.substring(to: result.index(before: result.endIndex))
+        } else {
+            return result
+        }
     }
 }
 
@@ -174,7 +178,7 @@ class EventViewController: UIViewController,
         self.assignees.removeAll()
         print ("perform segue")
         let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "home") as UIViewController
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
     
     /// The callback function for when the Camera button is clicked
@@ -187,6 +191,14 @@ class EventViewController: UIViewController,
     
     @IBAction func storeTransactions(_ sender: Any) {
         print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
+        if (self.appDelegate.items.count == 1) {
+            let errorMessage = "No Item Found"
+            let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            errorAlertController.addAction(retryAction)
+            self.present(errorAlertController, animated: true, completion: nil)
+            return
+        }
         for i in 0..<self.appDelegate.items.count-1 {
             if (self.appDelegate.items[i][0] == "item" || self.appDelegate.items[i][0] == "") {
                 let errorMessage = "Item Name Cannot Be Empty"
@@ -430,6 +442,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.SearchTable {
+            self.view.endEditing(true)
             self.SearchTable.isHidden = true
             tableView.deselectRow(at: indexPath, animated: true)
             self.SearchButton.text = ""
@@ -496,8 +509,8 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
             if indexPath.row < self.searchResults.count {
-                cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.SearchName.text = self.searchResults[indexPath.row]
+                cell.SearchName.text = self.searchResults[indexPath.row].capitalizeSentence(clause: self.searchResults[indexPath.row])
+                cell.SearchImage.image = self.appDelegate.getAccountIconFromName(name: cell.SearchName.text!)
             }
             return cell
         }

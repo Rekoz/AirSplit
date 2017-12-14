@@ -32,6 +32,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var AssigneeCollection: UICollectionView!
     
     weak var delegate: ItemTableViewCellDelegate?
+    private var appDelegate : AppDelegate
     
     public var assignees = [String]()
     
@@ -51,6 +52,7 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
     
@@ -77,28 +79,6 @@ class ItemTableViewCell: UITableViewCell {
         AssigneeCollection.tag = row
         AssigneeCollection.reloadData()
     }
-    
-    func getIconFromName(name: String) -> UIImage {
-        let lblNameInitialize = UILabel()
-        lblNameInitialize.frame.size = CGSize(width: 30.0, height: 30.0)
-        lblNameInitialize.textColor = UIColor.white
-        var nameStringArr = name.components(separatedBy: " ")
-        let firstName: String = nameStringArr[0].uppercased()
-        let firstLetter: Character = firstName[0]
-        let lastName: String = nameStringArr[1].uppercased()
-        let secondLetter: Character = lastName[0]
-        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
-        lblNameInitialize.textAlignment = NSTextAlignment.center
-        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
-        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
-        
-        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
-        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image!
-    }
 }
 
 extension ItemTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -121,7 +101,7 @@ extension ItemTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssigneeCell", for: indexPath) as! TinyPeopleCollectionViewCell
         if indexPath.row < self.assignees.count {
-            cell.accountImageView.image = self.getIconFromName(name: self.assignees[indexPath.row])
+            cell.accountImageView.image = self.appDelegate.getAccountIconFromName(name: self.assignees[indexPath.row])
             cell.accountName = self.assignees[indexPath.row]
         }
         return cell

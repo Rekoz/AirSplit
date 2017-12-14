@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -262,7 +262,7 @@
                                                     </cells>
                                                 </collectionView>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IGm-c4-4pc">
-                                                    <rect key="frame" x="23" y="26.5" width="8" height="17"/>
+                                                    <rect key="frame" x="24" y="26.5" width="8" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -271,7 +271,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHT-eP-8Sl">
-                                                    <rect key="frame" x="132" y="19.5" width="110" height="30"/>
+                                                    <rect key="frame" x="133" y="19.5" width="108" height="30"/>
                                                     <state key="normal" title="Add">
                                                         <color key="titleColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -280,7 +280,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-0v-ZYc">
-                                                    <rect key="frame" x="325" y="19.5" width="30" height="30"/>
+                                                    <rect key="frame" x="324" y="19.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Duq-5T-5Od"/>
                                                         <constraint firstAttribute="width" constant="30" id="qHi-8S-dNs"/>
@@ -291,7 +291,7 @@
                                                     </connections>
                                                 </button>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aT9-3a-OZB">
-                                                    <rect key="frame" x="299" y="26.5" width="8" height="17"/>
+                                                    <rect key="frame" x="298" y="26.5" width="8" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -343,13 +343,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UVu-Mg-UO9" userLabel="SearchedImage View">
-                                                    <rect key="frame" x="20" y="3" width="38" height="38"/>
+                                                    <rect key="frame" x="20" y="-0.5" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="37.5" id="ktQ-vn-b78"/>
+                                                        <constraint firstAttribute="height" constant="45" id="5qO-Tm-P8e"/>
+                                                        <constraint firstAttribute="width" constant="45" id="6xq-XH-6NT"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searched Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqQ-bX-bro">
-                                                    <rect key="frame" x="130" y="2" width="151" height="40"/>
+                                                    <rect key="frame" x="137" y="2" width="143" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="C6T-GI-olQ"/>
                                                     </constraints>
@@ -359,7 +360,6 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="UVu-Mg-UO9" firstAttribute="top" secondItem="dUK-Bk-Yb7" secondAttribute="top" constant="3" id="0Rz-c5-8mY"/>
                                                 <constraint firstItem="UVu-Mg-UO9" firstAttribute="leading" secondItem="dUK-Bk-Yb7" secondAttribute="leading" constant="20" id="3Ve-aI-amW"/>
                                                 <constraint firstItem="UVu-Mg-UO9" firstAttribute="centerY" secondItem="dUK-Bk-Yb7" secondAttribute="centerY" id="UnK-Ls-GKO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="qqQ-bX-bro" secondAttribute="trailing" constant="79" id="cFN-KY-Srp"/>
@@ -494,7 +494,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTr-sP-4Wc">
-                                                    <rect key="frame" x="313" y="7.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="312" y="7.5" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

@@ -47,6 +47,10 @@ class PaymentViewController: UIViewController {
         self.PaymentCenterTableView.dataSource = self
         
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        findAllRelatedTransactions()
+//    }
 
     /**
         Sent to the view controller when the app receives a memory warning.
@@ -86,9 +90,23 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
         cell.textLabel?.text = people[indexPath.row]
-        cell.detailTextLabel?.text = "price"
-        //cell.detailTextLabel?.textColor = UIColor.init(red: 0.1924, green: 0.8, blue: 0.056, alpha: 1)
-        cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
+        var sum = 0.00
+        for transation in self.appDelegate.transactionDictionary[people[indexPath.row]]! {
+            if transation.lender == self.appDelegate.myOwnName {
+               sum += transation.amount
+            } else {
+               sum -= transation.amount
+            }
+            
+        }
+        if sum >= 0.00 {
+            cell.detailTextLabel?.text = "+ $" + String(sum)
+            cell.detailTextLabel?.textColor = UIColor.init(red: 0.056, green: 0.8, blue: 0.056, alpha: 1)
+        } else {
+            cell.detailTextLabel?.text = "- $" + String(-sum)
+            cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
+        }
+        
         return cell
     }
     
@@ -115,13 +133,6 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     func findAllRelatedTransactions() {
         let myName = self.appDelegate.myOwnName
         print("my peer name: \(myName)")
-        
-        //        print("key: " + ref.child("transactions").childByAutoId().key)
-        //        let transaction = ["amount": 66, "borrower": "CAMILLE ZHANG", "lender": "MINGHONG ZHOU", "timestamp": 1512871247, "status": "complete"] as [String : Any]
-        //
-        //        let childUpdate = ["/transactions/transaction1512871247": transaction]
-        //
-        //        ref.updateChildValues(childUpdate)
         
         let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myName)
         

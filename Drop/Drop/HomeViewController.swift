@@ -53,6 +53,12 @@ class HomeViewController: UIViewController {
         findMyAccountName(email: email!)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        transactions = [Transaction]()
+        ref = Database.database().reference()
+        self.findAllRelatedTransactions()
+    }
+    
     func findMyAccountName(email: String) {
         let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: email)
         query.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -77,15 +83,9 @@ class HomeViewController: UIViewController {
     }
     
     func findAllRelatedTransactions() {
+        transactions = [Transaction]()
         let myName = self.appDelegate.myOwnName
         print("my peer name: \(myName)")
-        
-//        print("key: " + ref.child("transactions").childByAutoId().key)
-//        let transaction = ["amount": 66, "borrower": "CAMILLE ZHANG", "lender": "MINGHONG ZHOU", "timestamp": 1512871247, "status": "complete"] as [String : Any]
-//
-//        let childUpdate = ["/transactions/transaction1512871247": transaction]
-//
-//        ref.updateChildValues(childUpdate)
         
         let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myName)
         

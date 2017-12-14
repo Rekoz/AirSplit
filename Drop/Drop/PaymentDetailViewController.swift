@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class PaymentDetailViewController: UIViewController {
 
     var person = ""
     var transactions:[Transaction] = []
+    var ref: DatabaseReference!
     
     private var appDelegate : AppDelegate
     
@@ -53,7 +55,10 @@ class PaymentDetailViewController: UIViewController {
             for indexPath in selectedIndexPaths! {
                 let cell = PaymentDetail.cellForRow(at: indexPath)
                 items.append((cell?.textLabel?.text)!)
+                var transactionToBeDeleted = self.transactions.filter{ $0.itemName == (cell?.textLabel?.text)! }[0]
                 self.transactions = self.transactions.filter{ $0.itemName != (cell?.textLabel?.text)! }
+                print("delete: " + transactionToBeDeleted.transactionName)
+                self.deleteTransaction(transactionToBeDeleted: transactionToBeDeleted.transactionName, transaction: transactionToBeDeleted)
             }
         }
         print(items)
@@ -63,6 +68,8 @@ class PaymentDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
 
         // Do any additional setup after loading the view.
         self.PaymentDetail.delegate = self
@@ -79,6 +86,14 @@ class PaymentDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func deleteTransaction(transactionToBeDeleted: String, transaction: Transaction) {
+        let transaction = ["amount": transaction.amount, "borrower": transaction.borrower, "lender": transaction.lender, "timestamp": transaction.timestamp, "status": "complete", "itemName": transaction.itemName] as [String : Any]
+        
+        let childUpdate = ["/transactions/" + transactionToBeDeleted: transaction]
+        ref.updateChildValues(childUpdate)
+        self.appDelegate.findAllRelatedTransactions()
+    }
 }
 
 extension PaymentDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -89,12 +104,14 @@ extension PaymentDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
         cell.textLabel?.text = self.transactions[indexPath.row].itemName
-        cell.detailTextLabel?.text = "$" + String(self.transactions[indexPath.row].amount)
+        
     
-        if self.transactions[indexPath.row].borrower == person{
+        if self.transactions[indexPath.row].lender == person{
             cell.detailTextLabel?.textColor = UIColor.init(red: 0.8, green: 0.056, blue: 0.056, alpha: 1)
+            cell.detailTextLabel?.text = "- $" + String(self.transactions[indexPath.row].amount)
         } else {
             cell.detailTextLabel?.textColor = UIColor.init(red: 0.056, green: 0.8, blue: 0.056, alpha: 1)
+            cell.detailTextLabel?.text = "+ $" + String(self.transactions[indexPath.row].amount)
         }
         return cell
     }

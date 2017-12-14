@@ -119,7 +119,6 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-
                     if (data["status"] as! String == "complete") {
                         let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)

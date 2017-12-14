@@ -77,6 +77,8 @@ class EventViewController: UIViewController,
     private var tempAssignees = [PeopleCollectionViewCell]()
     private var searchResults = [String]()
     private var assignees = [[PeopleCollectionViewCell]]()
+    private var taxAmount: Float
+    private var taxPercentage: Float
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
@@ -88,6 +90,8 @@ class EventViewController: UIViewController,
         self.multipeer = appDelegate.multipeer
         self.splitable = false
         self.splitAtIndex = -1
+        self.taxAmount = 0
+        self.taxPercentage = 0
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -96,6 +100,8 @@ class EventViewController: UIViewController,
         self.multipeer = appDelegate.multipeer
         self.splitable = false
         self.splitAtIndex = -1
+        self.taxAmount = 0
+        self.taxPercentage = 0
         super.init(coder: aDecoder)
     }
 
@@ -239,7 +245,7 @@ class EventViewController: UIViewController,
         
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.setValue("a445ca40c4a311e7a0ebfdc7a5da208a", forHTTPHeaderField: "apikey")
+        request.setValue("dc014900e10411e7a0ebfdc7a5da208a", forHTTPHeaderField: "apikey")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
         
@@ -269,6 +275,9 @@ class EventViewController: UIViewController,
             
             let result = self.convertToDictionary(text: data)
             let lineAmounts = result["lineAmounts"] as! [AnyObject]
+            let totalAmount = (result["totalAmount"] as! [String: Any])["data"] as! Float
+            self.taxAmount = (result["taxAmount"] as! [String: Any])["data"] as! Float
+            self.taxPercentage = self.taxAmount / (totalAmount - self.taxAmount)
             for item in lineAmounts {
                 // Append items to cells
                 //print(item["description"] as! String)

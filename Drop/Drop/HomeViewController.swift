@@ -12,7 +12,6 @@ import Firebase
 /**
     View controller that displays recent user activities.
  */
-
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
@@ -52,16 +51,22 @@ class HomeViewController: UIViewController {
         ref = Database.database().reference()
         let email = Auth.auth().currentUser?.email
         findMyAccountName(email: email!)
-        //NewsFeedTable.reloadData()
     }
     
+    /**
+     Reload recent transactions from Firebase every time Home view appears.
+    */
     override func viewWillAppear(_ animated: Bool) {
         transactions = [Transaction]()
         ref = Database.database().reference()
         self.findAllRelatedTransactions()
-        //NewsFeedTable.reloadData()
     }
     
+    /**
+     Retrieve user's account name for the use of recent transaction queries.
+    
+     - Parameter email: user's email address
+    */
     func findMyAccountName(email: String) {
         let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: email)
         query.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -85,21 +90,28 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     Retrieve user's recently completed/declined transactions from Firebase.
+     Append query results to Transaction array.
+    */
     func findAllRelatedTransactions() {
         transactions = [Transaction]()
         let myName = self.appDelegate.myOwnName
         print("my peer name: \(myName)")
         
+        // transactions paid by user
         let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myName)
         
+        // transactions paid by peers
         let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: myName)
         
+        // append chronologically sorted query results to transaction dictionary
         queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 print("snapshot name: " + childSnapshot.key)
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
-                        let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
+                        let peerIcon = self.appDelegate.getAccountIconFromName(name: data["lender"] as! String)
                         let lender = data["lender"] as! String
                         let capitalizedLender = lender.capitalizeSentence(clause: lender)
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(capitalizedLender)", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
@@ -121,14 +133,15 @@ class HomeViewController: UIViewController {
             }
         })
         
+        // append chronologically sorted query results to transaction dictionary
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
-                        let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
+                        let peerIcon = self.appDelegate.getAccountIconFromName(name: data["borrower"] as! String)
                         let borrower = data["borrower"] as! String
                         let capitalizedBorrower = borrower.capitalizeSentence(clause: borrower)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: data["status"] as! String == "declined" ? "You" : "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -147,36 +160,15 @@ class HomeViewController: UIViewController {
             }
         })
     }
+    
     /**
-     Logs out user when logout button is pressed.
+     Logs out user when logout button is pressed. Return to Login View after completion.
      
      - Parameter sender: Client's action to press logout button.
     */
     @IBAction func logout(_ sender:AnyObject) {
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
-    }
-    
-    func getAccountIconFromName(name: String) -> UIImage {
-        let lblNameInitialize = UILabel()
-        lblNameInitialize.frame.size = CGSize(width: 30.0, height: 30.0)
-        lblNameInitialize.textColor = UIColor.white
-        var nameStringArr = name.components(separatedBy: " ")
-        let firstName: String = nameStringArr[0].uppercased()
-        let firstLetter: Character = firstName[0]
-        let lastName: String = nameStringArr[1].uppercased()
-        let secondLetter: Character = lastName[0]
-        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
-        lblNameInitialize.textAlignment = NSTextAlignment.center
-        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
-        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
-        
-        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
-        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image!
     }
 }
 
@@ -185,10 +177,28 @@ class HomeViewController: UIViewController {
 //======================
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
+    /**
+     Tells the data source to return the number of rows in a given section of a table view.
+     
+     - Parameters:
+        - tableView: The table-view object requesting this information.
+        - section: An index number identifying a section in tableView.
+     
+     - Returns: The number of rows in section.
+    */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.transactions.count
     }
     
+    /**
+     Asks the data source for a cell to insert in a particular location of the table view.
+     
+     - Parameters:
+        - tableView: A table-view object requesting the cell.
+        - indexPath: An index path locating a row in tableView.
+     
+     - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
+    */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
         let transaction = self.transactions[indexPath.row]
@@ -201,7 +211,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let status = transaction.status
         print("payer: \(payer) payee: \(payee) time: \(time) amount:\(amount)")
         if status == "declined" {
-            cell.Participants.text = "\(payee) declined transaction"
+            if payer.lowercased() == "you" {
+                cell.Participants.text = "\(payee) declined your transaction"
+            } else {
+                cell.Participants.text = "\(payee) declined \(payer)'s transaction"
+            }
         } else {
             cell.Participants.text = "\(payer) paid \(payee)"
         }
@@ -211,6 +225,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    /**
+     Convert Epoch seconds to datetime.
+     
+     - Parameter epochSec: epoch seconds
+     
+     - Returns: a datetime string in format yyyy-MM-dd HH:mm.
+    */
     func convertToDateTime(epochSec: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(epochSec))
         let dateFormatter = DateFormatter()

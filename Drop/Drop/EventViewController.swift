@@ -44,7 +44,11 @@ extension String {
             result += newStr
             result += " "
         }
-        return result
+        if result.count > 0 {
+            return result.substring(to: result.index(before: result.endIndex))
+        } else {
+            return result
+        }
     }
 }
 
@@ -229,6 +233,13 @@ class EventViewController: UIViewController,
         self.assignees.removeAll()
         self.assignees.append([String]())
         self.ItemTableView.reloadData()
+        let confirmMessage = "Split Created"
+        let confirmAlertController = UIAlertController(title: "Success", message: confirmMessage, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        confirmAlertController.addAction(confirmAction)
+        self.present(confirmAlertController, animated: true, completion: ({
+                self.tabBarController?.selectedIndex = 2
+            }))
     }
     
     /// Fetches the picked image and uploads it to the server for processing
@@ -484,8 +495,8 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
             if indexPath.row < self.searchResults.count {
-                cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.SearchName.text = self.searchResults[indexPath.row]
+                cell.SearchName.text = self.searchResults[indexPath.row].capitalizeSentence(clause: self.searchResults[indexPath.row])
+                cell.SearchImage.image = self.appDelegate.getAccountIconFromName(name: cell.SearchName.text!)
             }
             return cell
         }

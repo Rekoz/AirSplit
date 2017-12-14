@@ -429,6 +429,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.SearchTable {
+            self.view.endEditing(true)
             self.SearchTable.isHidden = true
             tableView.deselectRow(at: indexPath, animated: true)
             self.SearchButton.text = ""

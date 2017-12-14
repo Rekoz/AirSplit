@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var people = [String]()
     var items = [[String]]()
     var myOwnName = ""
+    var transactionDictionary = [String: [Transaction]]()
     
     var window: UIWindow?
     

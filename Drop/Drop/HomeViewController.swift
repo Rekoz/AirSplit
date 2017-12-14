@@ -81,21 +81,33 @@ class HomeViewController: UIViewController {
         let myName = self.appDelegate.myOwnName
         print("my peer name: \(myName)")
         
+//        print("key: " + ref.child("transactions").childByAutoId().key)
+//        let transaction = ["amount": 66, "borrower": "CAMILLE ZHANG", "lender": "MINGHONG ZHOU", "timestamp": 1512871247, "status": "complete"] as [String : Any]
+//
+//        let childUpdate = ["/transactions/transaction1512871247": transaction]
+//
+//        ref.updateChildValues(childUpdate)
+        
         let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myName)
         
         let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: myName)
         
         queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
+                print("snapshot name: " + childSnapshot.key)
                 if let data = childSnapshot.value as? [String: Any] {
-                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
-                    print(transaction)
-                    print("amount = \(transaction.amount)")
-                    print("borrower = \(transaction.borrower)")
-                    print("lender = \(transaction.lender)")
-                    print("timestamp = \(transaction.timestamp)")
-                    self.transactions.append(transaction)
-                    print(self.transactions.count)
+                    if (data["status"] as! String == "complete") {
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String)
+                        print(transaction)
+                        print("transactionName = " + childSnapshot.key)
+                        print("amount = \(transaction.amount)")
+                        print("borrower = \(transaction.borrower)")
+                        print("lender = \(transaction.lender)")
+                        print("timestamp = \(transaction.timestamp)")
+                        print("itemName = " + transaction.itemName)
+                        self.transactions.append(transaction)
+                        print(self.transactions.count)
+                    }
                     DispatchQueue.main.async {
                         self.NewsFeedTable.reloadData()
                     }
@@ -106,14 +118,18 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
-                    let transaction = Transaction(amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int)
-                    print(transaction)
-                    print("amount = \(transaction.amount)")
-                    print("borrower = \(transaction.borrower)")
-                    print("lender = \(transaction.lender)")
-                    print("timestamp = \(transaction.timestamp)")
-                    self.transactions.append(transaction)
-                    print(self.transactions.count)
+                    if (data["status"] as! String == "complete") {
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String)
+                        print(transaction)
+                        print("transactionName = " + childSnapshot.key)
+                        print("amount = \(transaction.amount)")
+                        print("borrower = \(transaction.borrower)")
+                        print("lender = \(transaction.lender)")
+                        print("timestamp = \(transaction.timestamp)")
+                        print("itemName = " + transaction.itemName)
+                        self.transactions.append(transaction)
+                        print(self.transactions.count)
+                    }
                     DispatchQueue.main.async {
                         self.NewsFeedTable.reloadData()
                     }

@@ -158,7 +158,7 @@ class EventViewController: UIViewController,
     @IBAction func storeTransactions(_ sender: Any) {
         print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
         for i in 0..<self.appDelegate.items.count-1 {
-            if (self.appDelegate.items[i][0] == "item") {
+            if (self.appDelegate.items[i][0] == "item" || self.appDelegate.items[i][0] == "") {
                 let errorMessage = "Item Name Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -166,7 +166,7 @@ class EventViewController: UIViewController,
                 self.present(errorAlertController, animated: true, completion: nil)
                 return
             }
-            if (self.appDelegate.items[i][1] == "price") {
+            if (self.appDelegate.items[i][1] == "price" || self.appDelegate.items[i][1] == "") {
                 let errorMessage = "Item Price Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -194,6 +194,11 @@ class EventViewController: UIViewController,
                 }
             }
         }
+        self.appDelegate.items.removeAll()
+        self.appDelegate.items.append(["item", "price"])
+        self.assignees.removeAll()
+        self.assignees.append([PeopleCollectionViewCell]())
+        self.ItemTableView.reloadData()
     }
     
     /// Fetches the picked image and uploads it to the server for processing

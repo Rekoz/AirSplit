@@ -214,12 +214,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         print("payer: \(payer) payee: \(payee) time: \(time) amount:\(amount)")
         if status == "declined" {
             if payer.lowercased() == "you" {
-                cell.Participants.text = "\(payee) declined your transaction"
+                cell.Participants.text = "\(payee) completed your transaction"
             } else {
-                cell.Participants.text = "\(payee) declined \(payer)'s transaction"
+                cell.Participants.text = "\(payee) completed \(payer)'s transaction"
             }
         } else {
-            cell.Participants.text = "\(payer) paid \(payee)"
+            if payee.lowercased() == "you" {
+                cell.Participants.text = "\(payer) completed your transaction"
+            } else {
+                cell.Participants.text = "\(payer) completed \(payee)'s transaction"
+            }
         }
         cell.Amount.text = "$\(amount)"
         cell.Time.text = "\(time)"

@@ -14,7 +14,7 @@ import Firebase
  */
 class LoginViewController: UIViewController {
     
-    let loginToSongView = "LoginToHomeView"
+    let loginToHomeView = "LoginToHomeView"
     
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var usernameInput: UITextField!
@@ -77,7 +77,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /**
+     Register & authenticate user when user click "Don't have an account?"
+    */
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
+        
+        // Generate a signup view
         let alert = UIAlertController(title: "",
                                       message: "Please enter your information",
                                       preferredStyle: .alert)
@@ -85,17 +90,17 @@ class LoginViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Sign Up", style: .default)
         { action in
             
-            // 1
+            // 1. Add user registration required information fields
             let firstNameField = alert.textFields![0]
             let lastNameField = alert.textFields![1]
             let emailField = alert.textFields![2]
             let passwordField = alert.textFields![3]
             
-            // 2
+            // 2. Create user when all required info are filled in
             Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!)
             { user, error in
                 if error == nil {
-                    // 3
+                    // 3. Authenticate user when registration is successful
                     if let user = user {
                         self.clearTextField()
                         print("We have new user! \(user.email!)")
@@ -106,6 +111,7 @@ class LoginViewController: UIViewController {
                                        password: self.passwordInput.text!)
                     print("Create User Successful")
                 } else {
+                    // 4. Alert user when registration is not successful
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
                         var errorMessage = String()
                         switch errCode {
@@ -195,12 +201,10 @@ extension LoginViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        // 1
         Auth.auth().addStateDidChangeListener() { auth, user in
-            // 2
+            // Proceed to Home View when user is authenticated
             if user != nil {
-                // 3
-                self.performSegue(withIdentifier: self.loginToSongView, sender: nil)
+                self.performSegue(withIdentifier: self.loginToHomeView, sender: nil)
             }
         }
         self.addHideKeyboardOnTap()

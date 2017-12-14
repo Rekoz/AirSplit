@@ -89,7 +89,9 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
-        cell.textLabel?.text = people[indexPath.row]
+        var name = people[indexPath.row]
+        name = name.capitalizeSentence(clause: name)
+        cell.textLabel?.text = name
         var sum = 0.00
         for transation in self.appDelegate.transactionDictionary[people[indexPath.row]]! {
             if transation.lender == self.appDelegate.myOwnName {

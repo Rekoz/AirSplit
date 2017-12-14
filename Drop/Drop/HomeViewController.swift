@@ -111,7 +111,7 @@ class HomeViewController: UIViewController {
                 print("snapshot name: " + childSnapshot.key)
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
-                        let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
+                        let peerIcon = self.appDelegate.getAccountIconFromName(name: data["lender"] as! String)
                         let lender = data["lender"] as! String
                         let capitalizedLender = lender.capitalizeSentence(clause: lender)
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(capitalizedLender)", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
@@ -138,7 +138,7 @@ class HomeViewController: UIViewController {
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete" || data["status"] as! String == "declined" ) {
-                        let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
+                        let peerIcon = self.appDelegate.getAccountIconFromName(name: data["borrower"] as! String)
                         let borrower = data["borrower"] as! String
                         let capitalizedBorrower = borrower.capitalizeSentence(clause: borrower)
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(capitalizedBorrower)", lender: data["status"] as! String == "declined" ? "You" : "you", timestamp: data["timestamp"]! as! Int, status: data["status"] as! String, itemName: data["itemName"] as! String, icon: peerIcon)
@@ -169,35 +169,6 @@ class HomeViewController: UIViewController {
     @IBAction func logout(_ sender:AnyObject) {
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
-    }
-    
-    /**
-     Generate an account icon based on user's initials.
-     
-     - Parameter name: user's account name
-     
-     - Returns: an image with user's initials.
-    */
-    func getAccountIconFromName(name: String) -> UIImage {
-        let lblNameInitialize = UILabel()
-        lblNameInitialize.frame.size = CGSize(width: 30.0, height: 30.0)
-        lblNameInitialize.textColor = UIColor.white
-        var nameStringArr = name.components(separatedBy: " ")
-        let firstName: String = nameStringArr[0].uppercased()
-        let firstLetter: Character = firstName[0]
-        let lastName: String = nameStringArr[1].uppercased()
-        let secondLetter: Character = lastName[0]
-        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
-        lblNameInitialize.textAlignment = NSTextAlignment.center
-        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
-        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
-        
-        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
-        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image!
     }
 }
 

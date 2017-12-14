@@ -32,8 +32,9 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var AssigneeCollection: UICollectionView!
     
     weak var delegate: ItemTableViewCellDelegate?
+    private var appDelegate : AppDelegate
     
-    public var assignees = [PeopleCollectionViewCell]()
+    public var assignees = [String]()
     
     @IBAction func add_item(_ sender: Any) {
         delegate?.cell_did_add_item(self)
@@ -51,6 +52,7 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
     
@@ -99,8 +101,8 @@ extension ItemTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssigneeCell", for: indexPath) as! TinyPeopleCollectionViewCell
         if indexPath.row < self.assignees.count {
-            cell.accountImageView.image = self.assignees[indexPath.row].accountImageView.image
-            cell.accountName = self.assignees[indexPath.row].accountName.text!
+            cell.accountImageView.image = self.appDelegate.getAccountIconFromName(name: self.assignees[indexPath.row])
+            cell.accountName = self.assignees[indexPath.row]
         }
         return cell
     }

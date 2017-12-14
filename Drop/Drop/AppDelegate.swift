@@ -56,6 +56,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     /**
+     Generate an account icon based on user's initials.
+     
+     - Parameter name: user's account name
+     
+     - Returns: an image with user's initials.
+     */
+    func getAccountIconFromName(name: String) -> UIImage {
+        let lblNameInitialize = UILabel()
+        lblNameInitialize.frame.size = CGSize(width: 45.0, height: 45.0)
+        lblNameInitialize.textColor = UIColor.white
+        var nameStringArr = name.components(separatedBy: " ")
+        let firstName: String = nameStringArr[0].uppercased()
+        let firstLetter: Character = firstName[0]
+        let lastName: String = nameStringArr[1].uppercased()
+        let secondLetter: Character = lastName[0]
+        lblNameInitialize.text = String(firstLetter) + String(secondLetter)
+        lblNameInitialize.textAlignment = NSTextAlignment.center
+        lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2
+        lblNameInitialize.layer.backgroundColor = UIColor.black.cgColor
+        
+        UIGraphicsBeginImageContext(lblNameInitialize.frame.size)
+        lblNameInitialize.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
+    
+    /**
      Retrieve user's recently activities from Firebase.
      Append query results to Transaction dictionary.
      */

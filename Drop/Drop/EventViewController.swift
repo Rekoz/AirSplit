@@ -78,9 +78,9 @@ class EventViewController: UIViewController,
     
     private var splitable : Bool
     private var splitAtIndex: Int
-    private var tempAssignees = [PeopleCollectionViewCell]()
+    private var tempAssignees = [String]()
     private var searchResults = [String]()
-    private var assignees = [[PeopleCollectionViewCell]]()
+    private var assignees = [[String]]()
     private var taxAmount: Float
     private var taxPercentage: Float
     
@@ -144,7 +144,7 @@ class EventViewController: UIViewController,
         
         //related to item table view
         self.appDelegate.items.append(["item", "price"])
-        self.assignees.append([PeopleCollectionViewCell]())
+        self.assignees.append([String]())
 //        print ("count: \(self.assignees.count)")
     }
     
@@ -222,16 +222,24 @@ class EventViewController: UIViewController,
             let price = Double(self.appDelegate.items[i][1])
             let splitAmount = round(price! / Double(splitCount) * 100) / 100
             for j in 0..<self.assignees[i].count {
-                if (self.assignees[i][j].accountName.text! != self.appDelegate.myOwnName) {
-                    self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970)) + item).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": self.assignees[i][j].accountName.text!, "lender": self.appDelegate.myOwnName, "amount": splitAmount, "status": "incomplete", "itemName": item])
+                print (self.assignees[i][j] + " " + self.appDelegate.myOwnName)
+                if (self.assignees[i][j] != self.appDelegate.myOwnName) {
+                    self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970)) + item).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": self.assignees[i][j], "lender": self.appDelegate.myOwnName, "amount": splitAmount, "status": "incomplete", "itemName": item])
                 }
             }
         }
         self.appDelegate.items.removeAll()
         self.appDelegate.items.append(["item", "price"])
         self.assignees.removeAll()
-        self.assignees.append([PeopleCollectionViewCell]())
+        self.assignees.append([String]())
         self.ItemTableView.reloadData()
+        let confirmMessage = "Split Created"
+        let confirmAlertController = UIAlertController(title: "Success", message: confirmMessage, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        confirmAlertController.addAction(confirmAction)
+        self.present(confirmAlertController, animated: true, completion: ({
+                self.tabBarController?.selectedIndex = 2
+            }))
     }
     
     /// Fetches the picked image and uploads it to the server for processing
@@ -295,7 +303,7 @@ class EventViewController: UIViewController,
                     self.appDelegate.items[row][1] = itemPrice
                     self.appDelegate.items.append(["item", "price"])
                     print("items count: \(self.appDelegate.items.count)")
-                    self.assignees.append([PeopleCollectionViewCell]())
+                    self.assignees.append([String]())
                     self.ItemTableView.reloadData()
                 })
             }
@@ -487,8 +495,8 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableCell
             if indexPath.row < self.searchResults.count {
-                cell.SearchImage.image = #imageLiteral(resourceName: "icons8-User Male-48")
-                cell.SearchName.text = self.searchResults[indexPath.row]
+                cell.SearchName.text = self.searchResults[indexPath.row].capitalizeSentence(clause: self.searchResults[indexPath.row])
+                cell.SearchImage.image = self.appDelegate.getAccountIconFromName(name: cell.SearchName.text!)
             }
             return cell
         }
@@ -621,25 +629,26 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let person = self.PeopleCollectionView.cellForItem(at: indexPath) as! PeopleCollectionViewCell
+        let personName = self.appDelegate.people[indexPath.row]
         
         // toggle color
         person.accountImageView.alpha = (person.accountImageView.alpha == 1) ? 0.5 : 1
         
         // de-select
-        if (self.tempAssignees.contains(person)) {
+        if (self.tempAssignees.contains(personName)) {
             print(person.accountName.text! + " is de-selected")
-            self.tempAssignees = self.tempAssignees.filter({ $0.accountName != person.accountName })
+            self.tempAssignees = self.tempAssignees.filter({ $0 != personName })
         }
             // select
         else {
             print(person.accountName.text! + " is selected")
-            self.tempAssignees.append(person)
+            self.tempAssignees.append(personName)
         }
             
         // DEBUG
         print("Assignees: ")
-        for assignee in self.tempAssignees as [PeopleCollectionViewCell] {
-            print(assignee.accountName.text! + " ")
+        for assignee in self.tempAssignees {
+            print(assignee + " ")
         }
         
         // Update split button icon
@@ -706,7 +715,7 @@ extension EventViewController : ItemTableViewCellDelegate {
         let indexPath = IndexPath.init(row: row, section: 0)
         self.ItemTableView.beginUpdates()
         self.appDelegate.items.append(["item", "price"])
-        self.assignees.append([PeopleCollectionViewCell]())
+        self.assignees.append([String]())
         // Note that indexPath is wrapped in an array:  [indexPath]
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()
@@ -744,8 +753,8 @@ extension EventViewController : ItemTableViewCellDelegate {
         
         // DEBUG
         print("Assignees: ")
-        for assignee in tempAssignees as [PeopleCollectionViewCell] {
-            print(assignee.accountName.text! + " ")
+        for assignee in tempAssignees {
+            print(assignee + " ")
         }
     }
     
@@ -771,8 +780,8 @@ extension EventViewController : ItemTableViewCellDelegate {
         
         // DEBUG
         print("Assignees: ")
-        for assignee in tempAssignees as [PeopleCollectionViewCell] {
-            print(assignee.accountName.text! + " ")
+        for assignee in tempAssignees {
+            print(assignee + " ")
         }
         let i = self.ItemTableView.indexPath(for: cell)?.row
         print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")

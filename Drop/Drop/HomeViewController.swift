@@ -168,7 +168,9 @@ class HomeViewController: UIViewController {
     */
     @IBAction func logout(_ sender:AnyObject) {
         try! Auth.auth().signOut()
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as UIViewController
+        self.present(vc, animated: false, completion: nil)
     }
 }
 

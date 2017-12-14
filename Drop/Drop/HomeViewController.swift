@@ -97,7 +97,7 @@ class HomeViewController: UIViewController {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete") {
                         let peerIcon = self.getAccountIconFromName(name: data["lender"] as! String)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "You", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")
@@ -121,7 +121,7 @@ class HomeViewController: UIViewController {
                 if let data = childSnapshot.value as? [String: Any] {
                     if (data["status"] as! String == "complete") {
                         let peerIcon = self.getAccountIconFromName(name: data["borrower"] as! String)
-                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
+                        let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "you", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String, icon: peerIcon)
                         print(transaction)
                         print("transactionName = " + childSnapshot.key)
                         print("amount = \(transaction.amount)")

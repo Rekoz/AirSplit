@@ -44,7 +44,11 @@ extension String {
             result += newStr
             result += " "
         }
-        return result
+        if result.count > 0 {
+            return result.substring(to: result.index(before: result.endIndex))
+        } else {
+            return result
+        }
     }
 }
 

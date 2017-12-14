@@ -20,12 +20,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameInput: UITextField!
     @IBOutlet weak var loginButton: UIButton?
     
-    // [START define_database_reference]
+    // Define Firebase database reference
     var ref: DatabaseReference!
-    // [END define_database_reference]
     
     private var appDelegate : AppDelegate
     
+    /**
+     Initialize LoginViewController.
+    */
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -35,6 +37,7 @@ class LoginViewController: UIViewController {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
+    
     /**
      Authenticates user when login button is pressed.
      
@@ -73,23 +76,6 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-//    func findMyAccountName() {
-//        let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: usernameInput.text!)
-//        query.observeSingleEvent(of: .value, with: { (snapshot) in
-//            for case let childSnapshot as DataSnapshot in snapshot.children {
-//                if let data = childSnapshot.value as? [String: Any] {
-//                    print("got account name " + "\(data["accountName"]!)")
-//                    self.appDelegate.myOwnName = "\(data["accountName"]!)";
-//                    if (self.appDelegate.myOwnName != "") {
-//                        print("display name: " + self.appDelegate.myOwnName)
-//                        self.appDelegate.multipeer.setPeerDisplayName(name: self.appDelegate.myOwnName)
-//                        self.appDelegate.multipeer.startAdvertising()
-//                    }
-//                }
-//            }
-//        })
-//    }
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
         let alert = UIAlertController(title: "",

@@ -55,13 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /**
+     Retrieve user's recently activities from Firebase.
+     Append query results to Transaction dictionary.
+     */
     func findAllRelatedTransactions() {
         transactionDictionary = [String: [Transaction]]()
         
+        // transactions paid by user
         let queryByBorrower = ref.child("transactions").queryOrdered(byChild: "borrower").queryEqual(toValue: myOwnName)
         
+        // transactions paid by peers
         let queryByLender = ref.child("transactions").queryOrdered(byChild: "lender").queryEqual(toValue: myOwnName)
         
+        // append query results to transaction dictionary
         queryByBorrower.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 print("snapshot name: " + childSnapshot.key)
@@ -92,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
         
+        // append query results to transaction dictionary
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {

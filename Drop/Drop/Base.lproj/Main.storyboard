@@ -752,7 +752,7 @@
                                                 <action selector="cancelButtonTapped:" destination="95L-xs-AxF" id="emN-zY-2od"/>
                                             </connections>
                                         </barButtonItem>
-                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tqz-Hn-fxl">
+                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tqz-Hn-fxl">
                                             <rect key="frame" x="166" y="5" width="43" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="0.50980392159999999" green="0.85098039219999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

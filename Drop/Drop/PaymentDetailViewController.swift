@@ -83,7 +83,9 @@ class PaymentDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        var name = person
+        name = name.capitalizeSentence(clause: name)
+        self.title = name
         ref = Database.database().reference()
 
         // Do any additional setup after loading the view.

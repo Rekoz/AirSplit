@@ -177,7 +177,7 @@ class EventViewController: UIViewController,
         self.assignees.removeAll()
         print ("perform segue")
         let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "home") as UIViewController
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
     
     /// The callback function for when the Camera button is clicked

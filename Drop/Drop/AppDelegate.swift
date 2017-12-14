@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("home clicked")
         self.people.removeAll()
         multipeer.delegate?.loseDevice(manager: multipeer, removedDevice: "anything")
+        self.people.append(myOwnName)
     }
     
     /**

@@ -109,6 +109,7 @@ class HomeViewController: UIViewController {
                         print(self.transactions.count)
                     }
                     DispatchQueue.main.async {
+                        self.transactions.sort(by: { $0.timestamp >= $1.timestamp })
                         self.NewsFeedTable.reloadData()
                     }
                 }
@@ -118,6 +119,7 @@ class HomeViewController: UIViewController {
         queryByLender.observeSingleEvent(of: .value, with: { (snapshot) in
             for case let childSnapshot as DataSnapshot in snapshot.children {
                 if let data = childSnapshot.value as? [String: Any] {
+
                     if (data["status"] as! String == "complete") {
                         let transaction = Transaction(transactionName: childSnapshot.key, amount: data["amount"]! as! Double, borrower: "\(data["borrower"]!)", lender: "\(data["lender"]!)", timestamp: data["timestamp"]! as! Int, status: "complete", itemName: data["itemName"] as! String)
                         print(transaction)
@@ -130,7 +132,9 @@ class HomeViewController: UIViewController {
                         self.transactions.append(transaction)
                         print(self.transactions.count)
                     }
+
                     DispatchQueue.main.async {
+                        self.transactions.sort(by: { $0.timestamp >= $1.timestamp })
                         self.NewsFeedTable.reloadData()
                     }
                 }

@@ -158,7 +158,7 @@ class EventViewController: UIViewController,
     @IBAction func storeTransactions(_ sender: Any) {
         print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
         for i in 0..<self.appDelegate.items.count-1 {
-            if (self.appDelegate.items[i][0] == "item") {
+            if (self.appDelegate.items[i][0] == "item" || self.appDelegate.items[i][0] == "") {
                 let errorMessage = "Item Name Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -166,7 +166,7 @@ class EventViewController: UIViewController,
                 self.present(errorAlertController, animated: true, completion: nil)
                 return
             }
-            if (self.appDelegate.items[i][1] == "price") {
+            if (self.appDelegate.items[i][1] == "price" || self.appDelegate.items[i][1] == "") {
                 let errorMessage = "Item Price Cannot Be Empty"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -194,6 +194,11 @@ class EventViewController: UIViewController,
                 }
             }
         }
+        self.appDelegate.items.removeAll()
+        self.appDelegate.items.append(["item", "price"])
+        self.assignees.removeAll()
+        self.assignees.append([PeopleCollectionViewCell]())
+        self.ItemTableView.reloadData()
     }
     
     /// Fetches the picked image and uploads it to the server for processing
@@ -246,15 +251,16 @@ class EventViewController: UIViewController,
                 print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
-                    let row = self.appDelegate.items.count
-                    let indexPath = IndexPath.init(row: row, section: 0)
-                    self.ItemTableView.beginUpdates()
+                    let row = self.appDelegate.items.count - 1
                     let itemName = item["description"] as! String
-                    let itemPrice = item["data"] as! String
-                    self.appDelegate.items.append([itemName, itemPrice])
-                    // Note that indexPath is wrapped in an array:  [indexPath]
-                    self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
-                    self.ItemTableView.endUpdates()
+                    let itemPrice = String(format: "%@", item["data"] as! NSNumber)
+                    print(itemName + " " + itemPrice)
+                    self.appDelegate.items[row][0] = itemName
+                    self.appDelegate.items[row][1] = itemPrice
+                    self.appDelegate.items.append(["item", "price"])
+                    print("items count: \(self.appDelegate.items.count)")
+                    self.assignees.append([PeopleCollectionViewCell]())
+                    self.ItemTableView.reloadData()
                 })
             }
         }
@@ -373,6 +379,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.SearchTable {
             count = self.searchResults.count
         }
+        print ("count updated: \(count)")
         return count!
     }
     
@@ -528,6 +535,9 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             lblNameInitialize.frame.size = CGSize(width: 50.0, height: 50.0)
             lblNameInitialize.textColor = UIColor.white
             var nameStringArr = cell.accountName.text?.components(separatedBy: " ")
+//            if (nameStringArr?.isEmpty)! {
+//                return
+//            }
             print("the current user is", nameStringArr)
             var firstName: String = nameStringArr![0].uppercased()
             var firstLetter: Character = firstName[0]
@@ -582,11 +592,21 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             print(person.accountName.text! + " is selected")
             self.tempAssignees.append(person)
         }
-        
+            
         // DEBUG
         print("Assignees: ")
         for assignee in self.tempAssignees as [PeopleCollectionViewCell] {
             print(assignee.accountName.text! + " ")
+        }
+        
+        // Update split button icon
+        let buttonIndexPath = IndexPath(row: splitAtIndex, section: 0)
+        let item = ItemTableView.cellForRow(at: buttonIndexPath) as! ItemTableViewCell
+        if (self.tempAssignees.count > 0) {
+            item.SplitButton.setImage(UIImage(named: "correct_people"), for: UIControlState.normal)
+//            ItemTableView.reloadData()
+        } else {
+            item.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
         }
     }
 }
@@ -662,6 +682,15 @@ extension EventViewController : ItemTableViewCellDelegate {
     
     func initializeSplitting(cell: ItemTableViewCell) {
         print("Start splitting")
+        
+        // Revert the split button for previous splitting item
+        if (splitAtIndex != -1) {
+            let buttonIndexPath = IndexPath(row: splitAtIndex, section: 0)
+            let item = ItemTableView.cellForRow(at: buttonIndexPath) as! ItemTableViewCell
+            item.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
+        }
+        
+        // Initiate a new splitting event
         self.splitAtIndex = (ItemTableView.indexPath(for: cell)?.row)!
         self.splitable = true;
         self.tempAssignees.removeAll()
@@ -684,6 +713,8 @@ extension EventViewController : ItemTableViewCellDelegate {
         self.splitAtIndex = -1
         self.splitable = false
         
+        // Save people assignment & revert to original state
+        cell.SplitButton.setImage(UIImage(named: "add_people"), for: UIControlState.normal)
         cell.assignees.removeAll()
         cell.assignees.append(contentsOf: self.tempAssignees)
         cell.AssigneeCollection.reloadData()

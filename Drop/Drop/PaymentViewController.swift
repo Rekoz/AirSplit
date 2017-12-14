@@ -150,6 +150,7 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
                             self.transactionDictionary[transaction.lender]?.append(transaction)
                         }
                         DispatchQueue.main.async {
+                            self.people.sort(by: {$0 < $1})
                             self.PaymentCenterTableView.reloadData()
                             self.appDelegate.transactionDictionary = self.transactionDictionary
                         }
@@ -180,6 +181,7 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
                             self.transactionDictionary[transaction.borrower]?.append(transaction)
                         }
                         DispatchQueue.main.async {
+                            self.people.sort(by: {$0 < $1})
                             self.PaymentCenterTableView.reloadData()
                             self.appDelegate.transactionDictionary = self.transactionDictionary
                         }

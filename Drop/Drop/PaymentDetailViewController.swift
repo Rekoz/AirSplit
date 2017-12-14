@@ -76,8 +76,8 @@ class PaymentDetailViewController: UIViewController {
                 self.deleteTransaction(transactionToBeDeleted: transactionToBeDeleted.transactionName, transaction: transactionToBeDeleted)
             }
         }
-        print(items)
-        print(transactions)
+        self.setEditing(false, animated: true)
+        self.navigationItem.rightBarButtonItems![1].isEnabled = false
         self.PaymentDetail.reloadData()
     }
     

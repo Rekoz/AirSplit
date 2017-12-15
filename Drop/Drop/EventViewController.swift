@@ -73,7 +73,7 @@ class EventViewController: UIViewController,
     var ref: DatabaseReference!
     // [END define_database_reference]
     
-    private var appDelegate : AppDelegate
+    var appDelegate : AppDelegate
     private var multipeer : MultipeerManager
     
     private var splitable : Bool

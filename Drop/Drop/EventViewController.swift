@@ -90,6 +90,10 @@ class EventViewController: UIViewController,
         return appDelegate
     }
     
+    func getSearchResults() -> [String] {
+        return searchResults
+    }
+    
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
     /// - Parameters:

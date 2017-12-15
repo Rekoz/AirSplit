@@ -107,7 +107,6 @@ class EventViewControllerTests: XCTestCase {
     }
     
     func testConvertToDictionary() {
-        //let dataToConvert = "{A:1}".data(using: .utf8)
         let JSONObj = [
             "A": "1",
             "B": [ "C": "2"]
@@ -117,5 +116,13 @@ class EventViewControllerTests: XCTestCase {
         XCTAssertEqual(JSONObj["A"] as! String, conversionResult["A"] as! String)
         XCTAssertNotNil(conversionResult["B"])
         XCTAssertEqual(JSONObj["B"] as! [String : String], conversionResult["B"] as! [String: String])
+    }
+    
+    func testSearchBar() {
+        // Test when search field is empty
+        eventViewController.searchBar(UISearchBar.init(), textDidChange: "")
+        let searchResults = eventViewController.getSearchResults()
+        XCTAssertTrue(searchResults.count == 0)
+        XCTAssertTrue(eventViewController.SearchTable.isHidden)
     }
 }

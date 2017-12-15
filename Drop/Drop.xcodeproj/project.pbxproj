@@ -114,7 +114,6 @@
 				3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */,
 				EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */,
 				3B004DF11FBA99DD006ECFB8 /* MultipeerTests.swift */,
-				3B004DF11FBA99DD006ECFB8 /* DropTests.swift */,
 				EEFECD1F1FE3761200D4F37F /* PaymentDetailViewControllerTests.swift */,
 				3B004DF31FBA99DD006ECFB8 /* Info.plist */,
 			);
@@ -633,10 +632,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU4QS52S4V;
+				DEVELOPMENT_TEAM = 77569F29Z2;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop-";
+				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop---";
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -650,10 +649,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU4QS52S4V;
+				DEVELOPMENT_TEAM = 77569F29Z2;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop-";
+				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop---";
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

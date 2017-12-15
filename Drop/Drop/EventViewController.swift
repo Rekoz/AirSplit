@@ -160,6 +160,7 @@ class EventViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         self.appDelegate.people.removeAll()
         self.appDelegate.people.append(self.appDelegate.myOwnName)
+        self.PeopleCollectionView.reloadData()
         self.ItemTableView.reloadData()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()

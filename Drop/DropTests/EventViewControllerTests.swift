@@ -106,4 +106,16 @@ class EventViewControllerTests: XCTestCase {
         XCTAssertTrue(eventViewController.assignees.count == 1)
     }
     
+    func testConvertToDictionary() {
+        //let dataToConvert = "{A:1}".data(using: .utf8)
+        let JSONObj = [
+            "A": "1",
+            "B": [ "C": "2"]
+        ] as [String : Any]
+        let dataToConvert = try! JSONSerialization.data(withJSONObject: JSONObj)
+        let conversionResult = eventViewController.convertToDictionary(text: dataToConvert)
+        XCTAssertEqual(JSONObj["A"] as! String, conversionResult["A"] as! String)
+        XCTAssertNotNil(conversionResult["B"])
+        XCTAssertEqual(JSONObj["B"] as! [String : String], conversionResult["B"] as! [String: String])
+    }
 }

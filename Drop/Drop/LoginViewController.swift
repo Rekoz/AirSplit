@@ -42,7 +42,6 @@ class LoginViewController: UIViewController {
      Authenticates user when login button is pressed.
      
      - Parameter sender: Client's action to press login button.
-     
      - Returns: Returns immediately if either username or password is empty.
     */
     @IBAction func loginDidTouch(_ sender: AnyObject) {
@@ -79,6 +78,8 @@ class LoginViewController: UIViewController {
     
     /**
      Register & authenticate user when user click "Don't have an account?"
+     
+     - Parameter sender: Signup button
     */
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
         
@@ -166,6 +167,12 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: UITextFieldDelegate {
+    /**
+     Asks the delegate if the text field should process the pressing of the return button.
+     
+     - Parameter textField: The text field whose return button was pressed.
+     - Returns: true if the text field should implement its default behavior for the return button; otherwise, false.
+    */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameInput {
             passwordInput.becomeFirstResponder()
@@ -175,6 +182,10 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
+    
+    /**
+        Clear all inputs.
+    */
     func clearTextField() {
         self.usernameInput.text = ""
         self.passwordInput.text = ""
@@ -182,6 +193,9 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 extension LoginViewController {
+    /**
+     Hide keyboard on tap.
+    */
     func addHideKeyboardOnTap()
     {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -190,7 +204,6 @@ extension LoginViewController {
         
         view.addGestureRecognizer(tap)
     }
-    
     @objc func dismissKeyboard()
     {
         view.endEditing(true)
@@ -202,7 +215,7 @@ extension LoginViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         Auth.auth().addStateDidChangeListener() { auth, user in
-            // Proceed to Home View when user is authenticated
+            // Segue to Home View when user is authenticated
             if user != nil {
                 self.performSegue(withIdentifier: self.loginToHomeView, sender: nil)
             }

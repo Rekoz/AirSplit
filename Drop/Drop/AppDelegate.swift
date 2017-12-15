@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    /** Retrieve main storyboard */
     var storyboard: UIStoryboard? {
         return UIStoryboard(name: "Main", bundle: nil)
     }
@@ -28,6 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabBarController: UITabBarController?
     var ref: DatabaseReference!
     
+    /**
+     Tells the delegate that the app is about to become inactive. Clear multipeer array.
+     
+     - Parameter application: Your singleton app object.
+    */
     func applicationWillResignActive(_ application: UIApplication) {
         print("home clicked")
         self.people.removeAll()

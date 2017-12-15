@@ -76,18 +76,19 @@ class EventViewController: UIViewController,
     // Define Firebase reference
     var ref: DatabaseReference!
     private var appDelegate : AppDelegate!
-    func appDelegateGetter() -> AppDelegate {
-        return appDelegate
-    }
     private var multipeer : MultipeerManager
     
     private var splitable : Bool
     private var splitAtIndex: Int
     private var tempAssignees = [String]()
     private var searchResults = [String]()
-    private var assignees = [[String]]()
+    var assignees = [[String]]()
     private var taxAmount: Float
     private var taxPercentage: Float
+    
+    func getAppDelegate() -> AppDelegate {
+        return appDelegate
+    }
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///
@@ -218,6 +219,7 @@ class EventViewController: UIViewController,
                 return
             }
             if (self.assignees[i].count == 0) {
+                print("i "+String(i))
                 let errorMessage = "You Have An Unsplitted Item"
                 let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)

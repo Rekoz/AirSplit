@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Firebase
 @testable import Drop
 
 class EventViewControllerTests: XCTestCase {
@@ -75,4 +76,6 @@ class EventViewControllerTests: XCTestCase {
         targetParam.appendString("--123\r\nContent-Disposition: form-data; name=\"A\"\r\n\r\nA")
         XCTAssertNotNil(convertedBody.range(of: targetParam as Data))
     }
+    
+    
 }

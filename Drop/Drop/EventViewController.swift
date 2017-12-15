@@ -604,10 +604,10 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
             var nameStringArr = account_name.components(separatedBy: " ")
 
             print("the current user is", nameStringArr)
-            var firstName: String = nameStringArr[0].uppercased()
-            var firstLetter: Character = firstName[0]
+            let firstName: String = nameStringArr[0].uppercased()
+            let firstLetter: Character = firstName[0]
             let lastName: String = (nameStringArr[1]).uppercased()
-            var secondLetter: Character = lastName[0]
+            let secondLetter: Character = lastName[0]
             lblNameInitialize.text = String(firstLetter) + String(secondLetter)
             lblNameInitialize.textAlignment = NSTextAlignment.center
             lblNameInitialize.layer.cornerRadius = lblNameInitialize.frame.size.width/2

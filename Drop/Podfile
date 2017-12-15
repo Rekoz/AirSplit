@@ -12,5 +12,8 @@ target :'Drop' do
     target 'DropTests' do
         inherit! :search_paths
 #        pod 'AWSCognitoIdentityProvider', '~> 2.6.6'
+	 pod 'Firebase/Core'
+    	 pod 'Firebase/Database'
+         pod 'Firebase/Auth'
     end
 end

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Firebase
 @testable import Drop
 
 class EventViewControllerTests: XCTestCase {
@@ -33,19 +34,19 @@ class EventViewControllerTests: XCTestCase {
     }
     
     func testCancelButton() {
-        eventViewController.people.append("minghong")
+        eventViewController.appDelegateGetter().people.append("minghong")
         eventViewController.cancelButtonTapped({})
-        XCTAssertTrue(eventViewController.people.count == 0)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
     }
     
     func testDeviceDetection() {
         eventViewController.deviceDetection(manager: multipeer, detectedDevice:"minghong")
-        XCTAssertTrue(eventViewController.people.count == 1)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 1)
     }
     
     func testlLoseDevice() {
         eventViewController.loseDevice(manager: multipeer, removedDevice: "minghong")
-        XCTAssertTrue(eventViewController.people.count == 0)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
     }
     
     func testAddImage() {
@@ -75,4 +76,6 @@ class EventViewControllerTests: XCTestCase {
         targetParam.appendString("--123\r\nContent-Disposition: form-data; name=\"A\"\r\n\r\nA")
         XCTAssertNotNil(convertedBody.range(of: targetParam as Data))
     }
+    
+    
 }

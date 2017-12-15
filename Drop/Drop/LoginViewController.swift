@@ -9,12 +9,10 @@
 import UIKit
 import Firebase
 
-/**
-    View controller for user login.
- */
+/// View controller for user login.
 class LoginViewController: UIViewController {
     
-    let loginToSongView = "LoginToHomeView"
+    let loginToHomeView = "LoginToHomeView"
     
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var usernameInput: UITextField!
@@ -25,26 +23,23 @@ class LoginViewController: UIViewController {
     
     private var appDelegate : AppDelegate
     
-    /**
-     Initialize LoginViewController.
-    */
+    /// Initialize LoginViewController.
+    ///
+    /// - Parameters:
+    ///   - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+    ///   - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
     
-    /**
-     Authenticates user when login button is pressed.
-     
-     - Parameter sender: Client's action to press login button.
-     
-     - Returns: Returns immediately if either username or password is empty.
-    */
+    /// Authenticates user when login button is pressed.
+    ///
+    /// - Parameter sender: Client's action to press login button.
     @IBAction func loginDidTouch(_ sender: AnyObject) {
         Auth.auth().signIn(withEmail: usernameInput.text!,
                            password: passwordInput.text!)
@@ -77,7 +72,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /// Register & authenticate user when user click "Don't have an account?"
+    ///
+    /// - Parameter sender: Signup button
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
+        
+        // Generate a signup view
         let alert = UIAlertController(title: "",
                                       message: "Please enter your information",
                                       preferredStyle: .alert)
@@ -85,17 +85,17 @@ class LoginViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Sign Up", style: .default)
         { action in
             
-            // 1
+            // 1. Add user registration required information fields
             let firstNameField = alert.textFields![0]
             let lastNameField = alert.textFields![1]
             let emailField = alert.textFields![2]
             let passwordField = alert.textFields![3]
             
-            // 2
+            // 2. Create user when all required info are filled in
             Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!)
             { user, error in
                 if error == nil {
-                    // 3
+                    // 3. Authenticate user when registration is successful
                     if let user = user {
                         self.clearTextField()
                         print("We have new user! \(user.email!)")
@@ -106,6 +106,7 @@ class LoginViewController: UIViewController {
                                        password: self.passwordInput.text!)
                     print("Create User Successful")
                 } else {
+                    // 4. Alert user when registration is not successful
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
                         var errorMessage = String()
                         switch errCode {
@@ -160,6 +161,10 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: UITextFieldDelegate {
+    /// Asks the delegate if the text field should process the pressing of the return button.
+    ///
+    /// - Parameter textField: The text field whose return button was pressed.
+    /// - Returns: true if the text field should implement its default behavior for the return button; otherwise, false.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameInput {
             passwordInput.becomeFirstResponder()
@@ -169,6 +174,8 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
+    
+    /// Clear all inputs.
     func clearTextField() {
         self.usernameInput.text = ""
         self.passwordInput.text = ""
@@ -176,6 +183,7 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 extension LoginViewController {
+    /// Hide keyboard on tap.
     func addHideKeyboardOnTap()
     {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -184,7 +192,6 @@ extension LoginViewController {
         
         view.addGestureRecognizer(tap)
     }
-    
     @objc func dismissKeyboard()
     {
         view.endEditing(true)
@@ -195,12 +202,10 @@ extension LoginViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        // 1
         Auth.auth().addStateDidChangeListener() { auth, user in
-            // 2
+            // Segue to Home View when user is authenticated
             if user != nil {
-                // 3
-                self.performSegue(withIdentifier: self.loginToSongView, sender: nil)
+                self.performSegue(withIdentifier: self.loginToHomeView, sender: nil)
             }
         }
         self.addHideKeyboardOnTap()

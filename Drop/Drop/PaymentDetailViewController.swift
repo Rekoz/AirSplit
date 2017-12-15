@@ -71,17 +71,19 @@ class PaymentDetailViewController: UIViewController {
     /// - Parameter sender: A UIBarButtonItem that triggers the function
     @IBAction func SubmitItems(_ sender: UIBarButtonItem) {
         var items : [String] = []
+        var itemsToDelete: [String] = []
         let selectedIndexPaths = PaymentDetail.indexPathsForSelectedRows
         if selectedIndexPaths != nil {
             for indexPath in selectedIndexPaths! {
                 let cell = PaymentDetail.cellForRow(at: indexPath)
                 items.append((cell?.textLabel?.text)!)
                 let transactionToBeDeleted = self.transactions[indexPath.row]
-                self.transactions = self.transactions.filter{ $0 != transactionToBeDeleted }
+                itemsToDelete.append(transactionToBeDeleted.transactionName)
                 print("delete: " + transactionToBeDeleted.transactionName)
                 self.deleteTransaction(transactionToBeDeleted: transactionToBeDeleted.transactionName, transaction: transactionToBeDeleted)
             }
         }
+        self.transactions = self.transactions.filter{ !itemsToDelete.contains($0.transactionName)}
         self.setEditing(false, animated: true)
         self.navigationItem.rightBarButtonItems![1].isEnabled = false
         self.PaymentDetail.reloadData()

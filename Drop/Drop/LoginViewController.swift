@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     // Define Firebase database reference
     var ref: DatabaseReference!
     
-    private var appDelegate : AppDelegate
+    private var appDelegate : AppDelegate!
     
     /// Initialize LoginViewController.
     ///

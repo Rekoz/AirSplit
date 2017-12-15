@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		28DD129D35A7F0D896D9BD22 /* Pods_Drop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62681D5F08534DE306B53D50 /* Pods_Drop.framework */; };
-		3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B004DF11FBA99DD006ECFB8 /* DropTests.swift */; };
-		3B672C0A1FE36600006679F5 /* AppDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B672C091FE36600006679F5 /* AppDelegateTest.swift */; };
+		3B004DF21FBA99DD006ECFB8 /* MultipeerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B004DF11FBA99DD006ECFB8 /* MultipeerTests.swift */; };
+		3B672C0A1FE36600006679F5 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B672C091FE36600006679F5 /* AppDelegateTests.swift */; };
+		3B672C0C1FE377B8006679F5 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B672C0B1FE377B7006679F5 /* HomeViewControllerTests.swift */; };
 		3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
 		3BC68FAE1FAFB4B000B3089D /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
 		676720296168351346229D56 /* Pods_DropTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CBF0E962FFDC8F1D900D0E /* Pods_DropTests.framework */; };
@@ -50,9 +51,10 @@
 		2C0FBBE9D113D657D809C899 /* Pods-Drop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drop/Pods-Drop.release.xcconfig"; sourceTree = "<group>"; };
 		35CBF0E962FFDC8F1D900D0E /* Pods_DropTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DropTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B004DEF1FBA99DD006ECFB8 /* DropTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DropTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B004DF11FBA99DD006ECFB8 /* DropTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTests.swift; sourceTree = "<group>"; };
+		3B004DF11FBA99DD006ECFB8 /* MultipeerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerTests.swift; sourceTree = "<group>"; };
 		3B004DF31FBA99DD006ECFB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B672C091FE36600006679F5 /* AppDelegateTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTest.swift; sourceTree = "<group>"; };
+		3B672C091FE36600006679F5 /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		3B672C0B1FE377B7006679F5 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		3BC68FAB1FAD724500B3089D /* Multipeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multipeer.swift; sourceTree = "<group>"; };
 		3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewControllerTests.swift; sourceTree = "<group>"; };
@@ -104,11 +106,12 @@
 		3B004DF01FBA99DD006ECFB8 /* DropTests */ = {
 			isa = PBXGroup;
 			children = (
-				3B672C091FE36600006679F5 /* AppDelegateTest.swift */,
+				3B672C0B1FE377B7006679F5 /* HomeViewControllerTests.swift */,
+				3B672C091FE36600006679F5 /* AppDelegateTests.swift */,
 				D8B9F6591FBE5E8E008786BB /* LoginTests.swift */,
 				3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */,
 				EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */,
-				3B004DF11FBA99DD006ECFB8 /* DropTests.swift */,
+				3B004DF11FBA99DD006ECFB8 /* MultipeerTests.swift */,
 				3B004DF31FBA99DD006ECFB8 /* Info.plist */,
 			);
 			path = DropTests;
@@ -416,11 +419,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B672C0A1FE36600006679F5 /* AppDelegateTest.swift in Sources */,
+				3B672C0A1FE36600006679F5 /* AppDelegateTests.swift in Sources */,
+				3B672C0C1FE377B8006679F5 /* HomeViewControllerTests.swift in Sources */,
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
 				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
 				EEFECD1C1FE355F100D4F37F /* PaymentViewControllerTests.swift in Sources */,
-				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
+				3B004DF21FBA99DD006ECFB8 /* MultipeerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

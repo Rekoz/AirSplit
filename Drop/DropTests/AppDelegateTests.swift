@@ -14,15 +14,15 @@ class AppDelegateTest: XCTestCase {
     var appDelegate: AppDelegate!
     
     override func setUp() {
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
         self.appDelegate = nil
+        super.tearDown()
     }
     
     func testGetAccountIconFromName() {

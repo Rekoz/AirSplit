@@ -35,8 +35,8 @@ class LoginTests: XCTestCase {
      Clean up login view controller.
     */
     override func tearDown() {
-        super.tearDown()
         vcLogin = nil
+        super.tearDown()
     }
     
     /**

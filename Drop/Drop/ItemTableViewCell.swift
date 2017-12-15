@@ -30,7 +30,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var AssigneeCollection: UICollectionView!
     
     weak var delegate: ItemTableViewCellDelegate?
-    private var appDelegate : AppDelegate
+    private var appDelegate : AppDelegate!
     
     public var assignees = [String]()
     

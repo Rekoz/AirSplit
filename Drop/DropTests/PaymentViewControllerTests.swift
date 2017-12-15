@@ -31,6 +31,11 @@ class PaymentViewControllerTests: XCTestCase {
         paymentViewController.PaymentCenterTableView.reloadData()
     }
     
+    override func tearDown() {
+        paymentViewController = nil
+        super.tearDown()
+    }
+    
     func testNumberOfTableSections() {
         print("number of cells" + String(paymentViewController.PaymentCenterTableView.numberOfSections))
         XCTAssertTrue(paymentViewController.PaymentCenterTableView.numberOfSections == 1)

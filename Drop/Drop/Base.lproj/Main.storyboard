@@ -430,7 +430,7 @@
         <!--Home-->
         <scene sceneID="6sO-G1-FN2">
             <objects>
-                <viewController id="dxD-u0-Nyx" customClass="HomeViewController" customModule="Drop" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="dxD-u0-Nyx" customClass="HomeViewController" customModule="Drop" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zhT-SY-UKD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

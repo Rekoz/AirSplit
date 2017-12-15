@@ -8,7 +8,7 @@
 
 import UIKit
 
-//use Protocol
+// Use protocol
 protocol ItemTableViewCellDelegate: class {
     func cell_did_add_item(_ sender: ItemTableViewCell)
     func cell_did_add_people(_ sender: ItemTableViewCell)
@@ -19,12 +19,10 @@ protocol ItemTableViewCellDelegate: class {
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ItemName: UITextField!
     @IBAction func itemNameChanged(_ sender: Any) {
-        //print (ItemName.text!)
         delegate?.name_cell_did_change(self, name: ItemName.text!)
     }
     @IBOutlet weak var ItemPrice: UITextField!
     @IBAction func itemPriceChanged(_ sender: Any) {
-        //print (ItemPrice.text!)
         delegate?.price_cell_did_change(self, price: ItemPrice.text!)
     }
     @IBOutlet weak var AddButton: UIButton!
@@ -52,13 +50,21 @@ class ItemTableViewCell: UITableViewCell {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
-    
+
+    /// Sets the selected state of the cell, optionally animating the transition between states.
+    ///
+    /// - Parameters:
+    ///   - selected: true to set the cell as selected, false to set it as unselected. The default is false.
+    ///   - animated: true to animate the transition between selected states, false to make the transition immediate.
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    /// Assign delegate to assignee collection view.
+    ///
+    /// - Parameters:
+    ///   - dataSourceDelegate: delegate
+    ///   - row: row index
     func setCollectionViewDataSourceDelegate
         <D: UICollectionViewDataSource & UICollectionViewDelegate>
         (dataSourceDelegate: D, forRow row: Int) {

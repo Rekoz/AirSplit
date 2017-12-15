@@ -15,7 +15,6 @@ protocol SearchTableCellDelegate: class {
 
 class SearchTableCell: UITableViewCell {
 
-
     @IBOutlet weak var SearchImage: UIImageView!
     @IBOutlet weak var SearchName: UILabel!
     

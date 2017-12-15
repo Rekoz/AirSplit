@@ -47,5 +47,10 @@ class LoginTests: XCTestCase {
         vcLogin.passwordInput?.text = self.password
         XCTAssertTrue((vcLogin.loginButton?.isEnabled)!)
     }
+    
+    func testSignUpButtonEnabledWithCorrectInfo() {
+        vcLogin.signUpDidTouch("" as AnyObject)
+        XCTAssertTrue((vcLogin.signUpButton?.isEnabled)!)
+    }
 }
 

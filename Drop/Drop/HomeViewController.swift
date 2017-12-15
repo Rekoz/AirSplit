@@ -9,9 +9,7 @@
 import UIKit
 import Firebase
 
-/**
-    View controller that displays recent user activities.
- */
+/// View controller that displays recent user activities.
 class HomeViewController: UIViewController {
 
     private var appDelegate : AppDelegate
@@ -23,29 +21,23 @@ class HomeViewController: UIViewController {
     // Define Firebase reference
     var ref: DatabaseReference!
     
-    /**
-     Returns a newly initialized view controller with the nib file in the specified bundle.
-     
-     - Parameters:
-        - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
-        - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
-     - Returns: A newly initialized UIViewController object.
-    */
+    /// Returns a newly initialized view controller with the nib file in the specified bundle.
+    ///
+    /// - Parameters:
+    ///   - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+    ///   - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.multipeer = appDelegate.multipeer
         super.init(coder: aDecoder)
     }
     
-    /**
-     Called after the controller's view is loaded into memory.
-    */
+    /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
@@ -53,20 +45,18 @@ class HomeViewController: UIViewController {
         findMyAccountName(email: email!)
     }
     
-    /**
-     Reload recent transactions from Firebase every time Home view appears.
-    */
+    /// Reload recent transactions from Firebase every time Home view appears.
+    ///
+    /// - Parameter animated: whether view will appear
     override func viewWillAppear(_ animated: Bool) {
         transactions = [Transaction]()
         ref = Database.database().reference()
         self.findAllRelatedTransactions()
     }
     
-    /**
-     Retrieve user's account name for the use of recent transaction queries.
-    
-     - Parameter email: user's email address
-    */
+    /// Retrieve user's account name for the use of recent transaction queries.
+    ///
+    /// - Parameter email: user's email address
     func findMyAccountName(email: String) {
         let query = ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: email)
         query.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -90,10 +80,7 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /**
-     Retrieve user's recently completed/declined transactions from Firebase.
-     Append query results to Transaction array.
-    */
+    /// Retrieve user's recently completed/declined transactions from Firebase. Append query results to Transaction array.
     func findAllRelatedTransactions() {
         transactions = [Transaction]()
         let myName = self.appDelegate.myOwnName
@@ -178,27 +165,22 @@ class HomeViewController: UIViewController {
 //related to table view
 //======================
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    /**
-     Tells the data source to return the number of rows in a given section of a table view.
-     
-     - Parameters:
-        - tableView: The table-view object requesting this information.
-        - section: An index number identifying a section in tableView.
-     - Returns: The number of rows in section.
-    */
+    /// Tells the data source to return the number of rows in a given section of a table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object requesting this information.
+    ///   - section: An index number identifying a section in tableView.
+    /// - Returns: The number of rows in section.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.transactions.count
     }
     
-    /**
-     Asks the data source for a cell to insert in a particular location of the table view.
-     
-     - Parameters:
-        - tableView: A table-view object requesting the cell.
-        - indexPath: An index path locating a row in tableView.
-     - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
-    */
+    /// Asks the data source for a cell to insert in a particular location of the table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object requesting the cell.
+    ///   - indexPath: An index path locating a row in tableView.
+    /// - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
         let transaction = self.transactions[indexPath.row]
@@ -229,12 +211,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    /**
-     Convert Epoch seconds to datetime.
-     
-     - Parameter epochSec: epoch seconds
-     - Returns: a datetime string in format yyyy-MM-dd HH:mm.
-    */
+    /// Convert Epoch seconds to datetime.
+    ///
+    /// - Parameter epochSec: epoch seconds
+    /// - Returns: a datetime string in format yyyy-MM-dd HH:mm
     func convertToDateTime(epochSec: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(epochSec))
         let dateFormatter = DateFormatter()

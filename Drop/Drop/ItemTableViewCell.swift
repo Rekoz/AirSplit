@@ -8,7 +8,7 @@
 
 import UIKit
 
-//use Protocol
+// Use protocol
 protocol ItemTableViewCellDelegate: class {
     func cell_did_add_item(_ sender: ItemTableViewCell)
     func cell_did_add_people(_ sender: ItemTableViewCell)
@@ -51,12 +51,20 @@ class ItemTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
 
+    /// Sets the selected state of the cell, optionally animating the transition between states.
+    ///
+    /// - Parameters:
+    ///   - selected: true to set the cell as selected, false to set it as unselected. The default is false.
+    ///   - animated: true to animate the transition between selected states, false to make the transition immediate.
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    /// Assign delegate to assignee collection view.
+    ///
+    /// - Parameters:
+    ///   - dataSourceDelegate: delegate
+    ///   - row: row index
     func setCollectionViewDataSourceDelegate
         <D: UICollectionViewDataSource & UICollectionViewDelegate>
         (dataSourceDelegate: D, forRow row: Int) {

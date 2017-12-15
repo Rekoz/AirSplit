@@ -9,9 +9,7 @@
 import UIKit
 import Firebase
 
-/**
-    Customize capitalization for user account name.
- */
+// MARK: - Customize capitalization for user account name.
 extension String {
     
     subscript (i: Int) -> Character {
@@ -57,9 +55,7 @@ extension String {
     }
 }
 
-/**
- Controller that handles user's actions on event creating page.
-*/
+/// Controller that handles user's actions on event creating page.
 class EventViewController: UIViewController,
     UIImagePickerControllerDelegate,
     UINavigationControllerDelegate,
@@ -75,6 +71,7 @@ class EventViewController: UIViewController,
     @IBOutlet weak var PeopleCollectionView: UICollectionView!
     @IBOutlet weak var SearchButton: UISearchBar!
     @IBOutlet weak var SearchTable: UITableView!
+    @IBOutlet weak var LoadingIndicator: UIActivityIndicatorView!
     
     // Define Firebase reference
     var ref: DatabaseReference!
@@ -114,13 +111,9 @@ class EventViewController: UIViewController,
         super.init(coder: aDecoder)
     }
 
-    /**
-    Prepare camera & database and clear cache when view did load.
-    */
+    /// Prepare camera & database and clear cache when view did load.
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("didLoad")
-        print("my name is " + self.appDelegate.myOwnName)
         
         SearchButton.delegate = self
         ref = Database.database().reference()
@@ -165,46 +158,37 @@ class EventViewController: UIViewController,
         self.ItemTableView.reloadData()
         self.multipeer.delegate = self
         self.multipeer.startBrowsing()
-        print("will load")
-        print("item array has" + String(appDelegate.items.count) + "elements at view will appear")
     }
 
-    /**
-     Sent to the view controller when the app receives a memory warning.
-    */
+    /// Sent to the view controller when the app receives a memory warning.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    /**
-     Handler for canceling a split event.
- 
-     - Parameter sender: cancel button.
-    */
+    /// Handler for canceling a split event.
+    ///
+    /// - Parameter sender: cancel button
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.appDelegate.people.removeAll()
         self.appDelegate.items.removeAll()
         self.assignees.removeAll()
-        print ("perform segue")
         let vc : UIViewController = self.appDelegate.storyboard!.instantiateViewController(withIdentifier: "home") as UIViewController
         self.present(vc, animated: false, completion: nil)
     }
     
-    /**
-     The callback function for when the Camera button is clicked
-     - Parameter sender: add-image button
-    */
+    /// The callback function for when the Camera button is clicked.
+    ///
+    /// - Parameter sender: add-image button
     @IBAction func addImage(_ sender: Any) {
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
-    /**
-     The callback function for when the submit button is clicked
-     - Parameter sender: submit button
-     */
+
+    /// The callback function for when the submit button is clicked
+    ///
+    /// - Parameter sender: submit button
     @IBAction func storeTransactions(_ sender: Any) {
-        print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
+//        print("current time is" + String(Int(NSDate().timeIntervalSince1970)))
         // Validate transaction inputs
         if (self.appDelegate.items.count == 1) {
             let errorMessage = "No Item Found"
@@ -247,7 +231,7 @@ class EventViewController: UIViewController,
             let price = Double(self.appDelegate.items[i][1])
             let splitAmount = round(price! / Double(splitCount) * 100) / 100
             for j in 0..<self.assignees[i].count {
-                print (self.assignees[i][j] + " " + self.appDelegate.myOwnName)
+                // print (self.assignees[i][j] + " " + self.appDelegate.myOwnName)
                 if (self.assignees[i][j] != self.appDelegate.myOwnName) {
                     self.ref.child("transactions").child("transaction" + String(Int(NSDate().timeIntervalSince1970)) + item).setValue(["timestamp": Int(NSDate().timeIntervalSince1970), "borrower": self.assignees[i][j], "lender": self.appDelegate.myOwnName, "amount": splitAmount, "status": "incomplete", "itemName": item])
                 }
@@ -298,13 +282,33 @@ class EventViewController: UIViewController,
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error!)")
+                let errorMessage = "Network Error"
+                let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                errorAlertController.addAction(dismissAction)
+                self.present(errorAlertController, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.LoadingIndicator.stopAnimating()
+                })
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response!)")
+                var errorMessage = ""
+                if (httpStatus.statusCode == 418) {
+                    errorMessage = "The image is not a valid receipt or is not legible"
+                } else {
+                    print(self.convertToDictionary(text: data))
+                    errorMessage = "An error occurred"
+                }
+                let errorAlertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                errorAlertController.addAction(dismissAction)
+                self.present(errorAlertController, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.LoadingIndicator.stopAnimating()
+                })
+                return
             }
             
             let result = self.convertToDictionary(text: data)
@@ -314,22 +318,25 @@ class EventViewController: UIViewController,
             self.taxPercentage = self.taxAmount / (totalAmount - self.taxAmount)
             for item in lineAmounts {
                 // Append items to cells
-                print(self.appDelegate.items.count)
+                // print(item["description"] as! String)
+                // print(self.appDelegate.items.count)
                 // Note that indexPath is wrapped in an array:  [indexPath]
                 DispatchQueue.main.async(execute: {
                     let row = self.appDelegate.items.count - 1
                     let itemName = item["description"] as! String
                     let itemPrice = String(format: "%@", item["data"] as! NSNumber)
-                    print(itemName + " " + itemPrice)
                     self.appDelegate.items[row][0] = itemName
                     self.appDelegate.items[row][1] = itemPrice
                     self.appDelegate.items.append(["item", "price"])
-                    print("items count: \(self.appDelegate.items.count)")
                     self.assignees.append([String]())
                     self.ItemTableView.reloadData()
                 })
             }
+            DispatchQueue.main.async(execute: {
+                self.LoadingIndicator.stopAnimating()
+            })
         }
+        LoadingIndicator.startAnimating()
         task.resume()
         picker.dismiss(animated: true, completion: nil)
     }
@@ -361,7 +368,6 @@ class EventViewController: UIViewController,
         body.appendString(boundaryPrefix)
         body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimeType)\r\n\r\n")
-        print(NSString(data: body as Data, encoding: String.Encoding.utf8.rawValue)!)
         body.append(data)
         body.appendString("\r\n")
         
@@ -376,26 +382,21 @@ class EventViewController: UIViewController,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
-    /**
-     Serialize data to dictionary.
-     
-     - Parameter text: data.
-     - Returns: dictionary.
-    */
+
+    /// Serialize data to dictionary.
+    ///
+    /// - Parameter text: data
+    /// - Returns: dictionary
     func convertToDictionary(text: Data) -> [String: Any] {
         return try! JSONSerialization.jsonObject(with: text, options: []) as! [String: Any]
     }
     
-    /**
-     Tells the delegate that the user changed the search text.
-     
-     - Parameters:
-        - searchBar: The search bar that is being edited.
-        - searchText: The current text in the search text field.
-    */
+    /// Tells the delegate that the user changed the search text.
+    ///
+    /// - Parameters:
+    ///   - searchBar: The search bar that is being edited
+    ///   - searchText: The current text in the search text field
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("searchText \(searchText)")
         self.searchResults = []
         if searchText != "" {
             let query = ref.child("users").queryOrdered(byChild: "accountName").queryStarting(atValue: searchText.uppercased()).queryEnding(atValue: searchText.uppercased() + "\u{f8ff}")
@@ -404,7 +405,6 @@ class EventViewController: UIViewController,
                 
                 for case let childSnapshot as DataSnapshot in snapshot.children {
                     if let data = childSnapshot.value as? [String: Any] {
-                        print(" accountName = \(data["accountName"]!)")
                         if self.searchResults.contains("\(data["accountName"]!)") {
                             continue
                         }
@@ -426,7 +426,6 @@ class EventViewController: UIViewController,
                 self.SearchTable.isHidden = true
             }
             self.SearchTable.reloadData()
-            print(self.searchResults)
             return
         }
     }
@@ -438,27 +437,23 @@ class EventViewController: UIViewController,
 //======================
 extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     
-    /**
-     Customize row height.
-     
-     - Parameters:
-        - tableView: The table-view object requesting this information.
-        - indexPath: An index path that locates a row in tableView.
-     - Returns: A nonnegative floating-point value that specifies the height (in points) that row should be.
-    */
+    /// Customize row height.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object requesting this information
+    ///   - indexPath: An index path that locates a row in tableView
+    /// - Returns: A nonnegative floating-point value that specifies the height (in points) that row should be
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 90.0;//Choose your custom row height
     }
-    
-    /**
-     Tells the data source to return the number of rows in a given section of a table view.
-     
-     - Parameters:
-        - tableView: The table-view object requesting this information.
-        - section: An index number identifying a section in tableView.
-     - Returns: The number of rows in section.
-    */
+
+    /// Tells the data source to return the number of rows in a given section of a table view.
+    ///
+    /// - Parameters:
+    ///   - tableView:  The table-view object requesting this information
+    ///   - section: An index number identifying a section in tableView
+    /// - Returns: The number of rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count:Int?
         
@@ -473,13 +468,11 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         return count!
     }
     
-    /**
-     Tells the delegate that the specified row is now selected.
-     
-     - Parameters:
-        - tableView: A table-view object informing the delegate about the new row selection.
-        - indexPath: An index path locating the new selected row in tableView.
-    */
+    /// Tells the delegate that the specified row is now selected.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object informing the delegate about the new row selection
+    ///   - indexPath: An index path locating the new selected row in tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.SearchTable {
             self.view.endEditing(true)
@@ -497,14 +490,12 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /**
-     Asks the data source for a cell to insert in a particular location of the table view.
-     
-     - Parameters:
-        - tableView: A table-view object requesting the cell.
-        - indexPath: An index path locating a row in tableView.
-     - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
-    */
+    /// Asks the data source for a cell to insert in a particular location of the table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object requesting the cell
+    ///   - indexPath: An index path locating a row in tableView
+    /// - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // your cell coding
         if tableView == self.ItemTableView {
@@ -564,14 +555,12 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /**
-     Asks the data source to commit the insertion or deletion of a specified row in the receiver.
-     
-     - Parameter:
-        - tableView: The table-view object requesting the insertion or deletion.
-        - editingStyle: The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath. Possible editing styles are insert or delete.
-        - indexPath: An index path locating the row in tableView.
-    */
+    /// Asks the data source to commit the insertion or deletion of a specified row in the receiver.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object requesting the insertion or deletion
+    ///   - editingStyle: The cell editing style corresponding to a insertion or deletion requested for the row specified by indexPath. Possible editing styles are insert or delete.
+    ///   - indexPath: An index path locating the row in tableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if tableView == self.ItemTableView {
             if editingStyle == .delete {
@@ -581,23 +570,19 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /**
-     Tells the delegate the table view is about to draw a cell for a particular row.
-     
-     - Parameters:
-        - tableView: The table-view object informing the delegate of this impending event.
-        - cell: A table-view cell object that tableView is going to use when drawing the row.
-        - indexPath: An index path locating the row in tableView.
-    */
+    /// Tells the delegate the table view is about to draw a cell for a particular row.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object informing the delegate of this impending event
+    ///   - cell: A table-view cell object that tableView is going to use when drawing the row
+    ///   - indexPath: An index path locating the row in tableView
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? ItemTableViewCell else { return }
         
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: tableViewCell, forRow: indexPath.row)
     }
     
-    /**
-     Alert user before an item is deleted.
-    */
+    /// Alert user before an item is deleted.
     func confirmDelete() {
         let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete the item?", preferredStyle: .actionSheet)
         
@@ -614,12 +599,9 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /**
-     Update item table after an item is removed.
-     
-     - Parameter alertAction: delect action.
-     - Returns: void.
-    */
+    /// Update item table after an item is removed.
+    ///
+    /// - Parameter alertAction: delect action
     func handleDeleteItem(alertAction: UIAlertAction!) -> Void {
         if let indexPath = deleteItemIndexPath {
             self.ItemTableView.beginUpdates()
@@ -632,11 +614,9 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /**
-     Revert action to delete item.
-     
-     - Parameter alertAction: UI alert action.
-    */
+    /// Revert action to delete item.
+    ///
+    /// - Parameter alertAction: UI alert action
     func cancelDeleteItem(alertAction: UIAlertAction!) {
         deleteItemIndexPath = nil
     }
@@ -681,14 +661,12 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-    /**
-     Select and de-select people when the item at the specified index path was selected.
- 
-     - Parameters:
-        - collectionView: The collection view object that is notifying you of the selection change.
-        - indexPath: The index path of the cell that was selected.
-    */
+
+    /// Select and de-select people when the item at the specified index path was selected.
+    ///
+    /// - Parameters:
+    ///   - collectionView: The collection view object that is notifying you of the selection change
+    ///   - indexPath: The index path of the cell that was selected
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         guard self.splitable else {
@@ -759,12 +737,10 @@ extension EventViewController : MultipeerManagerDelegate {
 }
 
 extension EventViewController : ItemTableViewCellDelegate {
-    
-    /**
-     User clicked split button for an item.
-     
-     - Paramater sender: item cell.
-    */
+
+    /// User clicked split button for an item.
+    ///
+    /// - Parameter sender: item cel
     func cell_did_add_people(_ sender: ItemTableViewCell) {
         // Start splitting
         if (self.splitAtIndex != ItemTableView.indexPath(for: sender)?.row) {
@@ -776,11 +752,9 @@ extension EventViewController : ItemTableViewCellDelegate {
         }
     }
     
-    /**
-     User added a new item.
-     
-     - Parameter sender: new item.
-    */
+    /// User added a new item.
+    ///
+    /// - Parameter sender: new item
     func cell_did_add_item(_ sender: ItemTableViewCell) {
         sender.AddButton.isHidden = true
         sender.SplitButton.isHidden = false
@@ -799,39 +773,31 @@ extension EventViewController : ItemTableViewCellDelegate {
         self.ItemTableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
         self.ItemTableView.endUpdates()
     }
-    
-    /**
-     User updated an item name.
-     
-     - Parameters:
-        - sender: updated item
-        - name: updated name
-    */
+
+    /// User updated an item name.
+    ///
+    /// - Parameters:
+    ///   - sender: updated item
+    ///   - name: updated name
     func name_cell_did_change(_ sender: ItemTableViewCell, name: String) {
         let index = ItemTableView.indexPath(for: sender)?.row
         self.appDelegate.items[index!][0] = name
     }
     
-    /**
-     User updated an item price.
-     
-     - Parameters:
-        - sender: updated item
-        - price: updated price
-    */
+    /// User updated an item price.
+    ///
+    /// - Parameters:
+    ///   - sender: updated item
+    ///   - price: updated price
     func price_cell_did_change(_ sender: ItemTableViewCell, price: String) {
         let index = ItemTableView.indexPath(for: sender)?.row
         self.appDelegate.items[index!][1] = price
     }
-    
-    /**
-     Prepare splitting when a split button is clicked.
-     
-     - Parameter cell: item to be split.
-    */
+
+    /// Prepare splitting when a split button is clicked.
+    ///
+    /// - Parameter cell: item to be split
     func initializeSplitting(cell: ItemTableViewCell) {
-        print("Start splitting")
-        
         // Revert the split button for previous splitting item
         if (splitAtIndex != -1) {
             let buttonIndexPath = IndexPath(row: splitAtIndex, section: 0)
@@ -848,22 +814,13 @@ extension EventViewController : ItemTableViewCellDelegate {
             icon?.alpha = 0.5
         }
         self.PeopleCollectionView.allowsMultipleSelection = false
-        
-        // DEBUG
-        print("Assignees: ")
-        for assignee in tempAssignees {
-            print(assignee + " ")
-        }
     }
     
-    /**
-     Finalize splitting when splitting is done.
-     
-     - Parameter: item to be split.
-    */
+    /// Finalize splitting when splitting is done.
+    ///
+    /// - Parameter cell: item to be split
     func endSplitting(cell: ItemTableViewCell) {
         let index = ItemTableView.indexPath(for: cell)?.row
-        print("End splitting")
         self.splitAtIndex = -1
         self.splitable = false
         
@@ -880,21 +837,13 @@ extension EventViewController : ItemTableViewCellDelegate {
             icon?.alpha = 1
         }
         //self.PeopleCollectionView.allowsMultipleSelection = false
-        
-        // DEBUG
-        print("Assignees: ")
-        for assignee in tempAssignees {
-            print(assignee + " ")
-        }
-        let i = self.ItemTableView.indexPath(for: cell)?.row
-        print("Item \(i) has \(cell.AssigneeCollection.numberOfSections) assignees:")
-        for person in cell.AssigneeCollection.visibleCells as! [TinyPeopleCollectionViewCell] {
-            print("\(person.accountName)")
-        }
     }
 }
 
 extension NSMutableData {
+    /// Append strings.
+    ///
+    /// - Parameter string: input string
     func appendString(_ string: String) {
         let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
         append(data!)

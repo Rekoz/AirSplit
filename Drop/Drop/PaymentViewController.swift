@@ -64,15 +64,12 @@ class PaymentViewController: UIViewController {
 //related to payment Tableview
 extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     
-    /**
-     Tells the data source to return the number of rows in a given section of a table view.
-     
-     - Parameters:
-        tableView: The table-view object requesting this information.
-        section: An index number identifying a section in tableView.
-     
-     - Returns: The number of rows in section.
-    */
+    /// Tells the data source to return the number of rows in a given section of a table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object requesting this information.
+    ///   - section: An index number identifying a section in tableView.
+    /// - Returns: The number of rows in section.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
@@ -89,7 +86,9 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
-        cell.textLabel?.text = people[indexPath.row]
+        var name = people[indexPath.row]
+        name = name.capitalizeSentence(clause: name)
+        cell.textLabel?.text = name
         var sum = 0.00
         for transation in self.appDelegate.transactionDictionary[people[indexPath.row]]! {
             if transation.lender == self.appDelegate.myOwnName {
@@ -119,17 +118,16 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
         detailView.person = sender as! String
     }
     
-    /**
-     Asks the data source to return the number of sections in the table view.
-     
-     - Parameter tableView: An object representing the table view requesting this information.
-     
-     - Returns: The number of sections in tableView. The default value is 1.
-    */
+    /// Asks the data source to return the number of sections in the table view.
+    ///
+    /// - Parameter tableView: An object representing the table view requesting this information.
+    /// - Returns: The number of sections in tableView. The default value is 1.
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    /// Retrieve user's recently activities from Firebase.
+    /// Append query results to Transaction dictionary.
     func findAllRelatedTransactions() {
         people = []
         transactionDictionary = [String: [Transaction]]()

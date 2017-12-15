@@ -32,6 +32,7 @@
 		EE0278CF1FD52D18002A2D51 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0278CE1FD52D18002A2D51 /* Transaction.swift */; };
 		EE0278D31FD62CB2002A2D51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE0278D21FD62CB1002A2D51 /* GoogleService-Info.plist */; };
 		EE0278D51FD669C9002A2D51 /* SearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */; };
+		EEFECD1C1FE355F100D4F37F /* PaymentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		EE0278CE1FD52D18002A2D51 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		EE0278D21FD62CB1002A2D51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCell.swift; sourceTree = "<group>"; };
+		EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				3B672C091FE36600006679F5 /* AppDelegateTest.swift */,
 				D8B9F6591FBE5E8E008786BB /* LoginTests.swift */,
 				3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */,
+				EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */,
 				3B004DF11FBA99DD006ECFB8 /* DropTests.swift */,
 				3B004DF31FBA99DD006ECFB8 /* Info.plist */,
 			);
@@ -416,6 +419,7 @@
 				3B672C0A1FE36600006679F5 /* AppDelegateTest.swift in Sources */,
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
 				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
+				EEFECD1C1FE355F100D4F37F /* PaymentViewControllerTests.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,10 +624,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 77569F29Z2;
+				DEVELOPMENT_TEAM = RU4QS52S4V;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AirSplit.Drop;
+				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop-";
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -637,10 +641,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 77569F29Z2;
+				DEVELOPMENT_TEAM = RU4QS52S4V;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AirSplit.Drop;
+				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop-";
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -9,7 +9,7 @@
 import XCTest
 @testable import Drop
 
-class DropTests: XCTestCase {
+class MultipeerTests: XCTestCase {
     
     var multipeer: MultipeerManager!;
     

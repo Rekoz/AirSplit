@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     private var transactions = [Transaction]()
     @IBOutlet weak var NewsFeedTable: UITableView!
     
+    // Define Firebase reference
     var ref: DatabaseReference!
     
     /**
@@ -28,7 +29,6 @@ class HomeViewController: UIViewController {
      - Parameters:
         - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
         - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
-     
      - Returns: A newly initialized UIViewController object.
     */
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -185,7 +185,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
      - Parameters:
         - tableView: The table-view object requesting this information.
         - section: An index number identifying a section in tableView.
-     
      - Returns: The number of rows in section.
     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -198,7 +197,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
      - Parameters:
         - tableView: A table-view object requesting the cell.
         - indexPath: An index path locating a row in tableView.
-     
      - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -235,7 +233,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
      Convert Epoch seconds to datetime.
      
      - Parameter epochSec: epoch seconds
-     
      - Returns: a datetime string in format yyyy-MM-dd HH:mm.
     */
     func convertToDateTime(epochSec: Int) -> String {

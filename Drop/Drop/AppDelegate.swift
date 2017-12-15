@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    /** Retrieve main storyboard */
+    /// Retrieve main storyboard
     var storyboard: UIStoryboard? {
         return UIStoryboard(name: "Main", bundle: nil)
     }
@@ -29,11 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabBarController: UITabBarController?
     var ref: DatabaseReference!
     
-    /**
-     Tells the delegate that the app is about to become inactive. Clear multipeer array.
-     
-     - Parameter application: Your singleton app object.
-    */
+    /// Tells the delegate that the app is about to become inactive. Clear multipeer array.
+    ///
+    /// - Parameter application: Your singleton app object.
     func applicationWillResignActive(_ application: UIApplication) {
         print("home clicked")
         self.people.removeAll()
@@ -41,14 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.people.append(myOwnName)
     }
     
-    /**
-     Initializes app and set up AWS logger and AWS Cognito. Tells the delegate that the launch process is almost done and the app is almost ready to run.
-     
-     - Parameter application: A singleton app object.
-     - Parameter launchOptions: A dictionary indicating the reason the app was launched.
-     
-     - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true. The return value is ignored if the app is launched as a result of a remote notification.
-    */
+    /// Initializes app and set up AWS logger and AWS Cognito. Tells the delegate that the launch process is almost done and the app is almost ready to run.
+    ///
+    /// - Parameters:
+    ///   - application: A singleton app object.
+    ///   - launchOptions: A dictionary indicating the reason the app was launched.
+    /// - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true. The return value is ignored if the app is launched as a result of a remote notification.
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         ref = Database.database().reference()
@@ -60,14 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      sourceApplication: String?, annotation: Any) -> Bool {
         return true
     }
-    
-    /**
-     Generate an account icon based on user's initials.
-     
-     - Parameter name: user's account name
-     
-     - Returns: an image with user's initials.
-     */
+
+    /// Generate an account icon based on user's initials.
+    ///
+    /// - Parameter name: user's account name
+    /// - Returns: an image with user's initials.
     func getAccountIconFromName(name: String) -> UIImage {
         let lblNameInitialize = UILabel()
         lblNameInitialize.frame.size = CGSize(width: 45.0, height: 45.0)
@@ -90,10 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return image!
     }
     
-    /**
-     Retrieve user's recently activities from Firebase.
-     Append query results to Transaction dictionary.
-     */
+    /// Retrieve user's recently activities from Firebase. Append query results to Transaction dictionary.
     func findAllRelatedTransactions() {
         transactionDictionary = [String: [Transaction]]()
         

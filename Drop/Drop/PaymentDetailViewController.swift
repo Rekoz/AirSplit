@@ -16,7 +16,7 @@ class PaymentDetailViewController: UIViewController {
     var transactions:[Transaction] = []
     var ref: DatabaseReference!
     
-    private var appDelegate : AppDelegate
+    var appDelegate : AppDelegate!
     
     /// Returns a newly initialized view controller with the nib file in the specified bundle.
     ///

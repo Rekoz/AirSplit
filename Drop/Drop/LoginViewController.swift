@@ -17,11 +17,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordInput: UITextField!
     @IBOutlet weak var usernameInput: UITextField!
     @IBOutlet weak var loginButton: UIButton?
+    @IBOutlet weak var signUpButton: UIButton!
     
     // Define Firebase database reference
     var ref: DatabaseReference!
     
-    private var appDelegate : AppDelegate
+    private var appDelegate : AppDelegate!
     
     /// Initialize LoginViewController.
     ///

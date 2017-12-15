@@ -12,7 +12,7 @@ import Firebase
 /// View controller that displays recent user activities.
 class HomeViewController: UIViewController {
 
-    private var appDelegate : AppDelegate
+    var appDelegate : AppDelegate!
     private var multipeer : MultipeerManager
     
     private var transactions = [Transaction]()

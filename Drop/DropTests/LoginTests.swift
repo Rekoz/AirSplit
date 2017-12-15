@@ -35,8 +35,8 @@ class LoginTests: XCTestCase {
      Clean up login view controller.
     */
     override func tearDown() {
-        super.tearDown()
         vcLogin = nil
+        super.tearDown()
     }
     
     /**
@@ -45,8 +45,12 @@ class LoginTests: XCTestCase {
     func testSubmitButtonEnabledWithCorrectInfo() {
         vcLogin.usernameInput?.text = self.email
         vcLogin.passwordInput?.text = self.password
-        vcLogin.loginDidTouch("" as AnyObject)
         XCTAssertTrue((vcLogin.loginButton?.isEnabled)!)
+    }
+    
+    func testSignUpButtonEnabledWithCorrectInfo() {
+        vcLogin.signUpDidTouch("" as AnyObject)
+        XCTAssertTrue((vcLogin.signUpButton?.isEnabled)!)
     }
 }
 

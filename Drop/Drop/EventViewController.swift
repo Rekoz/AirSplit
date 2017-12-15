@@ -323,8 +323,8 @@ class EventViewController: UIViewController,
             let result = self.convertToDictionary(text: data)
             let lineAmounts = result["lineAmounts"] as! [AnyObject]
             let totalAmount = (result["totalAmount"] as! [String: Any])["data"] as! Float
-            self.taxAmount = (result["taxAmount"] as! [String: Any])["data"] as! Float
-            self.taxPercentage = self.taxAmount / (totalAmount - self.taxAmount)
+//            self.taxAmount = (result["taxAmount"] as! [String: Any])["data"] as! Float
+//            self.taxPercentage = self.taxAmount / (totalAmount - self.taxAmount)
             for item in lineAmounts {
                 // Append items to cells
                 // print(item["description"] as! String)

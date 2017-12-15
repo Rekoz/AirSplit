@@ -34,19 +34,19 @@ class EventViewControllerTests: XCTestCase {
     }
     
     func testCancelButton() {
-        eventViewController.people.append("minghong")
+        eventViewController.appDelegateGetter().people.append("minghong")
         eventViewController.cancelButtonTapped({})
-        XCTAssertTrue(eventViewController.people.count == 0)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
     }
     
     func testDeviceDetection() {
         eventViewController.deviceDetection(manager: multipeer, detectedDevice:"minghong")
-        XCTAssertTrue(eventViewController.people.count == 1)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 1)
     }
     
     func testlLoseDevice() {
         eventViewController.loseDevice(manager: multipeer, removedDevice: "minghong")
-        XCTAssertTrue(eventViewController.people.count == 0)
+        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
     }
     
     func testAddImage() {

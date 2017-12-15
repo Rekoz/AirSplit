@@ -75,6 +75,11 @@ class EventViewController: UIViewController,
     // [END define_database_reference]
     
     private var appDelegate : AppDelegate
+    
+    func appDelegateGetter() -> AppDelegate {
+        return appDelegate
+    }
+    
     private var multipeer : MultipeerManager
     
     private var splitable : Bool

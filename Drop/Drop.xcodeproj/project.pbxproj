@@ -18,10 +18,10 @@
 		676720296168351346229D56 /* Pods_DropTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CBF0E962FFDC8F1D900D0E /* Pods_DropTests.framework */; };
 		6945C4951FD1511700EE1D51 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6945C4941FD1511700EE1D51 /* ItemTableViewCell.swift */; };
 		697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
-		697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697E9ACD1F9827D4004F9235 /* Assets.xcassets */; };
 		697E9ADB1F9D6148004F9235 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9ADA1F9D6148004F9235 /* EventViewController.swift */; };
 		697E9AE11F9DB555004F9235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
 		697E9AE31FA416DC004F9235 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
+		7588E5C91FE3361300E49BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7588E5C81FE3361200E49BA1 /* Assets.xcassets */; };
 		75A2860C1FDCB52500F1E04B /* PaymentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2860B1FDCB52500F1E04B /* PaymentDetailViewController.swift */; };
 		D809D36C1FD66AFE0041A682 /* TinyPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809D36B1FD66AFE0041A682 /* TinyPeopleCollectionViewCell.swift */; };
 		D83141721FB976B100C6FE10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83141741FB976B100C6FE10 /* Main.storyboard */; };
@@ -61,10 +61,10 @@
 		6945C4941FD1511700EE1D51 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		697E9AC31F9827D4004F9235 /* Drop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		697E9AC61F9827D4004F9235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		697E9ACD1F9827D4004F9235 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		697E9ADA1F9D6148004F9235 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		697E9AE01F9DB554004F9235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		697E9AE21FA416DC004F9235 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		7588E5C81FE3361200E49BA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75A2860B1FDCB52500F1E04B /* PaymentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailViewController.swift; sourceTree = "<group>"; };
 		76595866AFFA654DE5461C7E /* Pods-DropTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DropTests/Pods-DropTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7D4D4CAC4BFC774773552F7E /* Pods-DropTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DropTests/Pods-DropTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				EE0278CB1FD52CDF002A2D51 /* Models */,
+				7588E5C81FE3361200E49BA1 /* Assets.xcassets */,
 				D83141771FB9882600C6FE10 /* LaunchScreen.storyboard */,
 				EE0278D21FD62CB1002A2D51 /* GoogleService-Info.plist */,
 				D83141751FB986F200C6FE10 /* Info.plist */,
@@ -157,7 +158,6 @@
 				D83141741FB976B100C6FE10 /* Main.storyboard */,
 				6945C4941FD1511700EE1D51 /* ItemTableViewCell.swift */,
 				EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */,
-				697E9ACD1F9827D4004F9235 /* Assets.xcassets */,
 				3BC68FAB1FAD724500B3089D /* Multipeer.swift */,
 				3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */,
 				D809D36B1FD66AFE0041A682 /* TinyPeopleCollectionViewCell.swift */,
@@ -283,10 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D83141761FB986F200C6FE10 /* Info.plist in Resources */,
-				697E9ACE1F9827D4004F9235 /* Assets.xcassets in Resources */,
 				D83141791FB9882600C6FE10 /* LaunchScreen.storyboard in Resources */,
 				D83141721FB976B100C6FE10 /* Main.storyboard in Resources */,
 				EE0278D31FD62CB2002A2D51 /* GoogleService-Info.plist in Resources */,
+				7588E5C91FE3361300E49BA1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,13 +390,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DropTests/Pods-DropTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

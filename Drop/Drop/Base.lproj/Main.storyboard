@@ -668,7 +668,7 @@
         <!--Title-->
         <scene sceneID="EF3-i0-hyf">
             <objects>
-                <viewController id="9Z0-xM-GaQ" customClass="PaymentDetailViewController" customModule="Drop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaymentDetailViewController" id="9Z0-xM-GaQ" customClass="PaymentDetailViewController" customModule="Drop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f9D-Vi-EuN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

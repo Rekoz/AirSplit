@@ -33,6 +33,7 @@
 		EE0278D31FD62CB2002A2D51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE0278D21FD62CB1002A2D51 /* GoogleService-Info.plist */; };
 		EE0278D51FD669C9002A2D51 /* SearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */; };
 		EEFECD1C1FE355F100D4F37F /* PaymentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */; };
+		EEFECD201FE3761200D4F37F /* PaymentDetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFECD1F1FE3761200D4F37F /* PaymentDetailViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		EE0278D21FD62CB1002A2D51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE0278D41FD669C9002A2D51 /* SearchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCell.swift; sourceTree = "<group>"; };
 		EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewControllerTests.swift; sourceTree = "<group>"; };
+		EEFECD1F1FE3761200D4F37F /* PaymentDetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				3BEED3B21FBD4B5D0042AEA2 /* EventViewControllerTests.swift */,
 				EEFECD1B1FE355F100D4F37F /* PaymentViewControllerTests.swift */,
 				3B004DF11FBA99DD006ECFB8 /* DropTests.swift */,
+				EEFECD1F1FE3761200D4F37F /* PaymentDetailViewControllerTests.swift */,
 				3B004DF31FBA99DD006ECFB8 /* Info.plist */,
 			);
 			path = DropTests;
@@ -127,8 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				697E9AC51F9827D4004F9235 /* Drop */,
-				3B004DF01FBA99DD006ECFB8 /* DropTests */,
 				697E9AC41F9827D4004F9235 /* Products */,
+				3B004DF01FBA99DD006ECFB8 /* DropTests */,
 				E87F75360291AA7B7008E04A /* Pods */,
 				481792729B3A58A86AEA5959 /* Frameworks */,
 			);
@@ -418,6 +421,7 @@
 			files = (
 				3B672C0A1FE36600006679F5 /* AppDelegateTest.swift in Sources */,
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
+				EEFECD201FE3761200D4F37F /* PaymentDetailViewControllerTests.swift in Sources */,
 				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
 				EEFECD1C1FE355F100D4F37F /* PaymentViewControllerTests.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,

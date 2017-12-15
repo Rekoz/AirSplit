@@ -11,10 +11,6 @@
 		3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B004DF11FBA99DD006ECFB8 /* DropTests.swift */; };
 		3BC68FAC1FAD724500B3089D /* Multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAB1FAD724500B3089D /* Multipeer.swift */; };
 		3BC68FAE1FAFB4B000B3089D /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
-		3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
-		3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE01F9DB554004F9235 /* HomeViewController.swift */; };
-		3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AE21FA416DC004F9235 /* PaymentViewController.swift */; };
-		3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC68FAD1FAFB4B000B3089D /* PeopleCollectionViewCell.swift */; };
 		676720296168351346229D56 /* Pods_DropTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CBF0E962FFDC8F1D900D0E /* Pods_DropTests.framework */; };
 		6945C4951FD1511700EE1D51 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6945C4941FD1511700EE1D51 /* ItemTableViewCell.swift */; };
 		697E9AC71F9827D4004F9235 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E9AC61F9827D4004F9235 /* AppDelegate.swift */; };
@@ -415,10 +411,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D85E25181FBE51E600CB2B22 /* EventViewControllerTests.swift in Sources */,
-				3BEED3BB1FBD5C4A0042AEA2 /* PeopleCollectionViewCell.swift in Sources */,
-				3BEED3B91FBD5C3F0042AEA2 /* PaymentViewController.swift in Sources */,
-				3BEED3B81FBD5C3B0042AEA2 /* HomeViewController.swift in Sources */,
-				3BEED3B51FBD53BE0042AEA2 /* AppDelegate.swift in Sources */,
 				D8B9F65A1FBE5E8E008786BB /* LoginTests.swift in Sources */,
 				3B004DF21FBA99DD006ECFB8 /* DropTests.swift in Sources */,
 			);

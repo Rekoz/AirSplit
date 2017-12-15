@@ -75,7 +75,7 @@ class EventViewController: UIViewController,
     
     // Define Firebase reference
     var ref: DatabaseReference!
-    private var appDelegate : AppDelegate
+    private var appDelegate : AppDelegate!
     func appDelegateGetter() -> AppDelegate {
         return appDelegate
     }

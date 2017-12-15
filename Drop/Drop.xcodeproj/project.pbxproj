@@ -627,7 +627,7 @@
 				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop--";
+				PRODUCT_BUNDLE_IDENTIFIER = AirSplit.Drop;
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -644,7 +644,7 @@
 				DEVELOPMENT_TEAM = T3B3U2TJWZ;
 				INFOPLIST_FILE = Drop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AirSplit.Drop--";
+				PRODUCT_BUNDLE_IDENTIFIER = AirSplit.Drop;
 				PRODUCT_MODULE_NAME = Drop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

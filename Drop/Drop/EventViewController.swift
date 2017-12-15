@@ -149,6 +149,9 @@ class EventViewController: UIViewController,
         // related to item table view
         self.appDelegate.items.append(["item", "price"])
         self.assignees.append([String]())
+        
+        // Dismiss keyboard on tap
+        //self.addHideKeyboardOnTap()
     }
     
     /// clear the detected devices array and start browsing when we get to the event creating page every time
@@ -433,6 +436,21 @@ class EventViewController: UIViewController,
     }
 }
 
+extension EventViewController {
+    /// Hide keyboard on tap.
+    func addHideKeyboardOnTap()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(EventViewController.dismissKeyboard))
+        
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard()
+    {
+        self.view.endEditing(true)
+    }
+}
 
 //======================
 //related to table view
@@ -743,6 +761,7 @@ extension EventViewController : ItemTableViewCellDelegate {
     ///
     /// - Parameter sender: item cel
     func cell_did_add_people(_ sender: ItemTableViewCell) {
+        self.view.endEditing(true)
         // Start splitting
         if (self.splitAtIndex != ItemTableView.indexPath(for: sender)?.row) {
             initializeSplitting(cell: sender)

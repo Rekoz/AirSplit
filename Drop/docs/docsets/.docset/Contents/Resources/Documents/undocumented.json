@@ -1,0 +1,439 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/AppDelegate.swift",
+      "line": 13,
+      "symbol": "AppDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 29,
+      "symbol": "String.capitalizingFirstLetter()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 36,
+      "symbol": "String.capitalizeFirstLetter()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 41,
+      "symbol": "String.capitalizeSentence(clause:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 64,
+      "symbol": "EventViewController.itemCellIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 65,
+      "symbol": "EventViewController.participantPopIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 66,
+      "symbol": "EventViewController.actionSheet",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 67,
+      "symbol": "EventViewController.imagePickerController",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 68,
+      "symbol": "EventViewController.deleteItemIndexPath",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 70,
+      "symbol": "EventViewController.ItemTableView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 71,
+      "symbol": "EventViewController.PeopleCollectionView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 72,
+      "symbol": "EventViewController.SearchButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 73,
+      "symbol": "EventViewController.SearchTable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 74,
+      "symbol": "EventViewController.LoadingIndicator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 77,
+      "symbol": "EventViewController.ref",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 81,
+      "symbol": "EventViewController.appDelegateGetter()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/EventViewController.swift",
+      "line": 109,
+      "symbol": "EventViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/HomeViewController.swift",
+      "line": 19,
+      "symbol": "HomeViewController.NewsFeedTable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/HomeViewController.swift",
+      "line": 22,
+      "symbol": "HomeViewController.ref",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/HomeViewController.swift",
+      "line": 34,
+      "symbol": "HomeViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/HomeViewController.swift",
+      "line": 78,
+      "symbol": "HomeViewController.didReceiveMemoryWarning()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/ItemTableViewCell.swift",
+      "line": null,
+      "symbol": "ItemTableViewCell",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/ItemTableViewCell.swift",
+      "line": 12,
+      "symbol": "ItemTableViewCellDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/ItemTableViewCell.swift",
+      "line": 19,
+      "symbol": "ItemTableViewCell",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 15,
+      "symbol": "LoginViewController.loginToHomeView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 17,
+      "symbol": "LoginViewController.passwordInput",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 18,
+      "symbol": "LoginViewController.usernameInput",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 19,
+      "symbol": "LoginViewController.loginButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 22,
+      "symbol": "LoginViewController.ref",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 35,
+      "symbol": "LoginViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 195,
+      "symbol": "LoginViewController.dismissKeyboard()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/LoginViewController.swift",
+      "line": 202,
+      "symbol": "LoginViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Models/Transaction.swift",
+      "line": 11,
+      "symbol": "Transaction",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Models/User.swift",
+      "line": 11,
+      "symbol": "User",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 12,
+      "symbol": "MultipeerManagerDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 25,
+      "symbol": "MultipeerManager.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 35,
+      "symbol": "MultipeerManager.deinit",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 47,
+      "symbol": "MultipeerManager.getPeerDisplayName()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 67,
+      "symbol": "MultipeerManager.advertiser(_:didNotStartAdvertisingPeer:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 71,
+      "symbol": "MultipeerManager.advertiser(_:didReceiveInvitationFromPeer:withContext:invitationHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/Multipeer.swift",
+      "line": 77,
+      "symbol": "MultipeerManager.browser(_:didNotStartBrowsingForPeers:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/NewsFeedCell.swift",
+      "line": 11,
+      "symbol": "NewsFeedCell",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentDetailViewController.swift",
+      "line": 15,
+      "symbol": "PaymentDetailViewController.person",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentDetailViewController.swift",
+      "line": 16,
+      "symbol": "PaymentDetailViewController.transactions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentDetailViewController.swift",
+      "line": 17,
+      "symbol": "PaymentDetailViewController.ref",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentDetailViewController.swift",
+      "line": 30,
+      "symbol": "PaymentDetailViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentDetailViewController.swift",
+      "line": 35,
+      "symbol": "PaymentDetailViewController.PaymentDetail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 15,
+      "symbol": "PaymentViewController.PaymentCenterTableView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 16,
+      "symbol": "PaymentViewController.paymentCellIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 18,
+      "symbol": "PaymentViewController.people",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 20,
+      "symbol": "PaymentViewController.transactionDictionary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 22,
+      "symbol": "PaymentViewController.ref",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 35,
+      "symbol": "PaymentViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PaymentViewController.swift",
+      "line": 48,
+      "symbol": "PaymentViewController.viewWillAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PeopleCollectionViewCell.swift",
+      "line": 14,
+      "symbol": "PeopleCollectionViewCell.accountImageView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PeopleCollectionViewCell.swift",
+      "line": 15,
+      "symbol": "PeopleCollectionViewCell.accountName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/PeopleCollectionViewCell.swift",
+      "line": 17,
+      "symbol": "PeopleCollectionViewCell.awakeFromNib()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/SearchTableCell.swift",
+      "line": 12,
+      "symbol": "SearchTableCellDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/SearchTableCell.swift",
+      "line": 16,
+      "symbol": "SearchTableCell",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/TinyPeopleCollectionViewCell.swift",
+      "line": 14,
+      "symbol": "TinyPeopleCollectionViewCell.accountImageView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/TinyPeopleCollectionViewCell.swift",
+      "line": 16,
+      "symbol": "TinyPeopleCollectionViewCell.accountName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/yunong/AirSplit/Drop/Drop/TinyPeopleCollectionViewCell.swift",
+      "line": 18,
+      "symbol": "TinyPeopleCollectionViewCell.awakeFromNib()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/yunong/AirSplit/Drop"
+}

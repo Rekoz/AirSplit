@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+/// Controller for displaying detailed payments between a peer.
 class PaymentDetailViewController: UIViewController {
 
     var person = ""
@@ -17,12 +18,15 @@ class PaymentDetailViewController: UIViewController {
     
     private var appDelegate : AppDelegate
     
+    /// Returns a newly initialized view controller with the nib file in the specified bundle.
+    ///
+    /// - Parameters:
+    ///   - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+    ///   - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
-    
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
@@ -83,6 +87,7 @@ class PaymentDetailViewController: UIViewController {
         self.PaymentDetail.reloadData()
     }
     
+    /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
         var name = person
@@ -101,6 +106,7 @@ class PaymentDetailViewController: UIViewController {
         }
     }
 
+    /// The number of rows in section.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -126,10 +132,22 @@ class PaymentDetailViewController: UIViewController {
 }
 
 extension PaymentDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    /// Tells the data source to return the number of rows in a given section of a table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table-view object requesting this information.
+    ///   - section: An index number identifying a section in tableView.
+    /// - Returns: The number of rows in section.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions.count
     }
     
+    /// Asks the data source for a cell to insert in a particular location of the table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object requesting the cell.
+    ///   - indexPath: An index path locating a row in tableView.
+    /// - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
         cell.textLabel?.text = self.transactions[indexPath.row].itemName

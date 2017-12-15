@@ -8,9 +8,8 @@
 
 import UIKit
 import Firebase
-/**
-    View controller that handles payment processing.
- */
+
+/// View controller that handles payment processing with peers.
 class PaymentViewController: UIViewController {
     
     @IBOutlet weak var PaymentCenterTableView: UITableView!
@@ -24,23 +23,23 @@ class PaymentViewController: UIViewController {
     
     private var appDelegate : AppDelegate
     
+    /// Returns a newly initialized view controller with the nib file in the specified bundle.
+    ///
+    /// - Parameters:
+    ///   - nibNameOrNil: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+    ///   - nibBundleOrNil: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         super.init(coder: aDecoder)
     }
-    /**
-        Called after the controller's view is loaded into memory.
-    */
+
+    /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
-       // ref = Database.database().reference()
-       // findAllRelatedTransactions()
-        
         self.PaymentCenterTableView.delegate = self
         self.PaymentCenterTableView.dataSource = self
         
@@ -52,12 +51,9 @@ class PaymentViewController: UIViewController {
         PaymentCenterTableView.reloadData()
     }
     
-    /**
-        Sent to the view controller when the app receives a memory warning.
-    */
+    /// Sent to the view controller when the app receives a memory warning.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
@@ -74,16 +70,12 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
         return people.count
     }
     
-    /**
-     Asks the data source for a cell to insert in a particular location of the table view.
-     
-     - Parameters:
-        tableView: A table-view object requesting the cell.
-        indexPath: An index path locating a row in tableView.
-     
-     - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
-     
-    */
+    /// Asks the data source for a cell to insert in a particular location of the table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object requesting the cell
+    ///   - indexPath: An index path locating a row in tableView.
+    /// - Returns: An object inheriting from UITableViewCell that the table view can use for the specified row. An assertion is raised if you return nil.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: paymentCellIdentifier, for: indexPath)
         var name = people[indexPath.row]
@@ -109,10 +101,20 @@ extension PaymentViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    /// Tells the delegate that the specified row is now selected.
+    ///
+    /// - Parameters:
+    ///   - tableView: A table-view object informing the delegate about the new row selection.
+    ///   - indexPath: An index path locating the new selected row in tableView.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "PaymentCenterToDetail", sender: people[indexPath.row])
     }
     
+    /// Notifies the view controller that a segue is about to be performed.
+    ///
+    /// - Parameters:
+    ///   - segue: The segue object containing information about the view controllers involved in the segue.
+    ///   - sender: The object that initiated the segue. You might use this parameter to perform different actions based on which control (or other object) initiated the segue.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailView = segue.destination as! PaymentDetailViewController
         detailView.person = sender as! String

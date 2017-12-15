@@ -34,19 +34,19 @@ class EventViewControllerTests: XCTestCase {
     }
     
     func testCancelButton() {
-        eventViewController.appDelegateGetter().people.append("minghong")
+        eventViewController.getAppDelegate().people.append("minghong")
         eventViewController.cancelButtonTapped({})
-        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
+        XCTAssertTrue(eventViewController.getAppDelegate().people.count == 0)
     }
     
     func testDeviceDetection() {
         eventViewController.deviceDetection(manager: multipeer, detectedDevice:"minghong")
-        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 1)
+        XCTAssertTrue(eventViewController.getAppDelegate().people.count == 1)
     }
     
     func testlLoseDevice() {
         eventViewController.loseDevice(manager: multipeer, removedDevice: "minghong")
-        XCTAssertTrue(eventViewController.appDelegateGetter().people.count == 0)
+        XCTAssertTrue(eventViewController.getAppDelegate().people.count == 0)
     }
     
     func testAddImage() {
@@ -77,5 +77,45 @@ class EventViewControllerTests: XCTestCase {
         XCTAssertNotNil(convertedBody.range(of: targetParam as Data))
     }
     
+    func testStoreTransactions() {
+        // Test the behavior after user has assigned items and submitted
+        eventViewController.getAppDelegate().items = [
+            ["Item1", "0"],
+            ["Item2", "0"],
+            ["Item3", "0"],
+        ]
+        
+        // There is unassigned item(s)
+        eventViewController.storeTransactions({})
+        
+        let appDelegate = eventViewController.getAppDelegate()
+        eventViewController.assignees[0] = ["A"]
+        eventViewController.assignees.append([String]())
+        eventViewController.assignees.append([String]())
+        
+        XCTAssertTrue(appDelegate.items.count == 3)
+        XCTAssertTrue(eventViewController.assignees.count == 3)
+        
+        eventViewController.assignees[1].append("B")
+        eventViewController.assignees[2].append("C")
+
+        // All items have been assigned. List should be submitted to server and cleared
+        eventViewController.storeTransactions({})
+        
+        XCTAssertTrue(appDelegate.items.count == 1)
+        XCTAssertTrue(eventViewController.assignees.count == 1)
+    }
     
+    func testConvertToDictionary() {
+        //let dataToConvert = "{A:1}".data(using: .utf8)
+        let JSONObj = [
+            "A": "1",
+            "B": [ "C": "2"]
+        ] as [String : Any]
+        let dataToConvert = try! JSONSerialization.data(withJSONObject: JSONObj)
+        let conversionResult = eventViewController.convertToDictionary(text: dataToConvert)
+        XCTAssertEqual(JSONObj["A"] as! String, conversionResult["A"] as! String)
+        XCTAssertNotNil(conversionResult["B"])
+        XCTAssertEqual(JSONObj["B"] as! [String : String], conversionResult["B"] as! [String: String])
+    }
 }

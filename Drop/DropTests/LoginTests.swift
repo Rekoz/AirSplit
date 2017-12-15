@@ -48,5 +48,10 @@ class LoginTests: XCTestCase {
         vcLogin.loginDidTouch("" as AnyObject)
         XCTAssertTrue((vcLogin.loginButton?.isEnabled)!)
     }
+    
+    func testSignUpButtonEnabledWithCorrectInfo() {
+        vcLogin.signUpDidTouch("" as AnyObject)
+        XCTAssertTrue((vcLogin.signUpButton?.isEnabled)!)
+    }
 }
 

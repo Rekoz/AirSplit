@@ -149,6 +149,9 @@ class EventViewController: UIViewController,
         // related to item table view
         self.appDelegate.items.append(["item", "price"])
         self.assignees.append([String]())
+        
+        // Dismiss keyboard on tap
+        self.addHideKeyboardOnTap()
     }
     
     /// clear the detected devices array and start browsing when we get to the event creating page every time
@@ -433,6 +436,21 @@ class EventViewController: UIViewController,
     }
 }
 
+extension EventViewController {
+    /// Hide keyboard on tap.
+    func addHideKeyboardOnTap()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(EventViewController.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
 
 //======================
 //related to table view

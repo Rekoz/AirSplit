@@ -77,6 +77,11 @@ class EventViewController: UIViewController,
     var ref: DatabaseReference!
     
     private var appDelegate : AppDelegate
+    
+    func appDelegateGetter() -> AppDelegate {
+        return appDelegate
+    }
+    
     private var multipeer : MultipeerManager
     
     private var splitable : Bool
@@ -645,7 +650,6 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: participantPopIdentifier, for: indexPath) as! PeopleCollectionViewCell
         if indexPath.row < self.appDelegate.people.count {
-            
             let account_name = self.appDelegate.people[indexPath.row].lowercased()
             var nameStringArr = account_name.components(separatedBy: " ")
             cell.accountName.text = nameStringArr[0].capitalizingFirstLetter()
